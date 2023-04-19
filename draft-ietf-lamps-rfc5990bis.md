@@ -12,16 +12,16 @@ pi:
   toc: 'yes'
   sortrefs: 'yes'
   symrefs: 'yes'
-area: SEC
-workgroup: LAMPS Working Group
+area: "Security"
+workgroup: "Limited Additional Mechanisms for PKIX and SMIME"
 keyword:
  - Key Encapsulation Mechanism (KEM)
  - KEMRecipientInfo
 venue:
-  group: WG
-  type: LAMPS
-  mail: spasm@ietf.org
-  arch: https://mailarchive.ietf.org/arch/browse/spasm/
+  group: "Limited Additional Mechanisms for PKIX and SMIME"
+  type: "Working Group"
+  mail: "spasm@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/spasm/"
 
 author:
  -
