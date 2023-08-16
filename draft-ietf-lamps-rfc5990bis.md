@@ -1233,7 +1233,7 @@ This result decodes to:
        :   }
 ~~~
 
-ß## Recipient Processing
+## Recipient Processing
 
 Bob's private key:
 
