@@ -217,7 +217,8 @@ has been defined to support KEM algorithms, and this new structure avoids the
 complex parameters structure that was used in RFC 5990.  Likewise, when
 the id-rsa-kem algorithm identifier appears in the SubjectPublicKeyInfo
 field of a certificate, this document encourages the omission of any
-parameters.
+parameters.  Also, to avoid visual confusion with id-kem-rsa, id-rsa-kem-spki
+is introduced as an alias for id-rsa-kem.
 
 RFC 5990 uses EK and the EncryptedKey, which the concatenation of
 C and WK (C || WK).  The use of EK is necessary to align with the
@@ -330,11 +331,11 @@ message or in the certificate.
 
 If the recipient wishes only to employ the RSA-KEM Algorithm with a given
 public key, the recipient MUST identify the public key in the certificate
-using the id-rsa-kem object identifier; see {{app-asn1}}.  When the
-id-rsa-kem object identifier appears in the SubjectPublicKeyInfo algorithm
+using the id-rsa-kem-spki object identifier; see {{app-asn1}}.  When the
+id-rsa-kem-spki object identifier appears in the SubjectPublicKeyInfo algorithm
 field of the certificate, the parameters field from AlgorithmIdentifier
 SHOULD be absent.  That is, the AlgorithmIdentifier SHOULD be a SEQUENCE of
-one component, the id-rsa-kem object identifier.
+one component, the id-rsa-kem-spki object identifier.
 
 When the AlgorithmIdentifier parameters are present, the
 GenericHybridParameters MUST be used.  As described in the next
@@ -349,7 +350,7 @@ filed of the certificate using the RSAPublicKey type defined in {{RFC8017}}.
 The intended application for the public key MAY be indicated in the key
 usage certificate extension as specified in {{Section 4.2.1.3 of RFC5280}}.  If
 the keyUsage extension is present in a certificate that conveys an RSA
-public key with the id-rsa-kem object identifier as discussed above,
+public key with the id-rsa-kem-spki object identifier as discussed above,
 then the key usage extension MUST contain the following value:
 
 > keyEncipherment
@@ -372,9 +373,9 @@ a compliant implementation MAY include the SMIMECapabilities signed
 attribute announcing that it supports the RSA-KEM Algorithm.
 
 The SMIMECapability SEQUENCE representing the RSA-KEM Algorithm MUST
-include the id-rsa-kem object identifier in the capabilityID field;
+include the id-rsa-kem-spki object identifier in the capabilityID field;
 see {{app-asn1}} for the object identifier value, and see {{app-example}}
-for examples.  When the id-rsa-kem object identifier appears in the
+for examples.  When the id-rsa-kem-spki object identifier appears in the
 capabilityID field and the parameters are present, then the parameters
 field MUST use the GenericHybridParameters type.
 
@@ -646,7 +647,7 @@ The ASN.1 syntax for identifying the RSA-KEM Algorithm
 is an extension of the syntax for the "generic hybrid cipher" in
 ANS X9.44 {{ANS-X9.44}}.
 
-The ASN.1 Module is unchanged from RFC 5990.  The id-rsa-kem
+The ASN.1 Module is unchanged from RFC 5990.  The id-rsa-kem-spki
 object identifier is used in a backward compatible manner
 in certificates {{RFC5280}} and SMIMECapabilities {{RFC8551}}.
 Of course, the use of the id-kem-rsa object identifier in the
@@ -804,6 +805,8 @@ x9-44-components OID ::= { x9-44 components(1) }
 id-rsa-kem OID ::= { iso(1) member-body(2) us(840) rsadsi(113549)
    pkcs(1) pkcs-9(9) smime(16) alg(3) 14 }
 
+id-rsa-kem-spki OID ::= id-rsa-kem
+
 GenericHybridParameters ::= SEQUENCE {
    kem  KeyEncapsulationMechanism,
    dem  DataEncapsulationMechanism }
@@ -814,12 +817,12 @@ KeyEncapsulationMechanism ::=
 KEMAlgorithms KEM-ALGORITHM ::= { kema-kem-rsa | kema-rsa-kem, ... }
 
 kema-rsa-kem KEM-ALGORITHM ::= {
-   IDENTIFIER id-rsa-kem
+   IDENTIFIER id-rsa-kem-spki
    PARAMS TYPE GenericHybridParameters ARE optional
    PUBLIC-KEYS { pk-rsa | pk-rsa-kem }
    UKM ARE optional
    SMIME-CAPS { TYPE GenericHybridParameters
-      IDENTIFIED BY id-rsa-kem } }
+      IDENTIFIED BY id-rsa-kem-spki } }
 
 kema-kem-rsa KEM-ALGORITHM ::= {
    IDENTIFIER id-kem-rsa
@@ -827,7 +830,7 @@ kema-kem-rsa KEM-ALGORITHM ::= {
    PUBLIC-KEYS { pk-rsa | pk-rsa-kem }
    UKM ARE optional
    SMIME-CAPS { TYPE GenericHybridParameters
-      IDENTIFIED BY id-rsa-kem } }
+      IDENTIFIED BY id-rsa-kem-spki } }
 
 id-kem-rsa OID ::= { is18033-2 key-encapsulation-mechanism(2)
    rsa(4) }
@@ -837,7 +840,7 @@ RsaKemParameters ::= SEQUENCE {
    keyLength              KeyLength }
 
 pk-rsa-kem PUBLIC-KEY ::= {
-  IDENTIFIER id-rsa-kem
+  IDENTIFIER id-rsa-kem-spki
   KEY RSAPublicKey
   PARAMS TYPE GenericHybridParameters ARE preferredAbsent
   -- Private key format is not specified here --
@@ -931,7 +934,7 @@ SMIMECapabilities will include the following entry:
 
 ~~~
 SEQUENCE {
-   id-rsa-kem,                                -- RSA-KEM Algorithm
+   id-rsa-kem-spki,                           -- RSA-KEM Algorithm
    SEQUENCE {                           -- GenericHybridParameters
       SEQUENCE {                    -- key encapsulation mechanism
          id-kem-rsa,                                    -- RSA-KEM
@@ -954,16 +957,16 @@ This SMIMECapability value has the following DER encoding (in hexadecimal):
 
 ~~~
 30 47
-  06 0b 2a 86 48 86 f7 0d 01 09 10 03 0e           -- id-rsa-kem
+  06 0b 2a 86 48 86 f7 0d 01 09 10 03 0e          -- id-rsa-kem-spki
   30 38
      30 29
-        06 07 28 81 8c 71 02 02 04                 -- id-kem-rsa
+        06 07 28 81 8c 71 02 02 04                -- id-kem-rsa
         30 1e
            30 19
-              06 0a 2b 81 05 10 86 48 09 2c 01 02  -- id-kdf-kdf3
+              06 0a 2b 81 05 10 86 48 09 2c 01 02 -- id-kdf-kdf3
               30 0b
-                 06 09 60 86 48 01 65 03 04 02 01  -- id-sha256
-                 02 01 10                          -- 16 bytes
+                 06 09 60 86 48 01 65 03 04 02 01 -- id-sha256
+                 02 01 10                         -- 16 bytes
       30 0b
          06 09 60 86 48 01 65 03 04 01 05         -- id-aes128-Wrap
 ~~~
