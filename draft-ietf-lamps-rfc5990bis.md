@@ -100,7 +100,15 @@ informative:
   RFC5990:
   RFC6194:
   RFC8017:
-  NISTSP800-57pt1r5: DOI.10.6028/NIST.SP.800-57pt1r5
+  NISTSP800-57pt1r5:
+    author:
+      org: National Institute of Standards and Technology
+    title: "Recommendation for Key Management:Part 1 - General"
+    date: 2020-05
+    seriesinfo:
+      "NIST": "Special Publication 800-57 Part 1 Revision 5"
+    seriesinfo:
+      DOI: 10.6028/nist.sp.800-57pt1r5
   ANS-X9.44:
    author:
      org: American National Standards Institute
