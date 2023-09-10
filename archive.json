@@ -1,0 +1,263 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2023-09-10T00:25:04.467435+00:00",
+  "repo": "lamps-wg/rfc5990bis",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOJYmAjs5tZQkS",
+      "title": "Ambiguity between `id-rsa-kem` and `id-kem-rsa`",
+      "url": "https://github.com/lamps-wg/rfc5990bis/issues/2",
+      "state": "CLOSED",
+      "author": "ralienpp",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I'd like to bring this to your attention, because the difference is subtle, and unless you see both identifiers side by side - it is easy to mistake one for the other. Once you become aware of the difference, you have to read the text carefully to decide which OID is the one you want.\r\n\r\nMy understanding is:\r\n\r\n- `id-kem-rsa OID ::= { is18033-2 key-encapsulation-mechanism(2) rsa(4) }` - this is the primitive defined in ISO 18033-2.\r\n- `id-rsa-kem OID ::= { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) alg(3) 14 }` - this is \"RSA-KEM Key Transport Algorithm\", i.e. it adds extra functionality on top of what the ISO defines, which is described in this RFC.\r\n\r\nWouldn't it be clearer if `id-rsa-kem` became `id-kem-rsa-kta` (for \"key transport algorithm\", or something like it)? This would disambiguate the terms.\r\n\r\nCan you confirm that my understanding is correct? And can you explain what rule you rely on to decide whether what you need is id-kem-rsa or id-rsa-kem?",
+      "createdAt": "2023-08-03T16:01:38Z",
+      "updatedAt": "2023-08-31T15:07:22Z",
+      "closedAt": "2023-08-31T15:07:22Z",
+      "comments": [
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Sadly, this is not new. To preserve alignment with RFC 5990, the same OIDs need to be used here.",
+          "createdAt": "2023-08-03T16:13:33Z",
+          "updatedAt": "2023-08-03T16:13:33Z"
+        },
+        {
+          "author": "ralienpp",
+          "authorAssociation": "NONE",
+          "body": "Perhaps an alias could address this without breaking backward compatibility?\r\n\r\nFor example, define this `id-rsa-kem-kta ::= id-rsa-kem`, and then use the more verbose notation throughout the document. The underlying OID will be the same, existing implementations will continue to function. This is just a cosmetic change that improves readability by increasing the \"distance\" between the terms.",
+          "createdAt": "2023-08-04T08:46:45Z",
+          "updatedAt": "2023-08-04T08:46:45Z"
+        },
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This is an interesting thought.  I will consult with coauthors and the original authors of RFC 5990.",
+          "createdAt": "2023-08-04T20:01:28Z",
+          "updatedAt": "2023-08-04T20:01:28Z"
+        },
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "On the spasm@ietf.org mail list, Joe Mandel suggested:\r\n\r\n~~~\r\nI'd like to make a suggestion to define an alias to improve readability and reduce confusion between id-rsa-kem and id-kem-rsa. For example, id-rsa-kem-spki ::= id-rsa-kem, since in the new structure it appears that id-rsa-kem only appears in the certificate subject public key information field. The OID would stay the same to not interfere with existing implementations.\r\n~~~\r\n",
+          "createdAt": "2023-08-29T12:55:47Z",
+          "updatedAt": "2023-08-29T12:55:47Z"
+        }
+      ]
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOJYmAjs5WLB2m",
+      "title": "Update draft-ietf-lamps-rfc5990bis.md",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/1",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fix typo in Recipient Processing heading",
+      "createdAt": "2023-07-23T20:34:21Z",
+      "updatedAt": "2023-08-16T15:17:51Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "48e4a8a15ee629c122aac5f998e38dcb2c852a8e",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "fix-typo",
+      "headRefOid": "7cdacb92dd6fb09ff39fcd419a928da160c431bf",
+      "closedAt": "2023-08-16T15:17:51Z",
+      "mergedAt": "2023-08-16T15:17:51Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "36eafb96d226a541b93439b3721a49dfb5b82536"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5eOjXY",
+          "commit": {
+            "abbreviatedOid": "7cdacb9"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-08-16T15:17:20Z",
+          "updatedAt": "2023-08-16T15:17:20Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOJYmAjs5XIAAj",
+      "title": "Fix Markdown syntax in section title",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/3",
+      "state": "CLOSED",
+      "author": "ralienpp",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Microtweak",
+      "createdAt": "2023-08-03T16:03:46Z",
+      "updatedAt": "2023-08-03T16:12:13Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "48e4a8a15ee629c122aac5f998e38dcb2c852a8e",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "fix-md-syntax",
+      "headRefOid": "fddc1a9ffedaf69a079eca2bf6f39075703a81cf",
+      "closedAt": "2023-08-03T16:12:12Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "russhousley",
+          "authorAssociation": "NONE",
+          "body": "This typo has already been identified.  See PR #1 that makes the same change.",
+          "createdAt": "2023-08-03T16:12:12Z",
+          "updatedAt": "2023-08-03T16:12:12Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOJYmAjs5ZCmuD",
+      "title": "Add id-rsa-kem-spki",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/4",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add the alias object identifier id-rsa-kem-spki",
+      "createdAt": "2023-08-29T14:10:56Z",
+      "updatedAt": "2023-08-31T15:06:16Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "36eafb96d226a541b93439b3721a49dfb5b82536",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "New-OID-name",
+      "headRefOid": "5d0f3dbd84bd94f20fb348c4a1a28da7286d5e49",
+      "closedAt": "2023-08-31T15:06:16Z",
+      "mergedAt": "2023-08-31T15:06:16Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "4e25fa3985a70429629d9c00861c18aa9dec4c41"
+      },
+      "comments": [
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Resolves #2",
+          "createdAt": "2023-08-31T15:05:42Z",
+          "updatedAt": "2023-08-31T15:05:42Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5fl3ea",
+          "commit": {
+            "abbreviatedOid": "5d0f3db"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-08-31T02:41:58Z",
+          "updatedAt": "2023-08-31T02:41:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOJYmAjs5Z1FS_",
+      "title": "Update draft-ietf-lamps-rfc5990bis.md",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/5",
+      "state": "MERGED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Trying to get ref to not cause xml2rfc error.",
+      "createdAt": "2023-09-08T00:41:41Z",
+      "updatedAt": "2023-09-08T11:15:02Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "4e25fa3985a70429629d9c00861c18aa9dec4c41",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "seanturner-patch-80057p1r5-ref",
+      "headRefOid": "17e11802f58e5e4bde9ac5ced6fa6540e8652377",
+      "closedAt": "2023-09-08T11:14:27Z",
+      "mergedAt": "2023-09-08T11:14:27Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "551d0a6ef7b9cf26748abc4a0d0d8216e8c199f2"
+      },
+      "comments": [
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Looks fine to me.  Merged.",
+          "createdAt": "2023-09-08T11:15:02Z",
+          "updatedAt": "2023-09-08T11:15:02Z"
+        }
+      ],
+      "reviews": []
+    }
+  ]
+}
