@@ -141,8 +141,8 @@ The RSA Key Encapsulation Mechanism (RSA-KEM) Algorithm is a one-pass
 send keying material to a recipient using the recipient's RSA public key.
 The RSA-KEM Algorithm is specified in Clause 11.5 of ISO/IEC: 18033-2:2006.
 This document specifies the conventions for using the RSA-KEM Algorithm
-with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as
-specified in draft-ietf-lamps-cms-kemri.
+either as a standalone KEM algorithm or with the Cryptographic Message
+Syntax (CMS) using KEMRecipientInfo as specified in draft-ietf-lamps-cms-kemri.
 
 --- middle
 
@@ -154,13 +154,15 @@ send keying material to a recipient using the recipient's RSA public key.
 The RSA-KEM Algorithm is specified in Clause 11.5 of {{ISO18033-2}}.
 
 The RSA-KEM Algorithm takes a different approach than other RSA key
-transport mechanisms {{RFC8017}}, with the goal of providing higher
-security assurance.  The RSA-KEM Algorithm encrypts a random integer
-with the recipient's RSA public key, derives a key-encryption key from
-the random integer, and wraps a symmetric content-encryption key with
-the key-encryption key.  In this way, the originator and the recipient
-end up with the same content-encryption key.   Given a
-content-encryption key CEK, RSA-KEM can be summarized as:
+transport mechanisms {{RFC8017}}, with the goal of first, providing higher
+security assurance, and second satisfying the KEM interface as described
+in {{app-alg}} instead of the Key Transport interface as is traditionally
+done with RSA-based mechanisms.  The RSA-KEM Algorithm encrypts a random
+integer with the recipient's RSA public key, and derives a shared secret
+from the random integer which can be directly used by the originator
+and recipient as a symmetric key for example to wrap a content encryption
+key.
+
 
 1. Generate a random integer z between 0 and n-1.
 
@@ -170,11 +172,24 @@ content-encryption key CEK, RSA-KEM can be summarized as:
        c = z^e mod n
    ~~~
 
-3. Derive a key-encryption key KEK from the integer z:
+3. Derive a shared secret SS from the integer z:
 
    ~~~
-       KEK = KDF(z)
+       SS = KDF(z)
    ~~~
+
+4. Return the ciphertext C and the shared secret SS.
+
+
+
+In the original RSA-KEM as published in [RFC5990], the RSA-KEM algorithm
+needed to achieve compatibility with CMS KeyTransRecipientInfo which it
+did by including an additional step to wrap a symmetric content-encryption
+key with the shared secret acting as a Key-encrypting-key (KEK).  In this
+way, the originator and the recipient end up with the same
+content-encryption-key (CEK).   Given a
+content-encryption key CEK, the original RSA-KEM can be summarized as:
+
 
 4. Wrap the CEK with the KEK to obtain wrapped keying material WK:
 
@@ -184,7 +199,7 @@ content-encryption key CEK, RSA-KEM can be summarized as:
 
 5. The originator sends c and WK to the recipient.
 
-This different approach provides higher security assurance for two
+This KEM-based approach provides higher security assurance for two
 reasons.  First, the input to the underlying RSA operation is effectively
 a random integer between 0 and n-1, where n is the RSA modulus, so it does
 not have any structure that could be exploited by an adversary.  Second,
@@ -228,7 +243,7 @@ field of a certificate, this document encourages the omission of any
 parameters.  Also, to avoid visual confusion with id-kem-rsa, id-rsa-kem-spki
 is introduced as an alias for id-rsa-kem.
 
-RFC 5990 uses EK and the EncryptedKey, which the concatenation of
+RFC 5990 uses EK and the EncryptedKey, which is the concatenation of
 C and WK (C || WK).  The use of EK is necessary to align with the
 KeyTransRecipientInfo structure.  In this document, C and WK are sent
 in separate fields of new KEMRecipientInfo structure.  In particular,
@@ -320,7 +335,7 @@ CMS authenticated-enveloped-data content type {{RFC5083}}, the
 keying material is a content-authenticated-encryption key.
 
 NOTE: For backward compatibility, implementations MAY
-also support RSA-KEM Key Transport Algorithm, which uses
+also support RSA-KEM Key Transport Algorithm denoted by `id-rsa-kem`, which uses
 KeyTransRecipientInfo as specified in {{RFC5990}}.
 
 
@@ -418,7 +433,8 @@ attacks and gain a tighter security proof; however, the RSA-KEM Algorithm
 has the disadvantage of slightly longer encrypted keying material.
 
 The security of the RSA-KEM Algorithm can be shown to be tightly related
-to the difficulty of either solving the RSA problem or breaking the
+to the difficulty of either solving the RSA problem or, in the case of the
+original [RFC5990] algorithm, breaking the
 underlying symmetric key-encryption algorithm, if the underlying
 key-derivation function is modeled as a random oracle, and assuming that
 the symmetric key-encryption algorithm satisfies the properties of a
@@ -446,8 +462,26 @@ result in disclosure of the associated encrypted content.
 Additional considerations related to key management may be found in
 {{NISTSP800-57pt1r5}}.
 
+The RSA-KEM algorithm does not use an explicit padding scheme, but instead directly
+encrypts the string representation of the integer Z.
+There is implicit padding in that Z is to be chosen uniformly randomly
+on the interval (0, n-1) where n is the modulus of the RSA public key
+and that `IntegerToString(z, nLen)` should produce a string the full
+length of the modulus. Implementors of originators MUST ensure that
+these conditions are met. Implementors of recipients should consider
+the impacts to protocol security if the originator is malicious
+and z or Z are chosen maliciously. In most cases this will be protected
+for by the act of hashing Z with KDF, and for this reason implentations
+SHOULD NOT use z or Z directly for any purpose.
+
+RSA-KEM provides both a fixed-length ciphertext -- which MUST be checked
+by the recipient prior to a decryption attempt as per Step 1 in
+{{app-alg-decaps}} -- and a fixed-length shared secret -- which is
+guaranteed by the application of KDF in Step 4 in {{app-alg-decaps}}.
+
 The security of the RSA-KEM Algorithm also depends on the strength of the
-random number generator, which SHOULD have a comparable security level.  For
+random number generator used by the originator to generate Z, which
+SHOULD have a comparable security level.  For
 further discussion on random number generation, see {{RFC4086}}.
 
 Implementations SHOULD NOT reveal information about intermediate
@@ -504,9 +538,155 @@ keying material to the recipient.  The recipient decrypts the encrypted
 keying material using the recipient's private key to recover the keying
 material.
 
+A KEM algorithm provides three functions:
+
+* KeyGen() -> (pk, sk):
+
+    Generate the public key (pk) and a private key (sk).
+
+* Encapsulate(pk) -> (ct, ss):
+
+    Given the recipient's public key (pk), produce a ciphertext (ct) to be passed to the recipient and shared secret (ss) for the originator.
+
+* Decapsulate(sk, ct) -> ss:
+
+    Given the private key (sk) and the ciphertext (ct), produce the shared secret (ss) for the recipient.
+
 ## Underlying Components
 
 The RSA-KEM Algorithm has the following underlying components:
+
+- KDF, a key-derivation function, which derives key-encryption key of a
+  specified length from a shared secret value;
+
+The kekLen value denotes the length in bytes of the key-encryption key
+for the underlying symmetric key-encryption algorithm.
+
+Many key-derivation functions support the inclusion of other information
+in addition to the shared secret value in the input to the function.
+Also, with some symmetric key-encryption algorithms, it is possible to
+associate a label with the keying material.  Such uses are outside the scope
+of this document, as they are not directly supported by CMS.
+
+## KeyGen()
+
+The key generation for RSA-KEM proceeds as per [RFC8017].
+
+## Encapsulate() {#app-alg-encaps}
+
+The RSA-KEM algorithm denoted by `id-kem-rsa` fulfills the generic `KEM.Encapsulate(pk) -> (ct, ss)` interface as discribed below.
+
+Let `pk= (n,e)` be the recipient's RSA public key; see {{RFC8017}} for details.
+
+Let nLen denote the length in bytes of the modulus n, i.e., the least
+integer such that 2^(8*nLen) > n.
+
+Let kekLen be the desired length of the shared secret to output.
+
+The originator performs the following operations:
+
+1. Generate a random integer z between 0 and n-1 (see note), and
+   convert z to a byte string Z of length nLen, most significant byte
+   first:
+
+   ~~~
+        z = RandomInteger (0, n-1)
+
+        Z = IntegerToString (z, nLen)
+   ~~~
+
+2. Encrypt the random integer z using the recipient's RSA public key
+   (n,e), and convert the resulting integer c to a ciphertext C, a
+   byte string of length nLen:
+
+   ~~~
+        c = z^e mod n
+
+        C = IntegerToString (c, nLen)
+   ~~~
+
+3. Derive a symmetric key-encryption key KEK of length kekLen bytes
+   from the byte string Z using the underlying key-derivation function:
+
+   ~~~
+        KEK = KDF (Z, kekLen)
+   ~~~
+
+4. Return the ciphertext C and the shared secret KEK.
+
+NOTE: The random integer z MUST be generated independently at random
+for different encryption operations, whether for the same or
+different recipients.
+
+## Decapsulate() {#app-alg-decaps}
+
+The RSA-KEM algorithm denoted by `id-kem-rsa` fulfills the generic `KEM.Decapsulate(sk, ct) -> ss` interface as discribed below.
+
+Let `sk = (n,d)` be the recipient's RSA private key; see {{RFC8017}} for details,
+but other private key formats are allowed.
+
+Let C be the ciphertext.
+
+Let nLen denote the length in bytes of the modulus n.
+
+Let kekLen be the desired length of the shared secret to output.
+
+The recipient performs the following operations:
+
+1. If the length of the ciphertext C is less than nLen
+   bytes, output "decryption error", and stop.
+
+2. Convert the ciphertext C to an integer c, most significant byte
+   first.  Decrypt the integer c using the recipient's private key
+   (n,d) to recover an integer z (see NOTE below):
+
+   ~~~
+        c = StringToInteger (C)
+
+        z = c^d mod n
+   ~~~
+
+   If the integer c is not between 0 and n-1, output "decryption
+   error", and stop.
+
+3. Convert the integer z to a byte string Z of length nLen, most
+   significant byte first (see NOTE below):
+
+   ~~~
+        Z = IntegerToString (z, nLen)
+   ~~~
+
+4. Derive a shared secret SS of length kekLen bytes from
+   the byte string Z using the key-derivation function (see NOTE below):
+
+   ~~~
+        SS = KDF (Z, kekLen)
+   ~~~
+
+5. Output the shared secret SS.
+
+SS can be used directly as a symmetric key.
+
+NOTE: Implementations SHOULD NOT reveal information about the
+integer z, the string Z, or about the calculation of the
+exponentiation in Step 2, the conversion in Step 3, or the key
+derivation in Step 4, whether by timing or other "side channels".
+The observable behavior of the implementation SHOULD be the same at
+these steps for all ciphertexts C that are in range.  For example,
+IntegerToString conversion should take the same amount of time
+regardless of the actual value of the integer z.  The integer z, the
+string Z, and other intermediate results MUST be securely deleted
+when they are no longer needed.
+
+
+
+## Legacy RFC5990 RSA-KEM
+
+Here we define the original behaviour of `id-rsa-kem` as specified in [RFC5990] which is compatible with CMS KeyTransRecipientInfo.
+
+### Underlying Components
+
+The RSA-KEM Algorithm as originally defined in [RFC5990] has the following underlying components:
 
 - KDF, a key-derivation function, which derives key-encryption key of a
   specified length from a shared secret value;
@@ -529,7 +709,7 @@ Also, with some symmetric key-encryption algorithms, it is possible to
 associate a label with the keying material.  Such uses are outside the scope
 of this document, as they are not directly supported by CMS.
 
-## Originator's Operations
+### Originator's Operations
 
 Let (n,e) be the recipient's RSA public key; see {{RFC8017}} for details.
 
@@ -582,7 +762,7 @@ NOTE: The random integer z MUST be generated independently at random
 for different encryption operations, whether for the same or
 different recipients.
 
-## Recipient's Operations
+### Recipient's Operations
 
 Let (n,d) be the recipient's RSA private key; see {{RFC8017}} for details,
 but other private key formats are allowed.
