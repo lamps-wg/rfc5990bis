@@ -317,7 +317,10 @@ KEMRecipientInfo MUST have the following values:
 > kemct is the ciphertext produced for this recipient; it contains
 C from steps 1 and 2 of Originator's Operations in {{app-alg}}.
 
-> kdf identifies the key-derivation algorithm.
+> kdf identifies the key-derivation algorithm. Note that the KDF
+> specified and used at the CMS RecipientInfo level does not need to be
+> the some as the KDF used within the RSA-KEM construction as specified
+> in {{app-alg}}.
 
 > kekLength is the size of the key-encryption key in octets.
 
