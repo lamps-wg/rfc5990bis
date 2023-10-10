@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-08T00:26:13.883642+00:00",
+  "timestamp": "2023-10-10T00:23:57.332966+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -264,25 +264,33 @@
       "id": "PR_kwDOJYmAjs5b8kVu",
       "title": "Re-worked to make clear the actual KEM vs the legacy 5990 KeyTrans in\u2026",
       "url": "https://github.com/lamps-wg/rfc5990bis/pull/6",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "\u2026 disguise.",
       "createdAt": "2023-10-04T22:27:10Z",
-      "updatedAt": "2023-10-05T14:50:34Z",
+      "updatedAt": "2023-10-09T16:17:54Z",
       "baseRepository": "lamps-wg/rfc5990bis",
       "baseRefName": "main",
       "baseRefOid": "551d0a6ef7b9cf26748abc4a0d0d8216e8c199f2",
       "headRepository": "ounsworth/rfc5990bis",
       "headRefName": "main",
       "headRefOid": "610a6261254a199c2b6cdbd7fa4a305f886360bb",
-      "closedAt": null,
+      "closedAt": "2023-10-09T16:17:54Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thanks very much for this PR.  As you have already seen in email, I will be making a bigger restructuring of the document.  Your goal of specifying the conventions for using the RSA-KEM Algorithm as a standalone KEM algorithm in addition to specifying the CMS conventions will be achieved.",
+          "createdAt": "2023-10-09T16:17:54Z",
+          "updatedAt": "2023-10-09T16:17:54Z"
+        }
+      ],
       "reviews": []
     }
   ]
