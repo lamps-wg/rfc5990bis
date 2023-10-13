@@ -757,6 +757,14 @@ was not yet defined at the time that RFC 5990 was written.
 Implementations that conform to this specification MUST support
 the KDF3 {{ANS-X9.44}} key-derivation function using SHA-256 {{SHS}}.
 
+KDF2 {{ANS-X9.44}} and KDF3 are both key-derivation functions based on
+a hash function.  The only difference between KDF2 and KDF3 is the order
+of the components to be hashed.
+~~~
+KDF2 calculates T as:   T = T || Hash (Z || D || otherInfo)
+
+KDF3 calculates T as:   T = T || Hash (D || Z || otherInfo)
+~~~
 The object identifier for KDF3 is:
 
 ~~~
@@ -1173,7 +1181,7 @@ called ct:
 Alice derives the shared secret (ss) using KDF3 with SHA-256:
 
 ~~~
-   f5c201f5c1989e1681ea4616d8bb9632
+   3cf82ec41b54ed4d37402bbd8f805a52
 ~~~
 
 ## Originator CMS Processing
@@ -1203,7 +1211,7 @@ by RSA-KEM Encapsulate() and the CMSORIforKEMOtherInfo structure
 with KDF3 and SHA-256, the KEK is:
 
 ~~~
-   e16aa0f063246662a0d6524a4fc41e8f
+   e6dc9d62ff2b469bef604c617b018718
 ~~~
 
 Alice randomly generates a 128-bit content-encryption key:
@@ -1216,7 +1224,7 @@ Alice uses AES-128-KEYWRAP to encrypt the 128-bit content-encryption
 key with the derived key-encryption key:
 
 ~~~
-   d5c7e4352d4dd188b5efdf3ac3ab37c9c97a636f20d1ed58
+   28782e5d3d794a7616b863fbcfc719b78f12de08cf286e09
 ~~~
 
 Alice encrypts the padded content using AES-128-CBC with the
@@ -1254,8 +1262,8 @@ BlRrbiZxV1yYRh5EH2VUK9ld4m0PU6ZOeEjXMdlgjQU+jTRVRmAthiNv/jcEyYrV
 kUTzCJ5ebVJ7VJe6EDx51i6A0CNUELBvcafZvRw4AA+RDWMS6i8go1V1Na0Bswk/
 tffuUHCA0Pd9SMnDs3lva33TeGCF+4lRI/BMofHBviLHR6jfrOMjcPsNVweD4n27
 fnT8qU7jlnb949ipVT2HgiRzbjfhkdq5U8fiKMB61coxIkIcFN69ByqatjAbBgor
-gQUQhkgJLAEBMA0GCWCGSAFlAwQCAQUAAgEQMAsGCWCGSAFlAwQBBQQY1cfkNS1N
-0Yi17986w6s3ycl6Y28g0e1YMDwGCSqGSIb3DQEHATAdBglghkgBZQMEAQIEEEgM
+gQUQhkgJLAECMA0GCWCGSAFlAwQCAQUAAgEQMAsGCWCGSAFlAwQBBQQYKHguXT15
+SnYWuGP7z8cZt48S3gjPKG4JMDwGCSqGSIb3DQEHATAdBglghkgBZQMEAQIEEEgM
 yv66vvrO263eyviId4GAEMbKZdt73Xaw834vq2Jktm0=
 ~~~
 
@@ -1307,7 +1315,7 @@ This result decodes to:
        :       28 C0 7A D5 CA 31 22 42 1C 14 DE BD 07 2A 9A B6
 475  27:       SEQUENCE {
 477  10:        OBJECT IDENTIFIER
-       :         kdf2 (1 3 133 16 840 9 44 1 1)
+       :         kdf3 (1 3 133 16 840 9 44 1 2)
 489  13:        SEQUENCE {
 491   9:         OBJECT IDENTIFIER
        :          sha-256 (2 16 840 1 101 3 4 2 1)
@@ -1320,8 +1328,8 @@ This result decodes to:
        :         aes128-wrap (2 16 840 1 101 3 4 1 5)
        :         }
 520  24:       OCTET STRING
-       :       D5 C7 E4 35 2D 4D D1 88 B5 EF DF 3A C3 AB 37 C9
-       :       C9 7A 63 6F 20 D1 ED 58
+       :       28 78 2E 5D 3D 79 4A 76 16 B8 63 FB CF C7 19 B7
+       :       8F 12 DE 08 CF 28 6E 09
        :        }
        :       }
        :      }
@@ -1415,7 +1423,7 @@ than his RSA modulus.
 Bob derives the shared secret (ss) using KDF3 with SHA-256:
 
 ~~~
-   f5c201f5c1989e1681ea4616d8bb9632
+   3cf82ec41b54ed4d37402bbd8f805a52
 ~~~
 
 ## Recipient CMS Processing
@@ -1428,7 +1436,7 @@ Bob derives the key-encryption key from shared secret and the
 CMSORIforKEMOtherInfo structure with KDF3 and SHA-256, the KEK is:
 
 ~~~
-   e16aa0f063246662a0d6524a4fc41e8f
+   e6dc9d62ff2b469bef604c617b018718
 ~~~
 
 Bob uses AES-KEY-WRAP to decrypt the content-encryption key
