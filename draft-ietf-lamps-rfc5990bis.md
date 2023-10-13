@@ -1411,7 +1411,7 @@ the integer z:
 Bob checks that the integer z is greater than zero and is less
 than his RSA modulus.
 
-Bob derives the shared secret (ss) using KDF2 with SHA-256:
+Bob derives the shared secret (ss) using KDF3 with SHA-256:
 
 ~~~
    f5c201f5c1989e1681ea4616d8bb9632
