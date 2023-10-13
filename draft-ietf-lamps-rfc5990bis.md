@@ -293,7 +293,7 @@ KEMRecipientInfo MUST have the following values:
 > kemct is the ciphertext produced for this recipient; it contains
 C from steps 1 and 2 of Originator's Operations in {{app-alg}}.
 
-> kdf identifies the key-derivation function.
+> kdf identifies the key-derivation algorithm.
 
 > kekLength is the size of the key-encryption key in octets.
 
@@ -500,7 +500,7 @@ material.
 The RSA-KEM Algorithm has the following underlying components:
 
 - KDF, a key-derivation function, which derives key-encryption key of a
-  specified length from a shared secret;
+  specified length from a shared secret value;
 
 - Wrap, a symmetric key-encryption algorithm, which encrypts keying material
   using key-encryption key that was produced by the KDF.
