@@ -637,7 +637,7 @@ this way, originator and recipient obtain the same shared secret (ss).
 
 The RSA-KEM Algorithm depends on a key-derivation function (KDF), which is
 used to derive the shared secret (ss).  Many key-derivation functions support
-the inclusion of other information in addition to the shared secret (ss)) in
+the inclusion of other information in addition to the shared secret (ss) in
 the input to the function; however, no other information is included as an
 input to the KDF by the RSA-KEM Algorithm.
 
