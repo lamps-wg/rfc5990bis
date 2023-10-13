@@ -12,9 +12,10 @@
 (store-and-forward) cryptographic mechanism for an originator to securely
 send keying material to a recipient using the recipient's RSA public key.
 The RSA-KEM Algorithm is specified in Clause 11.5 of ISO/IEC: 18033-2:2006.
-This document specifies the conventions for using the RSA-KEM Algorithm
-either as a standalone KEM algorithm or with the Cryptographic Message
-Syntax (CMS) using KEMRecipientInfo as specified in draft-ietf-lamps-cms-kemri. 
+This document specifies the conventions for using the RSA-KEM Algorithm as a
+standalone KEM algorithm and the conventions for using the RSA-KEM Algorithm
+with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as
+specified in draft-ietf-lamps-cms-kemri. 
     " name="description">
 <meta content="xml2rfc 3.18.1" name="generator">
 <meta content="Key Encapsulation Mechanism (KEM)" name="keyword">
@@ -1037,7 +1038,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Housley &amp; Turner</td>
-<td class="center">Expires 6 April 2024</td>
+<td class="center">Expires 15 April 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1053,12 +1054,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc5990" class="eref">5990</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-10-04" class="published">4 October 2023</time>
+<time datetime="2023-10-13" class="published">13 October 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-04-06">6 April 2024</time></dd>
+<dd class="expires"><time datetime="2024-04-15">15 April 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1079,9 +1080,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 (store-and-forward) cryptographic mechanism for an originator to securely
 send keying material to a recipient using the recipient's RSA public key.
 The RSA-KEM Algorithm is specified in Clause 11.5 of ISO/IEC: 18033-2:2006.
-This document specifies the conventions for using the RSA-KEM Algorithm
-either as a standalone KEM algorithm or with the Cryptographic Message
-Syntax (CMS) using KEMRecipientInfo as specified in draft-ietf-lamps-cms-kemri.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+This document specifies the conventions for using the RSA-KEM Algorithm as a
+standalone KEM algorithm and the conventions for using the RSA-KEM Algorithm
+with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as
+specified in draft-ietf-lamps-cms-kemri.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1115,7 +1117,7 @@ Syntax (CMS) using KEMRecipientInfo as specified in draft-ietf-lamps-cms-kemri.<
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 15 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1148,13 +1150,22 @@ Syntax (CMS) using KEMRecipientInfo as specified in draft-ietf-lamps-cms-kemri.<
             <p id="section-toc.1-1.1.1"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
-                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-rsa-kem-algorithm-rationale" class="internal xref">RSA-KEM Algorithm Rationale</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2">
-                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="auto internal xref">1.2</a>.  <a href="#name-asn1" class="internal xref">ASN.1</a></p>
+                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="auto internal xref">1.2</a>.  <a href="#name-rsa-kem-algorithm-summary" class="internal xref">RSA-KEM Algorithm Summary</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.3">
-                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="auto internal xref">1.3</a>.  <a href="#name-changes-since-rfc-5990" class="internal xref">Changes Since RFC 5990</a></p>
+                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="auto internal xref">1.3</a>.  <a href="#name-cms-kemrecipientinfo-proces" class="internal xref">CMS KEMRecipientInfo Processing Summary</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4">
+                <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="auto internal xref">1.4</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.5">
+                <p id="section-toc.1-1.1.2.5.1"><a href="#section-1.5" class="auto internal xref">1.5</a>.  <a href="#name-asn1" class="internal xref">ASN.1</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.6">
+                <p id="section-toc.1-1.1.2.6.1"><a href="#section-1.6" class="auto internal xref">1.6</a>.  <a href="#name-changes-since-rfc-5990" class="internal xref">Changes Since RFC 5990</a></p>
 </li>
             </ul>
 </li>
@@ -1196,30 +1207,10 @@ Syntax (CMS) using KEMRecipientInfo as specified in draft-ietf-lamps-cms-kemri.<
             <p id="section-toc.1-1.6.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-rsa-kem-algorithm" class="internal xref">RSA-KEM Algorithm</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-underlying-components-2" class="internal xref">Underlying Components</a></p>
+                <p id="section-toc.1-1.6.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-originators-operations-rsa-" class="internal xref">Originator's Operations: RSA-KEM Encapsulate()</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
-                <p id="section-toc.1-1.6.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-keygen" class="internal xref">KeyGen()</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
-                <p id="section-toc.1-1.6.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-encapsulate" class="internal xref">Encapsulate()</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
-                <p id="section-toc.1-1.6.2.4.1"><a href="#appendix-A.4" class="auto internal xref">A.4</a>.  <a href="#name-decapsulate" class="internal xref">Decapsulate()</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
-                <p id="section-toc.1-1.6.2.5.1"><a href="#appendix-A.5" class="auto internal xref">A.5</a>.  <a href="#name-legacy-rfc5990-rsa-kem" class="internal xref">Legacy RFC5990 RSA-KEM</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.1">
-                    <p id="section-toc.1-1.6.2.5.2.1.1"><a href="#appendix-A.5.1" class="auto internal xref">A.5.1</a>.  <a href="#name-underlying-components-3" class="internal xref">Underlying Components</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.2">
-                    <p id="section-toc.1-1.6.2.5.2.2.1"><a href="#appendix-A.5.2" class="auto internal xref">A.5.2</a>.  <a href="#name-originators-operations" class="internal xref">Originator's Operations</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.3">
-                    <p id="section-toc.1-1.6.2.5.2.3.1"><a href="#appendix-A.5.3" class="auto internal xref">A.5.3</a>.  <a href="#name-recipients-operations" class="internal xref">Recipient's Operations</a></p>
-</li>
-                </ul>
+                <p id="section-toc.1-1.6.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-recipients-operations-rsa-k" class="internal xref">Recipient's Operations: RSA-KEM Decapsulate()</a></p>
 </li>
             </ul>
 </li>
@@ -1227,7 +1218,7 @@ Syntax (CMS) using KEMRecipientInfo as specified in draft-ietf-lamps-cms-kemri.<
             <p id="section-toc.1-1.7.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-asn1-syntax" class="internal xref">ASN.1 Syntax</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-underlying-components-4" class="internal xref">Underlying Components</a></p>
+                <p id="section-toc.1-1.7.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-underlying-components-2" class="internal xref">Underlying Components</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
                 <p id="section-toc.1-1.7.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-asn1-module" class="internal xref">ASN.1 Module</a></p>
@@ -1241,13 +1232,16 @@ Syntax (CMS) using KEMRecipientInfo as specified in draft-ietf-lamps-cms-kemri.<
             <p id="section-toc.1-1.9.1"><a href="#appendix-D" class="auto internal xref">Appendix D</a>.  <a href="#name-rsa-kem-cms-enveloped-data-" class="internal xref">RSA-KEM CMS Enveloped-Data Example</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#appendix-D.1" class="auto internal xref">D.1</a>.  <a href="#name-originator-processing" class="internal xref">Originator Processing</a></p>
+                <p id="section-toc.1-1.9.2.1.1"><a href="#appendix-D.1" class="auto internal xref">D.1</a>.  <a href="#name-originator-rsa-kem-encapsul" class="internal xref">Originator RSA-KEM Encapsulate() Processing</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#appendix-D.2" class="auto internal xref">D.2</a>.  <a href="#name-contentinfo-and-envelopedda" class="internal xref">ContentInfo and EnvelopedData</a></p>
+                <p id="section-toc.1-1.9.2.2.1"><a href="#appendix-D.2" class="auto internal xref">D.2</a>.  <a href="#name-originator-cms-processing" class="internal xref">Originator CMS Processing</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
-                <p id="section-toc.1-1.9.2.3.1"><a href="#appendix-D.3" class="auto internal xref">D.3</a>.  <a href="#name-recipient-processing" class="internal xref">Recipient Processing</a></p>
+                <p id="section-toc.1-1.9.2.3.1"><a href="#appendix-D.3" class="auto internal xref">D.3</a>.  <a href="#name-recipient-rsa-kem-decapsula" class="internal xref">Recipient RSA-KEM Decapsulate() Processing</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
+                <p id="section-toc.1-1.9.2.4.1"><a href="#appendix-D.4" class="auto internal xref">D.4</a>.  <a href="#name-recipient-cms-processing" class="internal xref">Recipient CMS Processing</a></p>
 </li>
             </ul>
 </li>
@@ -1271,139 +1265,274 @@ Syntax (CMS) using KEMRecipientInfo as specified in draft-ietf-lamps-cms-kemri.<
 send keying material to a recipient using the recipient's RSA public key.
 The RSA-KEM Algorithm is specified in Clause 11.5 of <span>[<a href="#ISO18033-2" class="cite xref">ISO18033-2</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">The RSA-KEM Algorithm takes a different approach than other RSA key
-transport mechanisms <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span>, with the goal of first, providing higher
-security assurance, and second satisfying the KEM interface as described
-in <a href="#app-alg" class="auto internal xref">Appendix A</a> instead of the Key Transport interface as is traditionally
-done with RSA-based mechanisms.  The RSA-KEM Algorithm encrypts a random
-integer with the recipient's RSA public key, and derives a shared secret
-from the random integer which can be directly used by the originator
-and recipient as a symmetric key for example to wrap a content encryption
-key.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-1-3">
-<li id="section-1-3.1">
-          <p id="section-1-3.1.1">Generate a random integer z between 0 and n-1.<a href="#section-1-3.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li id="section-1-3.2">
-          <p id="section-1-3.2.1">Encrypt the integer z with the recipient's RSA public key:<a href="#section-1-3.2.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-1-3.2.2">
-<pre>
-    c = z^e mod n
-</pre><a href="#section-1-3.2.2" class="pilcrow">¶</a>
-</div>
-</li>
-        <li id="section-1-3.3">
-          <p id="section-1-3.3.1">Derive a shared secret SS from the integer z:<a href="#section-1-3.3.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-1-3.3.2">
-<pre>
-    SS = KDF(z)
-</pre><a href="#section-1-3.3.2" class="pilcrow">¶</a>
-</div>
-</li>
-        <li id="section-1-3.4">
-          <p id="section-1-3.4.1">Return the ciphertext C and the shared secret SS.<a href="#section-1-3.4.1" class="pilcrow">¶</a></p>
-</li>
-      </ol>
-<p id="section-1-4">In the original RSA-KEM as published in <span>[<a href="#RFC5990" class="cite xref">RFC5990</a>]</span>, the RSA-KEM algorithm
-needed to achieve compatibility with CMS KeyTransRecipientInfo which it
-did by including an additional step to wrap a symmetric content-encryption
-key with the shared secret acting as a Key-encrypting-key (KEK).  In this
-way, the originator and the recipient end up with the same
-content-encryption-key (CEK).   Given a
-content-encryption key CEK, the original RSA-KEM can be summarized as:<a href="#section-1-4" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-1-5">
-<li id="section-1-5.1">
-          <p id="section-1-5.1.1">Wrap the CEK with the KEK to obtain wrapped keying material WK:<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-1-5.1.2">
-<pre>
-    WK = WRAP(KEK, CEK)
-</pre><a href="#section-1-5.1.2" class="pilcrow">¶</a>
-</div>
-</li>
-        <li id="section-1-5.2">
-          <p id="section-1-5.2.1">The originator sends c and WK to the recipient.<a href="#section-1-5.2.1" class="pilcrow">¶</a></p>
-</li>
-      </ol>
-<p id="section-1-6">This KEM-based approach provides higher security assurance for two
-reasons.  First, the input to the underlying RSA operation is effectively
-a random integer between 0 and n-1, where n is the RSA modulus, so it does
-not have any structure that could be exploited by an adversary.  Second,
-the input is independent of the keying material so the result of the
-RSA decryption operation is not directly available to an adversary.
-As a result, the RSA-KEM Algorithm enjoys a "tight" security proof in the
-random oracle model.  (In other padding schemes, such as
-PKCS #1 v1.5 <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span>, the input has structure and/or depends on the
-keying material, and the provable security assurances are not as
-strong.)  The approach is also architecturally convenient because the
+transport mechanisms <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span>, with goal of providing higher
+security assurance while also satisfying the KEM interface.  The
+RSA-KEM Algorithm encrypts a random integer with the recipient's
+RSA public key, and derives a shared secret from the random integer. The
+originator and recipient can derive a symmetric key from the shared
+secret.  For example, a key-encryption key can be derived from the shared
+secret to wrap a content-encryption key.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">In the Cryptographic Message Syntax (CMS) <span>[<a href="#RFC5652" class="cite xref">RFC5652</a>]</span> using
+KEMRecipientInfo <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>, the shared secret value
+is input to a key-derivation function to compute a key-encryption key, and
+wrap a symmetric content-encryption key with the key-encryption key.  In
+this way, the originator and the recipient end up with the same
+content-encryption key.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">For completeness, a specification of the RSA-KEM Algorithm is given in
+Appendix A of this document; ASN.1 syntax is given in Appendix B.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<div id="rsa-kem-algorithm-rationale">
+<section id="section-1.1">
+        <h3 id="name-rsa-kem-algorithm-rationale">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-rsa-kem-algorithm-rationale" class="section-name selfRef">RSA-KEM Algorithm Rationale</a>
+        </h3>
+<p id="section-1.1-1">The RSA-KEM Algorithm provides higher security assurance than other
+variants of the RSA cryptosystem for two reasons.  First, the input to the
+underlying RSA operation is effectively a random integer between 0 and n-1,
+where n is the RSA modulus, so it does not have any structure that could be
+exploited by an adversary.  Second, the input is independent of the keying
+material so the result of the RSA decryption operation is not directly
+available to an adversary.  As a result, the RSA-KEM Algorithm enjoys a
+"tight" security proof in the random oracle model.  (In other padding
+schemes, such as PKCS #1 v1.5 <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span>, the input has structure and/or
+depends on the keying material, and the provable security assurances are not
+as strong.)<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<p id="section-1.1-2">The approach is also architecturally convenient because the
 public-key operations are separate from the symmetric operations on the
 keying material.  Another benefit is that the length of the keying material
-is bounded only by the symmetric key-wrapping algorithm, not the size of
-the RSA modulus.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">For completeness, a specification of the RSA-KEM Algorithm is given in
-Appendix A of this document; ASN.1 syntax is given in Appendix B.<a href="#section-1-7" class="pilcrow">¶</a></p>
-<div id="conventions-and-definitions">
-<section id="section-1.1">
-        <h3 id="name-conventions-and-definitions">
-<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+is determined by the symmetric algorithms, not the size of the RSA modulus.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="rsa-kem-algorithm-summary">
+<section id="section-1.2">
+        <h3 id="name-rsa-kem-algorithm-summary">
+<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-rsa-kem-algorithm-summary" class="section-name selfRef">RSA-KEM Algorithm Summary</a>
         </h3>
-<p id="section-1.1-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+<p id="section-1.2-1">All KEM algorithms provides three functions: KeyGen(), Encapsulate(),
+and Decapsulate().<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+<p id="section-1.2-2">The following summarizes these three functions for RSA-KEM:<a href="#section-1.2-2" class="pilcrow">¶</a></p>
+<p id="section-1.2-3">KeyGen() -&gt; (pk, sk):<a href="#section-1.2-3" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.2-4.1">
+            <p id="section-1.2-4.1.1">Generate the public key (pk) and a private key (sk) as described
+in <span><a href="https://rfc-editor.org/rfc/rfc8017#section-3" class="relref">Section 3</a> of [<a href="#RFC8017" class="cite xref">RFC8017</a>]</span>.<a href="#section-1.2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-1.2-5">Encapsulate(pk) -&gt; (ct, ss):<a href="#section-1.2-5" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.2-6.1">
+            <p id="section-1.2-6.1.1">Given the recipient's public key (pk), produce a ciphertext (ct) to be
+passed to the recipient and a shared secret (ss) for use by the originator,
+as follows:<a href="#section-1.2-6.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.2-7.1">
+            <p id="section-1.2-7.1.1">1. Generate a random integer z between 0 and n-1.<a href="#section-1.2-7.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.2-8.1">
+            <p id="section-1.2-8.1.1">2. Encrypt the integer z with the recipient's RSA public key to obtain the ciphertext:<a href="#section-1.2-8.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div class="alignLeft art-text artwork" id="section-1.2-9">
+<pre>
+       ct = z^e mod n
+</pre><a href="#section-1.2-9" class="pilcrow">¶</a>
+</div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.2-10.1">
+            <p id="section-1.2-10.1.1">3. Derive a shared secret from the integer z:<a href="#section-1.2-10.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div class="alignLeft art-text artwork" id="section-1.2-11">
+<pre>
+       ss = KDF(z)
+</pre><a href="#section-1.2-11" class="pilcrow">¶</a>
+</div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.2-12.1">
+            <p id="section-1.2-12.1.1">4. The ciphertext and the shared secret are returned by the function.  The
+originator sends the ciphertext to the recipient.<a href="#section-1.2-12.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-1.2-13">Decapsulate(sk, ct) -&gt; ss:<a href="#section-1.2-13" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.2-14.1">
+            <p id="section-1.2-14.1.1">Given the private key (sk) and the ciphertext (ct), produce the
+shared secret (ss) for the recipient as follows:<a href="#section-1.2-14.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.2-15.1">
+            <p id="section-1.2-15.1.1">1. Decrypt the the ciphertext with the recipient's RSA private key
+to obtain the random integer z:<a href="#section-1.2-15.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div class="alignLeft art-text artwork" id="section-1.2-16">
+<pre>
+       z = ct^d mod n
+</pre><a href="#section-1.2-16" class="pilcrow">¶</a>
+</div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.2-17.1">
+            <p id="section-1.2-17.1.1">2. Derive a shared secret from the integer z:<a href="#section-1.2-17.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div class="alignLeft art-text artwork" id="section-1.2-18">
+<pre>
+       ss = KDF(z)
+</pre><a href="#section-1.2-18" class="pilcrow">¶</a>
+</div>
+<p id="section-1.2-19">3. The shared secret is returned by the function.<a href="#section-1.2-19" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="cms-kemrecipientinfo-processing-summary">
+<section id="section-1.3">
+        <h3 id="name-cms-kemrecipientinfo-proces">
+<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-cms-kemrecipientinfo-proces" class="section-name selfRef">CMS KEMRecipientInfo Processing Summary</a>
+        </h3>
+<p id="section-1.3-1">To support a the RSA-KEM algorithm, the CMS originator <span class="bcp14">MUST</span> implement
+Encapsulate().<a href="#section-1.3-1" class="pilcrow">¶</a></p>
+<p id="section-1.3-2">Given a content-encryption key CEK, the RSA-KEM Algorithm processing by the
+originator to produce the values that are carried in the CMS KEMRecipientInfo
+can be summarized as:<a href="#section-1.3-2" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.3-3.1">
+            <p id="section-1.3-3.1.1">1.  Obtain the shared secret using the Encapsulate() function of the
+RSA-KEM algorithm and the recipient's RSA public key:<a href="#section-1.3-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div class="alignLeft art-text artwork" id="section-1.3-4">
+<pre>
+       (ct, ss) = Encapsulate(pk)
+</pre><a href="#section-1.3-4" class="pilcrow">¶</a>
+</div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.3-5.1">
+            <p id="section-1.3-5.1.1">2. Derive a key-encryption key KEK from the shared secret:<a href="#section-1.3-5.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div class="alignLeft art-text artwork" id="section-1.3-6">
+<pre>
+       KEK = KDF(ss)
+</pre><a href="#section-1.3-6" class="pilcrow">¶</a>
+</div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.3-7.1">
+            <p id="section-1.3-7.1.1">3.  Wrap the CEK with the KEK to obtain wrapped keying material WK:<a href="#section-1.3-7.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div class="alignLeft art-text artwork" id="section-1.3-8">
+<pre>
+       WK = WRAP(KEK, CEK)
+</pre><a href="#section-1.3-8" class="pilcrow">¶</a>
+</div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.3-9.1">
+            <p id="section-1.3-9.1.1">4. The originator sends the ciphertext and WK to the recipient in the CMS
+KEMRecipientInfo structure.<a href="#section-1.3-9.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-1.3-10">To support a the RSA-KEM algorithm, the CMS recipient <span class="bcp14">MUST</span> implement
+Decapsulate().<a href="#section-1.3-10" class="pilcrow">¶</a></p>
+<p id="section-1.3-11">The RSA-KEM algorithm recipient processing of the values obtained from the
+KEMRecipientInfo structure can be summarized as:<a href="#section-1.3-11" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.3-12.1">
+            <p id="section-1.3-12.1.1">1.  Obtain the pairwise secret value PSV using the Decapsulate() function of the
+RSA-KEM algorithm and the recipient's RSA private key:<a href="#section-1.3-12.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div class="alignLeft art-text artwork" id="section-1.3-13">
+<pre>
+       ss = Decapsulate(sk, ct)
+</pre><a href="#section-1.3-13" class="pilcrow">¶</a>
+</div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.3-14.1">
+            <p id="section-1.3-14.1.1">2. Derive a key-encryption key KEK from the shared secret:<a href="#section-1.3-14.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div class="alignLeft art-text artwork" id="section-1.3-15">
+<pre>
+       KEK = KDF(ss)
+</pre><a href="#section-1.3-15" class="pilcrow">¶</a>
+</div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.3-16.1">
+            <p id="section-1.3-16.1.1">3.  Unwrap the WK with the KEK to obtain content-encryption key CEK:<a href="#section-1.3-16.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<div class="alignLeft art-text artwork" id="section-1.3-17">
+<pre>
+       CEK = UNWRAP(KEK, WK)
+</pre><a href="#section-1.3-17" class="pilcrow">¶</a>
+</div>
+<p id="section-1.3-18">Note that the KDF used to process the KEMRecipientInfo structure <span class="bcp14">MAY</span> be
+different from the KDF used to derive the shared secret in the RSA-KEM
+algorithm.<a href="#section-1.3-18" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="conventions-and-definitions">
+<section id="section-1.4">
+        <h3 id="name-conventions-and-definitions">
+<a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+        </h3>
+<p id="section-1.4-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
-appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+appear in all capitals, as shown here.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="asn1">
-<section id="section-1.2">
+<section id="section-1.5">
         <h3 id="name-asn1">
-<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-asn1" class="section-name selfRef">ASN.1</a>
+<a href="#section-1.5" class="section-number selfRef">1.5. </a><a href="#name-asn1" class="section-name selfRef">ASN.1</a>
         </h3>
-<p id="section-1.2-1">CMS values are generated using ASN.1 <span>[<a href="#X.680" class="cite xref">X.680</a>]</span>, which uses the Basic
-Encoding Rules (BER) and the Distinguished Encoding Rules (DER) <span>[<a href="#X.690" class="cite xref">X.690</a>]</span>.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+<p id="section-1.5-1">CMS values are generated using ASN.1 <span>[<a href="#X.680" class="cite xref">X.680</a>]</span>, which uses the Basic
+Encoding Rules (BER) and the Distinguished Encoding Rules (DER) <span>[<a href="#X.690" class="cite xref">X.690</a>]</span>.<a href="#section-1.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="changes-since-rfc-5990">
-<section id="section-1.3">
+<section id="section-1.6">
         <h3 id="name-changes-since-rfc-5990">
-<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-changes-since-rfc-5990" class="section-name selfRef">Changes Since RFC 5990</a>
+<a href="#section-1.6" class="section-number selfRef">1.6. </a><a href="#name-changes-since-rfc-5990" class="section-name selfRef">Changes Since RFC 5990</a>
         </h3>
-<p id="section-1.3-1">RFC 5990 <span>[<a href="#RFC5990" class="cite xref">RFC5990</a>]</span> specified the conventions for using the RSA-KEM Algorithm
+<p id="section-1.6-1">RFC 5990 <span>[<a href="#RFC5990" class="cite xref">RFC5990</a>]</span> specified the conventions for using the RSA-KEM Algorithm
 in CMS as a key transport algorithm.  That is, it used KeyTransRecipientInfo <span>[<a href="#RFC5652" class="cite xref">RFC5652</a>]</span>
-for each recipient.  This approach resulted in a very complex parameter
-definition with the id-rsa-kem algorithm identifier.  Implementation
-experience with many different algorithms has shown that complex
-parameter structures cause interoperability issues.  Since the publication
-of RFC 5990, a new KEMRecipientInfo structure <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>
-has been defined to support KEM algorithms, and this new structure avoids the
-complex parameters structure that was used in RFC 5990.  Likewise, when
-the id-rsa-kem algorithm identifier appears in the SubjectPublicKeyInfo
-field of a certificate, this document encourages the omission of any
-parameters.  Also, to avoid visual confusion with id-kem-rsa, id-rsa-kem-spki
-is introduced as an alias for id-rsa-kem.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
-<p id="section-1.3-2">RFC 5990 uses EK and the EncryptedKey, which is the concatenation of
-C and WK (C || WK).  The use of EK is necessary to align with the
-KeyTransRecipientInfo structure.  In this document, C and WK are sent
+for each recipient.  Since the publication of RFC 5990, a new KEMRecipientInfo
+structure <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span> has been defined to support KEM
+algorithms.  When the id-rsa-kem algorithm identifier appears in the
+SubjectPublicKeyInfo field of a certificate, the complex parameter structure
+defined in RFC 5990 can be omitted; however, the parameters are allowed for
+backward compatibility.  Also, to avoid visual confusion with id-kem-rsa,
+id-rsa-kem-spki is introduced as an alias for id-rsa-kem.<a href="#section-1.6-1" class="pilcrow">¶</a></p>
+<p id="section-1.6-2">RFC 5990 uses EK as the EncryptedKey, which is the concatenation of
+C and WK (C || WK).  The use of EK was necessary to align with the<a href="#section-1.6-2" class="pilcrow">¶</a></p>
+<p id="section-1.6-3">KeyTransRecipientInfo structure.  In this document, C and WK are sent
 in separate fields of new KEMRecipientInfo structure.  In particular,
 C is carried in the kemct field, and WK is carried in the encryptedKey
-field.<a href="#section-1.3-2" class="pilcrow">¶</a></p>
-<p id="section-1.3-3">RFC 5990 supports the future definition of additional KEM algorithms that
+field.  See <a href="#app-alg" class="auto internal xref">Appendix A</a> for details about the computation of C.<a href="#section-1.6-3" class="pilcrow">¶</a></p>
+<p id="section-1.6-4">RFC 5990 supports the future definition of additional KEM algorithms that
 use RSA; this document supports only one, and it is identified by the
-id-kem-rsa object identifier.<a href="#section-1.3-3" class="pilcrow">¶</a></p>
-<p id="section-1.3-4">RFC 5990 includes support for Camellia and Triple-DES block ciphers;
+id-kem-rsa object identifier.<a href="#section-1.6-4" class="pilcrow">¶</a></p>
+<p id="section-1.6-5">RFC 5990 includes support for Camellia and Triple-DES block ciphers;
 discussion of these block ciphers is removed from this document, but
-the algorithm identifiers remain in the ASN.1 Module <a href="#app-asn1-module" class="auto internal xref">Appendix B.2</a>.<a href="#section-1.3-4" class="pilcrow">¶</a></p>
-<p id="section-1.3-5">RFC 5990 includes support for SHA-1 hash function; discussion of this
+the algorithm identifiers remain in the ASN.1 Module <a href="#app-asn1-module" class="auto internal xref">Appendix B.2</a>.<a href="#section-1.6-5" class="pilcrow">¶</a></p>
+<p id="section-1.6-6">RFC 5990 includes support for SHA-1 hash function; discussion of this
 hash function is removed from this document, but the algorithm identifier
-remains in the ASN.1 module <a href="#app-asn1-module" class="auto internal xref">Appendix B.2</a>.<a href="#section-1.3-5" class="pilcrow">¶</a></p>
-<p id="section-1.3-6">RFC 5990 required support for the KDF3 <span>[<a href="#ANS-X9.44" class="cite xref">ANS-X9.44</a>]</span> key-derivation
-function; this document continues to require support for the KDF3
-key-derivation function, but it requires support for SHA-256 <span>[<a href="#SHS" class="cite xref">SHS</a>]</span> as
-the hash function.<a href="#section-1.3-6" class="pilcrow">¶</a></p>
-<p id="section-1.3-7">RFC 5990 recommends support for alternatives to KDF3 and AES-Wrap-128;
-this document simply states that other key-derivation functions and
-key-encryption algorithms <span class="bcp14">MAY</span> be supported.<a href="#section-1.3-7" class="pilcrow">¶</a></p>
-<p id="section-1.3-8">RFC 5990 includes an ASN.1 module; this document provides an alternative
+remains in the ASN.1 module <a href="#app-asn1-module" class="auto internal xref">Appendix B.2</a>.<a href="#section-1.6-6" class="pilcrow">¶</a></p>
+<p id="section-1.6-7">RFC 5990 required support for the KDF3 key-derivation function <span>[<a href="#ANS-X9.44" class="cite xref">ANS-X9.44</a>]</span>;
+this document continues to require support for the KDF3 key-derivation function,
+but it requires support for SHA-256 <span>[<a href="#SHS" class="cite xref">SHS</a>]</span> as the hash function.<a href="#section-1.6-7" class="pilcrow">¶</a></p>
+<p id="section-1.6-8">RFC 5990 recommends support for alternatives to KDF3 and AES-Wrap-128;
+this document simply states that other key-derivation functions and other
+key-encryption algorithms <span class="bcp14">MAY</span> be supported.<a href="#section-1.6-8" class="pilcrow">¶</a></p>
+<p id="section-1.6-9">RFC 5990 includes an ASN.1 module; this document provides an alternative
 ASN.1 module that follows the conventions established in <span>[<a href="#RFC5911" class="cite xref">RFC5911</a>]</span>,
-<span>[<a href="#RFC5912" class="cite xref">RFC5912</a>]</span>, and <span>[<a href="#RFC6268" class="cite xref">RFC6268</a>]</span>. The new ASN.1 module <a href="#app-asn1-module" class="auto internal xref">Appendix B.2</a>
-produces the same bits-on-the-wire as the one in RFC 5990.<a href="#section-1.3-8" class="pilcrow">¶</a></p>
+<span>[<a href="#RFC5912" class="cite xref">RFC5912</a>]</span>, and <span>[<a href="#RFC6268" class="cite xref">RFC6268</a>]</span>.  The new ASN.1 module <a href="#app-asn1-module" class="auto internal xref">Appendix B.2</a>
+produces the same bits-on-the-wire as the one in RFC 5990.<a href="#section-1.6-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1438,7 +1567,7 @@ AES-Wrap-128 <span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span> key
 </li>
         </ul>
 <p id="section-2.1-3">An implementation <span class="bcp14">MAY</span> also support other key-derivation functions and
-key-encryption algorithms as well.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+other key-encryption algorithms as well.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="recipientinfo-conventions">
@@ -1474,7 +1603,9 @@ C from steps 1 and 2 of Originator's Operations in <a href="#app-alg" class="aut
         </ul>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-2.2-6.1">
-            <p id="section-2.2-6.1.1">kdf identifies the key-derivation algorithm.<a href="#section-2.2-6.1.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-6.1.1">kdf identifies the key-derivation function (KDF).  Note that the
+KDF used for CMS RecipientInfo process <span class="bcp14">MAY</span> be different than the KDF
+used within the RSA-KEM Algorithm.<a href="#section-2.2-6.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
@@ -1490,7 +1621,7 @@ C from steps 1 and 2 of Originator's Operations in <a href="#app-alg" class="aut
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-2.2-9.1">
             <p id="section-2.2-9.1.1">wrap identifies a key-encryption algorithm used to encrypt the
-content-encryption key.<a href="#section-2.2-9.1.1" class="pilcrow">¶</a></p>
+keying material.<a href="#section-2.2-9.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
@@ -1504,8 +1635,8 @@ CMS authenticated-enveloped-data content type <span>[<a href="#RFC5083" class="c
 keying material is a content-authenticated-encryption key.<a href="#section-2.2-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-2.2-11">NOTE: For backward compatibility, implementations <span class="bcp14">MAY</span>
-also support RSA-KEM Key Transport Algorithm denoted by <code>id-rsa-kem</code>, which uses
+<p id="section-2.2-11">NOTE: For backward compatibility, implementations <span class="bcp14">MAY</span> also support
+RSA-KEM Key Transport Algorithm, identified by id-rsa-kem, which uses
 KeyTransRecipientInfo as specified in <span>[<a href="#RFC5990" class="cite xref">RFC5990</a>]</span>.<a href="#section-2.2-11" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1521,28 +1652,31 @@ PKCS #1 v1.5 algorithm, that is, using the rsaEncryption object
 identifier <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span>.  The fact that the recipient will accept RSA-KEM
 with this public key is not indicated by the use of this object
 identifier.  The willingness to accept the RSA-KEM Algorithm <span class="bcp14">MAY</span> be
-signaled by the use of the appropriate SMIME Capabilities either in a
-message or in the certificate.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
+signaled by the use of the SMIMECapabilities Attribute as specified in
+<span><a href="https://rfc-editor.org/rfc/rfc8551#section-2.5.2." class="relref">Section 2.5.2.</a> of [<a href="#RFC8551" class="cite xref">RFC8551</a>]</span> or the SMIMECapabilities certificate
+extension as specified in <span>[<a href="#RFC4262" class="cite xref">RFC4262</a>]</span>.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 <p id="section-2.3-3">If the recipient wishes only to employ the RSA-KEM Algorithm with a given
 public key, the recipient <span class="bcp14">MUST</span> identify the public key in the certificate
 using the id-rsa-kem-spki object identifier; see <a href="#app-asn1" class="auto internal xref">Appendix B</a>.  When the
 id-rsa-kem-spki object identifier appears in the SubjectPublicKeyInfo algorithm
 field of the certificate, the parameters field from AlgorithmIdentifier
 <span class="bcp14">SHOULD</span> be absent.  That is, the AlgorithmIdentifier <span class="bcp14">SHOULD</span> be a SEQUENCE of
-one component, the id-rsa-kem-spki object identifier.<a href="#section-2.3-3" class="pilcrow">¶</a></p>
+one component, the id-rsa-kem-spki object identifier.  With absent parameters,
+the KDF3 key-derivation function <span>[<a href="#ANS-X9.44" class="cite xref">ANS-X9.44</a>]</span> with SHA-256 <span>[<a href="#SHS" class="cite xref">SHS</a>]</span> are used
+to derive the shared secret.<a href="#section-2.3-3" class="pilcrow">¶</a></p>
 <p id="section-2.3-4">When the AlgorithmIdentifier parameters are present, the
-GenericHybridParameters <span class="bcp14">MUST</span> be used.  As described in the next
-section, the GenericHybridParameters constrain the values that can
-be used with the RSA public key for the kdf, kekLength, and wrap
-fields of the KEMRecipientInfo structure.<a href="#section-2.3-4" class="pilcrow">¶</a></p>
+GenericHybridParameters <span class="bcp14">MUST</span> be used.  As described in <a href="#smimecap" class="auto internal xref">Section 2.4</a>,
+the GenericHybridParameters constrain the values that can be used with the
+RSA public key for the kdf, kekLength, and wrap fields of the KEMRecipientInfo
+structure.<a href="#section-2.3-4" class="pilcrow">¶</a></p>
 <p id="section-2.3-5">Regardless of the AlgorithmIdentifier used, the RSA public key <span class="bcp14">MUST</span> be
 carried in the subjectPublicKey BIT STRING within the SubjectPublicKeyInfo
 filed of the certificate using the RSAPublicKey type defined in <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span>.<a href="#section-2.3-5" class="pilcrow">¶</a></p>
-<p id="section-2.3-6">The intended application for the public key <span class="bcp14">MAY</span> be indicated in the key
-usage certificate extension as specified in <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.3" class="relref">Section 4.2.1.3</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.  If
-the keyUsage extension is present in a certificate that conveys an RSA
-public key with the id-rsa-kem-spki object identifier as discussed above,
-then the key usage extension <span class="bcp14">MUST</span> contain the following value:<a href="#section-2.3-6" class="pilcrow">¶</a></p>
+<p id="section-2.3-6">The intended application for the public key <span class="bcp14">MAY</span> be indicated in the key usage
+certificate extension as specified in <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.3" class="relref">Section 4.2.1.3</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.  If the
+keyUsage extension is present in a certificate that conveys an RSA public key
+with the id-rsa-kem-spki object identifier as discussed above, then the key
+usage extension <span class="bcp14">MUST</span> contain only the following value:<a href="#section-2.3-6" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-2.3-7.1">
             <p id="section-2.3-7.1.1">keyEncipherment<a href="#section-2.3-7.1.1" class="pilcrow">¶</a></p>
@@ -1553,21 +1687,20 @@ present.  That is, a public key intended to be employed only with the
 RSA-KEM Algorithm <span class="bcp14">SHOULD NOT</span> also be employed for data encryption or
 for digital signatures.  Good cryptographic practice employs a given RSA
 key pair in only one scheme.  This practice avoids the risk that vulnerability
-in one scheme may compromise the security of the other, and may be
-essential to maintain provable security.<a href="#section-2.3-8" class="pilcrow">¶</a></p>
+in one scheme may compromise the security of the other, and may be essential
+to maintain provable security.<a href="#section-2.3-8" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="smimecapabilities-attribute-conventions">
+<div id="smimecap">
 <section id="section-2.4">
         <h3 id="name-smimecapabilities-attribute">
 <a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-smimecapabilities-attribute" class="section-name selfRef">SMIMECapabilities Attribute Conventions</a>
         </h3>
-<p id="section-2.4-1"><span><a href="https://rfc-editor.org/rfc/rfc8551#section-2.5.2" class="relref">Section 2.5.2</a> of [<a href="#RFC8551" class="cite xref">RFC8551</a>]</span> defines the SMIMECapabilities signed
-attribute (defined as a SEQUENCE of SMIMECapability SEQUENCEs) to
-announce a partial list of algorithms that an S/MIME implementation
-can support.  When constructing a CMS signed-data content type <span>[<a href="#RFC5652" class="cite xref">RFC5652</a>]</span>,
-a compliant implementation <span class="bcp14">MAY</span> include the SMIMECapabilities signed
-attribute announcing that it supports the RSA-KEM Algorithm.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
+<p id="section-2.4-1"><span><a href="https://rfc-editor.org/rfc/rfc8551#section-2.5.2" class="relref">Section 2.5.2</a> of [<a href="#RFC8551" class="cite xref">RFC8551</a>]</span> defines the SMIMECapabilities attribute to
+announce a partial list of algorithms that an S/MIME implementation can
+support.  When constructing a CMS signed-data content type <span>[<a href="#RFC5652" class="cite xref">RFC5652</a>]</span>,
+a compliant implementation <span class="bcp14">MAY</span> include the SMIMECapabilities attribute
+that announces support for the RSA-KEM Algorithm.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
 <p id="section-2.4-2">The SMIMECapability SEQUENCE representing the RSA-KEM Algorithm <span class="bcp14">MUST</span>
 include the id-rsa-kem-spki object identifier in the capabilityID field;
 see <a href="#app-asn1" class="auto internal xref">Appendix B</a> for the object identifier value, and see <a href="#app-example" class="auto internal xref">Appendix C</a>
@@ -1584,8 +1717,8 @@ field <span class="bcp14">MUST</span> use the GenericHybridParameters type.<a hr
 <p id="section-2.4-4">The fields of the GenericHybridParameters type have the following meanings:<a href="#section-2.4-4" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-2.4-5.1">
-            <p id="section-2.4-5.1.1">kem is an AlgorithmIdentifer; the algorithm field <span class="bcp14">MUST</span> be set to id-kem-rsa;
-the parameters field <span class="bcp14">MUST</span> be RsaKemParameters, which is a SEQUENCE of an
+            <p id="section-2.4-5.1.1">kem is an AlgorithmIdentifer.  The algorithm field <span class="bcp14">MUST</span> be set to id-kem-rsa,
+and the parameters field <span class="bcp14">MUST</span> be RsaKemParameters, which is a SEQUENCE of an
 AlgorithmIdentifier that identifies the supported key-derivation function
 and a positive INTEGER that identifies the length of the key-encryption
 key in octets.  If the GenericHybridParameters are present, then the
@@ -1596,8 +1729,8 @@ in the kekLength of KEMRecipientInfo.<a href="#section-2.4-5.1.1" class="pilcrow
         </ul>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-2.4-6.1">
-            <p id="section-2.4-6.1.1">dem is an AlgorithmIdentifier; the algorithm field <span class="bcp14">MUST</span> be present, and it
-identifies the key-encryption algorithm; parameters are optional.  If the
+            <p id="section-2.4-6.1.1">dem is an AlgorithmIdentifier.  The algorithm field <span class="bcp14">MUST</span> be present, and it
+identifies the key-encryption algorithm.  The parameters are optional.  If the
 GenericHybridParameters are present, then the provided dem value <span class="bcp14">MUST</span> be
 used in the wrap field of KEMRecipientInfo.<a href="#section-2.4-6.1.1" class="pilcrow">¶</a></p>
 </li>
@@ -1617,8 +1750,7 @@ that use CMS to avoid potential vulnerabilities to chosen-ciphertext
 attacks and gain a tighter security proof; however, the RSA-KEM Algorithm
 has the disadvantage of slightly longer encrypted keying material.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">The security of the RSA-KEM Algorithm can be shown to be tightly related
-to the difficulty of either solving the RSA problem or, in the case of the
-original <span>[<a href="#RFC5990" class="cite xref">RFC5990</a>]</span> algorithm, breaking the
+to the difficulty of either solving the RSA problem, or breaking the
 underlying symmetric key-encryption algorithm, if the underlying
 key-derivation function is modeled as a random oracle, and assuming that
 the symmetric key-encryption algorithm satisfies the properties of a
@@ -1642,25 +1774,20 @@ the content-encryption key, or content-authenticated-encryption key could
 result in disclosure of the associated encrypted content.<a href="#section-3-4" class="pilcrow">¶</a></p>
 <p id="section-3-5">Additional considerations related to key management may be found in
 <span>[<a href="#NISTSP800-57pt1r5" class="cite xref">NISTSP800-57pt1r5</a>]</span>.<a href="#section-3-5" class="pilcrow">¶</a></p>
-<p id="section-3-6">The RSA-KEM algorithm does not use an explicit padding scheme, but instead directly
-encrypts the string representation of the integer Z.
-There is implicit padding in that Z is to be chosen uniformly randomly
-on the interval (0, n-1) where n is the modulus of the RSA public key
-and that <code>IntegerToString(z, nLen)</code> should produce a string the full
-length of the modulus. Implementors of originators <span class="bcp14">MUST</span> ensure that
-these conditions are met. Implementors of recipients should consider
-the impacts to protocol security if the originator is malicious
-and z or Z are chosen maliciously. In most cases this will be protected
-for by the act of hashing Z with KDF, and for this reason implentations
-<span class="bcp14">SHOULD NOT</span> use z or Z directly for any purpose.<a href="#section-3-6" class="pilcrow">¶</a></p>
-<p id="section-3-7">RSA-KEM provides both a fixed-length ciphertext -- which <span class="bcp14">MUST</span> be checked
-by the recipient prior to a decryption attempt as per Step 1 in
-<a href="#app-alg-decaps" class="auto internal xref">Appendix A.4</a> -- and a fixed-length shared secret -- which is
-guaranteed by the application of KDF in Step 4 in <a href="#app-alg-decaps" class="auto internal xref">Appendix A.4</a>.<a href="#section-3-7" class="pilcrow">¶</a></p>
-<p id="section-3-8">The security of the RSA-KEM Algorithm also depends on the strength of the
-random number generator used by the originator to generate Z, which
-<span class="bcp14">SHOULD</span> have a comparable security level.  For
-further discussion on random number generation, see <span>[<a href="#RFC4086" class="cite xref">RFC4086</a>]</span>.<a href="#section-3-8" class="pilcrow">¶</a></p>
+<p id="section-3-6">The security of the RSA-KEM Algorithm depends on a quality random number
+generator.  For further discussion on random number generation,
+see <span>[<a href="#RFC4086" class="cite xref">RFC4086</a>]</span>.<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-7">The RSA-KEM Algorithm does not use an explicit padding scheme; instead,
+an encoded random value (z) between zero and the RSA modulus minus one (n-1)
+is directly encrypted with the recipient's RSA public key.  The
+IntegerToString(z, nLen) encoding produces a string that is the full length of
+the RSA modulus.  In addition, the random value is passed through a key-derivation
+function (KDF) to reduce possible harm from a poorly implemented random number
+source or a maliciously chosen random value (z).  Implementations <span class="bcp14">SHOULD NOT</span>
+use z directly for any purpose.<a href="#section-3-7" class="pilcrow">¶</a></p>
+<p id="section-3-8">The RSA-KEM Algorithm provides a fixed-length ciphertext.  The recipient <span class="bcp14">MUST</span>
+check that the received value is the expected length prior to attempting
+decryption with their RSA private key as described in Step 1 of <a href="#app-alg-decap" class="auto internal xref">Appendix A.2</a>.<a href="#section-3-8" class="pilcrow">¶</a></p>
 <p id="section-3-9">Implementations <span class="bcp14">SHOULD NOT</span> reveal information about intermediate
 values or calculations, whether by timing or other "side channels",
 otherwise an opponent may be able to determine information about
@@ -1797,6 +1924,10 @@ should be set to "id-mod-cms-rsa-kem-2023".<a href="#section-4-1" class="pilcrow
         <dd>
 <span class="refAuthor">Eastlake 3rd, D.</span>, <span class="refAuthor">Schiller, J.</span>, and <span class="refAuthor">S. Crocker</span>, <span class="refTitle">"Randomness Requirements for Security"</span>, <span class="seriesInfo">BCP 106</span>, <span class="seriesInfo">RFC 4086</span>, <span class="seriesInfo">DOI 10.17487/RFC4086</span>, <time datetime="2005-06" class="refDate">June 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4086">https://www.rfc-editor.org/info/rfc4086</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC4262">[RFC4262]</dt>
+        <dd>
+<span class="refAuthor">Santesson, S.</span>, <span class="refTitle">"X.509 Certificate Extension for Secure/Multipurpose Internet Mail Extensions (S/MIME) Capabilities"</span>, <span class="seriesInfo">RFC 4262</span>, <span class="seriesInfo">DOI 10.17487/RFC4262</span>, <time datetime="2005-12" class="refDate">December 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4262">https://www.rfc-editor.org/info/rfc4262</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC5990">[RFC5990]</dt>
         <dd>
 <span class="refAuthor">Randall, J.</span>, <span class="refAuthor">Kaliski, B.</span>, <span class="refAuthor">Brainard, J.</span>, and <span class="refAuthor">S. Turner</span>, <span class="refTitle">"Use of the RSA-KEM Key Transport Algorithm in the Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">RFC 5990</span>, <span class="seriesInfo">DOI 10.17487/RFC5990</span>, <time datetime="2010-09" class="refDate">September 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5990">https://www.rfc-editor.org/info/rfc5990</a>&gt;</span>. </dd>
@@ -1825,346 +1956,124 @@ should be set to "id-mod-cms-rsa-kem-2023".<a href="#section-4-1" class="pilcrow
 <p id="appendix-A-1">The RSA-KEM Algorithm is a one-pass (store-and-forward) cryptographic
 mechanism for an originator to securely send keying material to a recipient
 using the recipient's RSA public key.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">With this type of algorithm, an originator encrypts the keying material
-using the recipient's public key, and then sends the resulting encrypted
-keying material to the recipient.  The recipient decrypts the encrypted
-keying material using the recipient's private key to recover the keying
-material.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
-<p id="appendix-A-3">A KEM algorithm provides three functions:<a href="#appendix-A-3" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A-4.1">
-          <p id="appendix-A-4.1.1">KeyGen() -&gt; (pk, sk):<a href="#appendix-A-4.1.1" class="pilcrow">¶</a></p>
-<p id="appendix-A-4.1.2">
-Generate the public key (pk) and a private key (sk).<a href="#appendix-A-4.1.2" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-A-4.2">
-          <p id="appendix-A-4.2.1">Encapsulate(pk) -&gt; (ct, ss):<a href="#appendix-A-4.2.1" class="pilcrow">¶</a></p>
-<p id="appendix-A-4.2.2">
-Given the recipient's public key (pk), produce a ciphertext (ct) to be passed to the recipient and shared secret (ss) for the originator.<a href="#appendix-A-4.2.2" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-A-4.3">
-          <p id="appendix-A-4.3.1">Decapsulate(sk, ct) -&gt; ss:<a href="#appendix-A-4.3.1" class="pilcrow">¶</a></p>
-<p id="appendix-A-4.3.2">
-Given the private key (sk) and the ciphertext (ct), produce the shared secret (ss) for the recipient.<a href="#appendix-A-4.3.2" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<div id="underlying-components-1">
+<p id="appendix-A-2">With the RSA-KEM Algorithm, an originator encrypts a random integer (z) with
+the recipient's RSA public key to produce a ciphertext (C), and the originator
+derives a shared secret (ss) from the random integer (z).  The originator then
+sends the ciphertext (C) to the recipient.  The recipient decrypts the
+ciphertext (C) using the their private key to recover the random integer (z),
+and the recipient derives a shared secret (ss) from the random integer(z).  In
+this way, originator and recipient obtain the same shared secret (ss).<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<p id="appendix-A-3">The RSA-KEM Algorithm depends on a key-derivation function (KDF), which is
+used to derive the shared secret (ss).  Many key-derivation functions support
+the inclusion of other information in addition to the shared secret (ss) in
+the input to the function; however, no other information is included as an
+input to the KDF by the RSA-KEM Algorithm.<a href="#appendix-A-3" class="pilcrow">¶</a></p>
+<div id="app-alg-encap">
 <section id="appendix-A.1">
-        <h3 id="name-underlying-components-2">
-<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-underlying-components-2" class="section-name selfRef">Underlying Components</a>
+        <h3 id="name-originators-operations-rsa-">
+<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-originators-operations-rsa-" class="section-name selfRef">Originator's Operations: RSA-KEM Encapsulate()</a>
         </h3>
-<p id="appendix-A.1-1">The RSA-KEM Algorithm has the following underlying components:<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A.1-2.1">
-            <p id="appendix-A.1-2.1.1">KDF, a key-derivation function, which derives key-encryption key of a
-specified length from a shared secret value;<a href="#appendix-A.1-2.1.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="appendix-A.1-3">The kekLen value denotes the length in bytes of the key-encryption key
-for the underlying symmetric key-encryption algorithm.<a href="#appendix-A.1-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-4">Many key-derivation functions support the inclusion of other information
-in addition to the shared secret value in the input to the function.
-Also, with some symmetric key-encryption algorithms, it is possible to
-associate a label with the keying material.  Such uses are outside the scope
-of this document, as they are not directly supported by CMS.<a href="#appendix-A.1-4" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="keygen">
-<section id="appendix-A.2">
-        <h3 id="name-keygen">
-<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-keygen" class="section-name selfRef">KeyGen()</a>
-        </h3>
-<p id="appendix-A.2-1">The key generation for RSA-KEM proceeds as per <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span>.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="app-alg-encaps">
-<section id="appendix-A.3">
-        <h3 id="name-encapsulate">
-<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-encapsulate" class="section-name selfRef">Encapsulate()</a>
-        </h3>
-<p id="appendix-A.3-1">The RSA-KEM algorithm denoted by <code>id-kem-rsa</code> fulfills the generic <code>KEM.Encapsulate(pk) -&gt; (ct, ss)</code> interface as discribed below.<a href="#appendix-A.3-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.3-2">Let <code>pk= (n,e)</code> be the recipient's RSA public key; see <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span> for details.<a href="#appendix-A.3-2" class="pilcrow">¶</a></p>
-<p id="appendix-A.3-3">Let nLen denote the length in bytes of the modulus n, i.e., the least
-integer such that 2^(8*nLen) &gt; n.<a href="#appendix-A.3-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.3-4">Let kekLen be the desired length of the shared secret to output.<a href="#appendix-A.3-4" class="pilcrow">¶</a></p>
-<p id="appendix-A.3-5">The originator performs the following operations:<a href="#appendix-A.3-5" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="appendix-A.3-6">
-<li id="appendix-A.3-6.1">
-            <p id="appendix-A.3-6.1.1">Generate a random integer z between 0 and n-1 (see note), and
+<p id="appendix-A.1-1">Let (n,e) be the recipient's RSA public key; see <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span> for details.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-2">Let nLen denote the length in bytes of the modulus n, i.e., the least
+integer such that 2^(8*nLen) &gt; n.<a href="#appendix-A.1-2" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-3">The originator performs the following operations:<a href="#appendix-A.1-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="appendix-A.1-4">
+<li id="appendix-A.1-4.1">
+            <p id="appendix-A.1-4.1.1">Generate a random integer z between 0 and n-1 (see note), and
 convert z to a byte string Z of length nLen, most significant byte
-first:<a href="#appendix-A.3-6.1.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.3-6.1.2">
+first:<a href="#appendix-A.1-4.1.1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.1-4.1.2">
 <pre>
      z = RandomInteger (0, n-1)
 
      Z = IntegerToString (z, nLen)
-</pre><a href="#appendix-A.3-6.1.2" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.1-4.1.2" class="pilcrow">¶</a>
 </div>
 </li>
-          <li id="appendix-A.3-6.2">
-            <p id="appendix-A.3-6.2.1">Encrypt the random integer z using the recipient's RSA public key
+          <li id="appendix-A.1-4.2">
+            <p id="appendix-A.1-4.2.1">Encrypt the encoded random integer Z using the recipient's RSA public key
 (n,e), and convert the resulting integer c to a ciphertext C, a
-byte string of length nLen:<a href="#appendix-A.3-6.2.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.3-6.2.2">
+byte string of length nLen:<a href="#appendix-A.1-4.2.1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.1-4.2.2">
 <pre>
      c = z^e mod n
 
      C = IntegerToString (c, nLen)
-</pre><a href="#appendix-A.3-6.2.2" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.1-4.2.2" class="pilcrow">¶</a>
 </div>
 </li>
-          <li id="appendix-A.3-6.3">
-            <p id="appendix-A.3-6.3.1">Derive a symmetric key-encryption key KEK of length kekLen bytes
-from the byte string Z using the underlying key-derivation function:<a href="#appendix-A.3-6.3.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.3-6.3.2">
-<pre>
-     KEK = KDF (Z, kekLen)
-</pre><a href="#appendix-A.3-6.3.2" class="pilcrow">¶</a>
-</div>
-</li>
-          <li id="appendix-A.3-6.4">
-            <p id="appendix-A.3-6.4.1">Return the ciphertext C and the shared secret KEK.<a href="#appendix-A.3-6.4.1" class="pilcrow">¶</a></p>
-</li>
-        </ol>
-<p id="appendix-A.3-7">NOTE: The random integer z <span class="bcp14">MUST</span> be generated independently at random
-for different encryption operations, whether for the same or
-different recipients.<a href="#appendix-A.3-7" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="app-alg-decaps">
-<section id="appendix-A.4">
-        <h3 id="name-decapsulate">
-<a href="#appendix-A.4" class="section-number selfRef">A.4. </a><a href="#name-decapsulate" class="section-name selfRef">Decapsulate()</a>
-        </h3>
-<p id="appendix-A.4-1">The RSA-KEM algorithm denoted by <code>id-kem-rsa</code> fulfills the generic <code>KEM.Decapsulate(sk, ct) -&gt; ss</code> interface as discribed below.<a href="#appendix-A.4-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.4-2">Let <code>sk = (n,d)</code> be the recipient's RSA private key; see <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span> for details,
-but other private key formats are allowed.<a href="#appendix-A.4-2" class="pilcrow">¶</a></p>
-<p id="appendix-A.4-3">Let C be the ciphertext.<a href="#appendix-A.4-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.4-4">Let nLen denote the length in bytes of the modulus n.<a href="#appendix-A.4-4" class="pilcrow">¶</a></p>
-<p id="appendix-A.4-5">Let kekLen be the desired length of the shared secret to output.<a href="#appendix-A.4-5" class="pilcrow">¶</a></p>
-<p id="appendix-A.4-6">The recipient performs the following operations:<a href="#appendix-A.4-6" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="appendix-A.4-7">
-<li id="appendix-A.4-7.1">
-            <p id="appendix-A.4-7.1.1">If the length of the ciphertext C is less than nLen
-bytes, output "decryption error", and stop.<a href="#appendix-A.4-7.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li id="appendix-A.4-7.2">
-            <p id="appendix-A.4-7.2.1">Convert the ciphertext C to an integer c, most significant byte
-first.  Decrypt the integer c using the recipient's private key
-(n,d) to recover an integer z (see NOTE below):<a href="#appendix-A.4-7.2.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.4-7.2.2">
-<pre>
-     c = StringToInteger (C)
-
-     z = c^d mod n
-</pre><a href="#appendix-A.4-7.2.2" class="pilcrow">¶</a>
-</div>
-<p id="appendix-A.4-7.2.3">
-If the integer c is not between 0 and n-1, output "decryption
-error", and stop.<a href="#appendix-A.4-7.2.3" class="pilcrow">¶</a></p>
-</li>
-          <li id="appendix-A.4-7.3">
-            <p id="appendix-A.4-7.3.1">Convert the integer z to a byte string Z of length nLen, most
-significant byte first (see NOTE below):<a href="#appendix-A.4-7.3.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.4-7.3.2">
-<pre>
-     Z = IntegerToString (z, nLen)
-</pre><a href="#appendix-A.4-7.3.2" class="pilcrow">¶</a>
-</div>
-</li>
-          <li id="appendix-A.4-7.4">
-            <p id="appendix-A.4-7.4.1">Derive a shared secret SS of length kekLen bytes from
-the byte string Z using the key-derivation function (see NOTE below):<a href="#appendix-A.4-7.4.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.4-7.4.2">
+          <li id="appendix-A.1-4.3">
+            <p id="appendix-A.1-4.3.1">Derive a symmetric shared secret SS of length ssLen bytes fron the
+byte string Z using the underlying key-derivation function:<a href="#appendix-A.1-4.3.1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.1-4.3.2">
 <pre>
      SS = KDF (Z, kekLen)
-</pre><a href="#appendix-A.4-7.4.2" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.1-4.3.2" class="pilcrow">¶</a>
 </div>
 </li>
-          <li id="appendix-A.4-7.5">
-            <p id="appendix-A.4-7.5.1">Output the shared secret SS.<a href="#appendix-A.4-7.5.1" class="pilcrow">¶</a></p>
+          <li id="appendix-A.1-4.4">
+            <p id="appendix-A.1-4.4.1">Output the shared secret SS and the ciphertext C.  Send the
+ciphertext C to the recipient.<a href="#appendix-A.1-4.4.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="appendix-A.4-8">SS can be used directly as a symmetric key.<a href="#appendix-A.4-8" class="pilcrow">¶</a></p>
-<p id="appendix-A.4-9">NOTE: Implementations <span class="bcp14">SHOULD NOT</span> reveal information about the
-integer z, the string Z, or about the calculation of the
-exponentiation in Step 2, the conversion in Step 3, or the key
-derivation in Step 4, whether by timing or other "side channels".
-The observable behavior of the implementation <span class="bcp14">SHOULD</span> be the same at
-these steps for all ciphertexts C that are in range.  For example,
-IntegerToString conversion should take the same amount of time
-regardless of the actual value of the integer z.  The integer z, the
-string Z, and other intermediate results <span class="bcp14">MUST</span> be securely deleted
-when they are no longer needed.<a href="#appendix-A.4-9" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-5">NOTE: The random integer z <span class="bcp14">MUST</span> be generated independently at random
+for different encryption operations, whether for the same or different
+recipients.<a href="#appendix-A.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="legacy-rfc5990-rsa-kem">
-<section id="appendix-A.5">
-        <h3 id="name-legacy-rfc5990-rsa-kem">
-<a href="#appendix-A.5" class="section-number selfRef">A.5. </a><a href="#name-legacy-rfc5990-rsa-kem" class="section-name selfRef">Legacy RFC5990 RSA-KEM</a>
+<div id="app-alg-decap">
+<section id="appendix-A.2">
+        <h3 id="name-recipients-operations-rsa-k">
+<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-recipients-operations-rsa-k" class="section-name selfRef">Recipient's Operations: RSA-KEM Decapsulate()</a>
         </h3>
-<p id="appendix-A.5-1">Here we define the original behaviour of <code>id-rsa-kem</code> as specified in <span>[<a href="#RFC5990" class="cite xref">RFC5990</a>]</span> which is compatible with CMS KeyTransRecipientInfo.<a href="#appendix-A.5-1" class="pilcrow">¶</a></p>
-<div id="underlying-components-2">
-<section id="appendix-A.5.1">
-          <h4 id="name-underlying-components-3">
-<a href="#appendix-A.5.1" class="section-number selfRef">A.5.1. </a><a href="#name-underlying-components-3" class="section-name selfRef">Underlying Components</a>
-          </h4>
-<p id="appendix-A.5.1-1">The RSA-KEM Algorithm as originally defined in <span>[<a href="#RFC5990" class="cite xref">RFC5990</a>]</span> has the following underlying components:<a href="#appendix-A.5.1-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A.5.1-2.1">
-              <p id="appendix-A.5.1-2.1.1">KDF, a key-derivation function, which derives key-encryption key of a
-specified length from a shared secret value;<a href="#appendix-A.5.1-2.1.1" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-1">Let (n,d) be the recipient's RSA private key; see <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span> for details,
+but other private key formats are allowed.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-2">Let C be the ciphertext received from the originator.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-3">Let nLen denote the length in bytes of the modulus n.<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-4">The recipient performs the following operations:<a href="#appendix-A.2-4" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="appendix-A.2-5">
+<li id="appendix-A.2-5.1">
+            <p id="appendix-A.2-5.1.1">If the length of the encrypted keying material is less than nLen
+bytes, output "decryption error", and stop.<a href="#appendix-A.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="appendix-A.5.1-2.2">
-              <p id="appendix-A.5.1-2.2.1">Wrap, a symmetric key-encryption algorithm, which encrypts keying material
-using key-encryption key that was produced by the KDF.<a href="#appendix-A.5.1-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-<p id="appendix-A.5.1-3">The kekLen value denotes the length in bytes of the key-encryption key
-for the underlying symmetric key-encryption algorithm.<a href="#appendix-A.5.1-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.5.1-4">The length of the keying material <span class="bcp14">MUST</span> be among the lengths supported by
-the underlying symmetric key-encryption algorithm.  For example, the
-AES-Wrap key-encryption algorithm requires the kekLen to be 16, 24,
-or 32 octets.  Usage and formatting of the keying material is outside
-the scope of the RSA-KEM Algorithm.<a href="#appendix-A.5.1-4" class="pilcrow">¶</a></p>
-<p id="appendix-A.5.1-5">Many key-derivation functions support the inclusion of other information
-in addition to the shared secret value in the input to the function.
-Also, with some symmetric key-encryption algorithms, it is possible to
-associate a label with the keying material.  Such uses are outside the scope
-of this document, as they are not directly supported by CMS.<a href="#appendix-A.5.1-5" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="originators-operations">
-<section id="appendix-A.5.2">
-          <h4 id="name-originators-operations">
-<a href="#appendix-A.5.2" class="section-number selfRef">A.5.2. </a><a href="#name-originators-operations" class="section-name selfRef">Originator's Operations</a>
-          </h4>
-<p id="appendix-A.5.2-1">Let (n,e) be the recipient's RSA public key; see <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span> for details.<a href="#appendix-A.5.2-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.5.2-2">Let K be the keying material to be securely transferred from the originator
-to the recipient.<a href="#appendix-A.5.2-2" class="pilcrow">¶</a></p>
-<p id="appendix-A.5.2-3">Let nLen denote the length in bytes of the modulus n, i.e., the least
-integer such that 2^(8*nLen) &gt; n.<a href="#appendix-A.5.2-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.5.2-4">The originator performs the following operations:<a href="#appendix-A.5.2-4" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="appendix-A.5.2-5">
-<li id="appendix-A.5.2-5.1">
-              <p id="appendix-A.5.2-5.1.1">Generate a random integer z between 0 and n-1 (see note), and
-convert z to a byte string Z of length nLen, most significant byte
-first:<a href="#appendix-A.5.2-5.1.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.5.2-5.1.2">
-<pre>
-     z = RandomInteger (0, n-1)
-
-     Z = IntegerToString (z, nLen)
-</pre><a href="#appendix-A.5.2-5.1.2" class="pilcrow">¶</a>
-</div>
-</li>
-            <li id="appendix-A.5.2-5.2">
-              <p id="appendix-A.5.2-5.2.1">Encrypt the random integer z using the recipient's RSA public key
-(n,e), and convert the resulting integer c to a ciphertext C, a
-byte string of length nLen:<a href="#appendix-A.5.2-5.2.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.5.2-5.2.2">
-<pre>
-     c = z^e mod n
-
-     C = IntegerToString (c, nLen)
-</pre><a href="#appendix-A.5.2-5.2.2" class="pilcrow">¶</a>
-</div>
-</li>
-            <li id="appendix-A.5.2-5.3">
-              <p id="appendix-A.5.2-5.3.1">Derive a symmetric key-encryption key KEK of length kekLen bytes
-from the byte string Z using the underlying key-derivation function:<a href="#appendix-A.5.2-5.3.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.5.2-5.3.2">
-<pre>
-     KEK = KDF (Z, kekLen)
-</pre><a href="#appendix-A.5.2-5.3.2" class="pilcrow">¶</a>
-</div>
-</li>
-            <li id="appendix-A.5.2-5.4">
-              <p id="appendix-A.5.2-5.4.1">Wrap the keying material K with the symmetric key-encryption key
-KEK using the key-encryption algorithm to obtain wrapped keying
-material WK:<a href="#appendix-A.5.2-5.4.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.5.2-5.4.2">
-<pre>
-     WK = Wrap (KEK, K)
-</pre><a href="#appendix-A.5.2-5.4.2" class="pilcrow">¶</a>
-</div>
-</li>
-            <li id="appendix-A.5.2-5.5">
-              <p id="appendix-A.5.2-5.5.1">Send the ciphertext C and the wrapped keying material WK to the recipient.<a href="#appendix-A.5.2-5.5.1" class="pilcrow">¶</a></p>
-</li>
-          </ol>
-<p id="appendix-A.5.2-6">NOTE: The random integer z <span class="bcp14">MUST</span> be generated independently at random
-for different encryption operations, whether for the same or
-different recipients.<a href="#appendix-A.5.2-6" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="recipients-operations">
-<section id="appendix-A.5.3">
-          <h4 id="name-recipients-operations">
-<a href="#appendix-A.5.3" class="section-number selfRef">A.5.3. </a><a href="#name-recipients-operations" class="section-name selfRef">Recipient's Operations</a>
-          </h4>
-<p id="appendix-A.5.3-1">Let (n,d) be the recipient's RSA private key; see <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span> for details,
-but other private key formats are allowed.<a href="#appendix-A.5.3-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.5.3-2">Let WK be the encrypted keying material.<a href="#appendix-A.5.3-2" class="pilcrow">¶</a></p>
-<p id="appendix-A.5.3-3">Let C be the ciphertext.<a href="#appendix-A.5.3-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.5.3-4">Let nLen denote the length in bytes of the modulus n.<a href="#appendix-A.5.3-4" class="pilcrow">¶</a></p>
-<p id="appendix-A.5.3-5">The recipient performs the following operations:<a href="#appendix-A.5.3-5" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="appendix-A.5.3-6">
-<li id="appendix-A.5.3-6.1">
-              <p id="appendix-A.5.3-6.1.1">If the length of the encrypted keying material is less than nLen
-bytes, output "decryption error", and stop.<a href="#appendix-A.5.3-6.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li id="appendix-A.5.3-6.2">
-              <p id="appendix-A.5.3-6.2.1">Convert the ciphertext C to an integer c, most significant byte
+          <li id="appendix-A.2-5.2">
+            <p id="appendix-A.2-5.2.1">Convert the ciphertext C to an integer c, most significant byte
 first.  Decrypt the integer c using the recipient's private key
-(n,d) to recover an integer z (see NOTE below):<a href="#appendix-A.5.3-6.2.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.5.3-6.2.2">
+(n,d) to recover an integer z (see NOTE below):<a href="#appendix-A.2-5.2.1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2-5.2.2">
 <pre>
      c = StringToInteger (C)
 
      z = c^d mod n
-</pre><a href="#appendix-A.5.3-6.2.2" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.2-5.2.2" class="pilcrow">¶</a>
 </div>
-<p id="appendix-A.5.3-6.2.3">
+<p id="appendix-A.2-5.2.3">
 If the integer c is not between 0 and n-1, output "decryption
-error", and stop.<a href="#appendix-A.5.3-6.2.3" class="pilcrow">¶</a></p>
+error", and stop.<a href="#appendix-A.2-5.2.3" class="pilcrow">¶</a></p>
 </li>
-            <li id="appendix-A.5.3-6.3">
-              <p id="appendix-A.5.3-6.3.1">Convert the integer z to a byte string Z of length nLen, most
-significant byte first (see NOTE below):<a href="#appendix-A.5.3-6.3.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.5.3-6.3.2">
+          <li id="appendix-A.2-5.3">
+            <p id="appendix-A.2-5.3.1">Convert the integer z to a byte string Z of length nLen, most
+significant byte first (see NOTE below):<a href="#appendix-A.2-5.3.1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2-5.3.2">
 <pre>
      Z = IntegerToString (z, nLen)
-</pre><a href="#appendix-A.5.3-6.3.2" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.2-5.3.2" class="pilcrow">¶</a>
 </div>
 </li>
-            <li id="appendix-A.5.3-6.4">
-              <p id="appendix-A.5.3-6.4.1">Derive a symmetric key-encryption key KEK of length kekLen bytes from
-the byte string Z using the key-derivation function (see NOTE below):<a href="#appendix-A.5.3-6.4.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.5.3-6.4.2">
+          <li id="appendix-A.2-5.4">
+            <p id="appendix-A.2-5.4.1">Derive a shared secret SS of length ssLen bytes from the byte
+string Z using the key-derivation function (see NOTE below):<a href="#appendix-A.2-5.4.1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2-5.4.2">
 <pre>
-     KEK = KDF (Z, kekLen)
-</pre><a href="#appendix-A.5.3-6.4.2" class="pilcrow">¶</a>
+     SS = KDF (Z, ssLen)
+</pre><a href="#appendix-A.2-5.4.2" class="pilcrow">¶</a>
 </div>
 </li>
-            <li id="appendix-A.5.3-6.5">
-              <p id="appendix-A.5.3-6.5.1">Unwrap the wrapped keying material WK with the symmetric
-key-encryption key KEK using the underlying key-encryption
-algorithm to recover the keying material K:<a href="#appendix-A.5.3-6.5.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.5.3-6.5.2">
-<pre>
-     K = Unwrap (KEK, WK)
-</pre><a href="#appendix-A.5.3-6.5.2" class="pilcrow">¶</a>
-</div>
-<p id="appendix-A.5.3-6.5.3">
-If the unwrapping operation outputs an error, output "decryption
-error", and stop.<a href="#appendix-A.5.3-6.5.3" class="pilcrow">¶</a></p>
+          <li id="appendix-A.2-5.5">
+            <p id="appendix-A.2-5.5.1">Output the shared secret SS.<a href="#appendix-A.2-5.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="appendix-A.5.3-6.6">
-              <p id="appendix-A.5.3-6.6.1">Output the keying material K.<a href="#appendix-A.5.3-6.6.1" class="pilcrow">¶</a></p>
-</li>
-          </ol>
-<p id="appendix-A.5.3-7">NOTE: Implementations <span class="bcp14">SHOULD NOT</span> reveal information about the
+        </ol>
+<p id="appendix-A.2-6">NOTE: Implementations <span class="bcp14">SHOULD NOT</span> reveal information about the
 integer z, the string Z, or about the calculation of the
 exponentiation in Step 2, the conversion in Step 3, or the key
 derivation in Step 4, whether by timing or other "side channels".
@@ -2173,9 +2082,7 @@ these steps for all ciphertexts C that are in range.  For example,
 IntegerToString conversion should take the same amount of time
 regardless of the actual value of the integer z.  The integer z, the
 string Z, and other intermediate results <span class="bcp14">MUST</span> be securely deleted
-when they are no longer needed.<a href="#appendix-A.5.3-7" class="pilcrow">¶</a></p>
-</section>
-</div>
+when they are no longer needed.<a href="#appendix-A.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2196,8 +2103,8 @@ new KEMRecipientInfo structure <span>[<a href="#I-D.ietf-lamps-cms-kemri" class=
 was not yet defined at the time that RFC 5990 was written.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 <div id="app-asn1-intro">
 <section id="appendix-B.1">
-        <h3 id="name-underlying-components-4">
-<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-underlying-components-4" class="section-name selfRef">Underlying Components</a>
+        <h3 id="name-underlying-components-2">
+<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-underlying-components-2" class="section-name selfRef">Underlying Components</a>
         </h3>
 <p id="appendix-B.1-1">Implementations that conform to this specification <span class="bcp14">MUST</span> support
 the KDF3 <span>[<a href="#ANS-X9.44" class="cite xref">ANS-X9.44</a>]</span> key-derivation function using SHA-256 <span>[<a href="#SHS" class="cite xref">SHS</a>]</span>.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
@@ -2270,7 +2177,7 @@ CMS-RSA-KEM-2023
    { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
      pkcs-9(9) smime(16) modules(0) id-mod-cms-rsa-kem-2023(TBD1) }
 
-DEFINITIONS ::= BEGIN
+   DEFINITIONS EXPLICIT TAGS ::= BEGIN
 
 -- EXPORTS ALL
 
@@ -2564,23 +2471,23 @@ SMIMECapabilities will include the following SMIMECapability value
 key using:<a href="#appendix-D-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-D-2.1">
-          <p id="appendix-D-2.1.1">RSA-KEM with a 3072-bit key;<a href="#appendix-D-2.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-D-2.1.1">RSA-KEM with a 3072-bit key and KDF3 with SHA-256;<a href="#appendix-D-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-D-2.2">
-          <p id="appendix-D-2.2.1">key derivation using KDF2 with SHA-256; and<a href="#appendix-D-2.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-D-2.2.1">KEMRecipientInfo key derivation using KDF3 with SHA-256; and<a href="#appendix-D-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-D-2.3">
-          <p id="appendix-D-2.3.1">key wrap using AES-128-KEYWRAP.<a href="#appendix-D-2.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-D-2.3.1">KEMRecipientInfo key wrap using AES-128-KEYWRAP.<a href="#appendix-D-2.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-D-3">In real-world use, the originator would encrypt the content-encryption
 key in a manner that would allow decryption with their own private key
 as well as the recipient's private key.  This is omitted in an attempt
 to simplify the example.<a href="#appendix-D-3" class="pilcrow">¶</a></p>
-<div id="originator-processing">
+<div id="originator-rsa-kem-encapsulate-processing">
 <section id="appendix-D.1">
-        <h3 id="name-originator-processing">
-<a href="#appendix-D.1" class="section-number selfRef">D.1. </a><a href="#name-originator-processing" class="section-name selfRef">Originator Processing</a>
+        <h3 id="name-originator-rsa-kem-encapsul">
+<a href="#appendix-D.1" class="section-number selfRef">D.1. </a><a href="#name-originator-rsa-kem-encapsul" class="section-name selfRef">Originator RSA-KEM Encapsulate() Processing</a>
         </h3>
 <p id="appendix-D.1-1">Alice obtains Bob's public key:<a href="#appendix-D.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-D.1-2">
@@ -2622,7 +2529,7 @@ to simplify the example.<a href="#appendix-D-3" class="pilcrow">¶</a></p>
 </pre><a href="#appendix-D.1-6" class="pilcrow">¶</a>
 </div>
 <p id="appendix-D.1-7">Alice encrypts integer z using the Bob's RSA public key, the result is
-called c:<a href="#appendix-D.1-7" class="pilcrow">¶</a></p>
+called ct:<a href="#appendix-D.1-7" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-D.1-8">
 <pre>
    c071fc273af8e7bdb152e06bf73310361074154a43abcf3c93c13499d2065344
@@ -2639,18 +2546,31 @@ called c:<a href="#appendix-D.1-7" class="pilcrow">¶</a></p>
    a9553d878224736e37e191dab953c7e228c07ad5ca3122421c14debd072a9ab6
 </pre><a href="#appendix-D.1-8" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.1-9">Alice encodes the CMSORIforKEMOtherInfo structure with the algorithm
-identifier for AES-128-KEYWRAP and a key length of 16 octets.
-The DER encoding of CMSORIforKEMOtherInfo produces 18 octets:<a href="#appendix-D.1-9" class="pilcrow">¶</a></p>
+<p id="appendix-D.1-9">Alice derives the shared secret (ss) using KDF3 with SHA-256:<a href="#appendix-D.1-9" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-D.1-10">
 <pre>
-   3010300b0609608648016503040105020110
+   f5c201f5c1989e1681ea4616d8bb9632
 </pre><a href="#appendix-D.1-10" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.1-11">The CMSORIforKEMOtherInfo structure contains:<a href="#appendix-D.1-11" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="originator-cms-processing">
+<section id="appendix-D.2">
+        <h3 id="name-originator-cms-processing">
+<a href="#appendix-D.2" class="section-number selfRef">D.2. </a><a href="#name-originator-cms-processing" class="section-name selfRef">Originator CMS Processing</a>
+        </h3>
+<p id="appendix-D.2-1">Alice encodes the CMSORIforKEMOtherInfo structure with the algorithm
+identifier for AES-128-KEYWRAP and a key length of 16 octets.
+The DER encoding of CMSORIforKEMOtherInfo produces 18 octets:<a href="#appendix-D.2-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.2-2">
+<pre>
+   3010300b0609608648016503040105020110
+</pre><a href="#appendix-D.2-2" class="pilcrow">¶</a>
+</div>
+<p id="appendix-D.2-3">The CMSORIforKEMOtherInfo structure contains:<a href="#appendix-D.2-3" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="appendix-D.1-12.1">
-            <div class="alignLeft art-text artwork" id="appendix-D.1-12.1.1">
+<li class="normal ulEmpty" id="appendix-D.2-4.1">
+            <div class="alignLeft art-text artwork" id="appendix-D.2-4.1.1">
 <pre>
   0  16: SEQUENCE {
   2  11:  SEQUENCE {
@@ -2658,84 +2578,78 @@ The DER encoding of CMSORIforKEMOtherInfo produces 18 octets:<a href="#appendix-
        :    }
  15   1:  INTEGER 16
        :   }
-</pre><a href="#appendix-D.1-12.1.1" class="pilcrow">¶</a>
+</pre><a href="#appendix-D.2-4.1.1" class="pilcrow">¶</a>
 </div>
 </li>
         </ul>
-<p id="appendix-D.1-13">Alice derives the key-encryption key from integer z and the
-CMSORIforKEMOtherInfo structure with KDF2 and SHA-256, the KEK is:<a href="#appendix-D.1-13" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.1-14">
+<p id="appendix-D.2-5">Alice derives the key-encryption key from shared secret produced
+by RSA-KEM Encapsulate() and the CMSORIforKEMOtherInfo structure
+with KDF3 and SHA-256, the KEK is:<a href="#appendix-D.2-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.2-6">
 <pre>
-   4a95fe82f8d6ba56c83b4d51ef7dc06b
-</pre><a href="#appendix-D.1-14" class="pilcrow">¶</a>
+   e16aa0f063246662a0d6524a4fc41e8f
+</pre><a href="#appendix-D.2-6" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.1-15">Alice randomly generates a 128-bit content-encryption key:<a href="#appendix-D.1-15" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.1-16">
+<p id="appendix-D.2-7">Alice randomly generates a 128-bit content-encryption key:<a href="#appendix-D.2-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.2-8">
 <pre>
    77f2a84640304be7bd42670a84a1258b
-</pre><a href="#appendix-D.1-16" class="pilcrow">¶</a>
+</pre><a href="#appendix-D.2-8" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.1-17">Alice uses AES-128-KEYWRAP to encrypt the 128-bit content-encryption
-key with the derived key-encryption key:<a href="#appendix-D.1-17" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.1-18">
+<p id="appendix-D.2-9">Alice uses AES-128-KEYWRAP to encrypt the 128-bit content-encryption
+key with the derived key-encryption key:<a href="#appendix-D.2-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.2-10">
 <pre>
-   904dbeb0271fc02082fe6d358c03352ae4ae6b540b782423
-</pre><a href="#appendix-D.1-18" class="pilcrow">¶</a>
+   d5c7e4352d4dd188b5efdf3ac3ab37c9c97a636f20d1ed58
+</pre><a href="#appendix-D.2-10" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.1-19">Alice encrypts the padded content using AES-128-CBC with the
-content-encryption key.  The 16-octet IV used is:<a href="#appendix-D.1-19" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.1-20">
+<p id="appendix-D.2-11">Alice encrypts the padded content using AES-128-CBC with the
+content-encryption key.  The 16-octet IV used is:<a href="#appendix-D.2-11" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.2-12">
 <pre>
    480ccafebabefacedbaddecaf8887781
-</pre><a href="#appendix-D.1-20" class="pilcrow">¶</a>
+</pre><a href="#appendix-D.2-12" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.1-21">The padded content plaintext is:<a href="#appendix-D.1-21" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.1-22">
+<p id="appendix-D.2-13">The padded content plaintext is:<a href="#appendix-D.2-13" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.2-14">
 <pre>
    48656c6c6f2c20776f726c6421030303
-</pre><a href="#appendix-D.1-22" class="pilcrow">¶</a>
+</pre><a href="#appendix-D.2-14" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.1-23">The resulting ciphertext is:<a href="#appendix-D.1-23" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.1-24">
+<p id="appendix-D.2-15">The resulting ciphertext is:<a href="#appendix-D.2-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.2-16">
 <pre>
    c6ca65db7bdd76b0f37e2fab6264b66d
-</pre><a href="#appendix-D.1-24" class="pilcrow">¶</a>
+</pre><a href="#appendix-D.2-16" class="pilcrow">¶</a>
 </div>
-</section>
-</div>
-<div id="contentinfo-and-envelopeddata">
-<section id="appendix-D.2">
-        <h3 id="name-contentinfo-and-envelopedda">
-<a href="#appendix-D.2" class="section-number selfRef">D.2. </a><a href="#name-contentinfo-and-envelopedda" class="section-name selfRef">ContentInfo and EnvelopedData</a>
-        </h3>
-<p id="appendix-D.2-1">Alice encodes the EnvelopedData (using KEMRecipientInfo) and
-ContentInfo, and then sends the result to Bob.  The Base64-encoded:
-result is:<a href="#appendix-D.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-D.2-17">Alice encodes the EnvelopedData (using KEMRecipientInfo) and
+ContentInfo, and then sends the result to Bob.  The Base64-encoded
+result is:<a href="#appendix-D.2-17" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="appendix-D.2-2.1">
-            <div class="alignLeft art-text artwork" id="appendix-D.2-2.1.1">
+<li class="normal ulEmpty" id="appendix-D.2-18.1">
+            <div class="alignLeft art-text artwork" id="appendix-D.2-18.1.1">
 <pre>
-MIICXAYJKoZIhvcNAQcDoIICTTCCAkkCAQMxggIEpIICAAYLKoZIhvcNAQkQDQMwggH
-vAgEAgBSe62fJuVp01E0vFjlmgOgBtcuknDAJBgcogYxxAgIEBIIBgMBx/Cc6+Oe9sV
-Lga/czEDYQdBVKQ6vPPJPBNJnSBlNEPu2e9dPAaF5Kp2poVIFbuXaR/5+NrBXup9dPR
-SvzUKZGFj1oKI6XjL96cwie5ScS+aT0ngas57vIWrFNTjNsl8VyiiZUE4x7JuiDXGsK
-n77SZJXE6t90Wikzvig/aoixZpX8BmZoc8+202cY7zN2zvwQDDlB88SUlEB4MlgHpVk
-Ya5XMq/NxTPr3n4O9MFN/3ZrtWkzcvYvQSG+u1z6dSGswh9bIBlRrbiZxV1yYRh5EH2
-VUK9ld4m0PU6ZOeEjXMdlgjQU+jTRVRmAthiNv/jcEyYrVkUTzCJ5ebVJ7VJe6EDx51
-i6A0CNUELBvcafZvRw4AA+RDWMS6i8go1V1Na0Bswk/tffuUHCA0Pd9SMnDs3lva33T
-eGCF+4lRI/BMofHBviLHR6jfrOMjcPsNVweD4n27fnT8qU7jlnb949ipVT2HgiRzbjf
-hkdq5U8fiKMB61coxIkIcFN69ByqatjAbBgorgQUQhkgJLAEBMA0GCWCGSAFlAwQCAQ
-UAAgEQMAsGCWCGSAFlAwQBBQQYkE2+sCcfwCCC/m01jAM1KuSua1QLeCQjMDwGCSqGS
-Ib3DQEHATAdBglghkgBZQMEAQIEEEgMyv66vvrO263eyviId4GAEMbKZdt73Xaw834v
-q2Jktm0=
-</pre><a href="#appendix-D.2-2.1.1" class="pilcrow">¶</a>
+MIICXAYJKoZIhvcNAQcDoIICTTCCAkkCAQMxggIEpIICAAYLKoZIhvcNAQkQDQMw
+ggHvAgEAgBSe62fJuVp01E0vFjlmgOgBtcuknDAJBgcogYxxAgIEBIIBgMBx/Cc6
++Oe9sVLga/czEDYQdBVKQ6vPPJPBNJnSBlNEPu2e9dPAaF5Kp2poVIFbuXaR/5+N
+rBXup9dPRSvzUKZGFj1oKI6XjL96cwie5ScS+aT0ngas57vIWrFNTjNsl8VyiiZU
+E4x7JuiDXGsKn77SZJXE6t90Wikzvig/aoixZpX8BmZoc8+202cY7zN2zvwQDDlB
+88SUlEB4MlgHpVkYa5XMq/NxTPr3n4O9MFN/3ZrtWkzcvYvQSG+u1z6dSGswh9bI
+BlRrbiZxV1yYRh5EH2VUK9ld4m0PU6ZOeEjXMdlgjQU+jTRVRmAthiNv/jcEyYrV
+kUTzCJ5ebVJ7VJe6EDx51i6A0CNUELBvcafZvRw4AA+RDWMS6i8go1V1Na0Bswk/
+tffuUHCA0Pd9SMnDs3lva33TeGCF+4lRI/BMofHBviLHR6jfrOMjcPsNVweD4n27
+fnT8qU7jlnb949ipVT2HgiRzbjfhkdq5U8fiKMB61coxIkIcFN69ByqatjAbBgor
+gQUQhkgJLAEBMA0GCWCGSAFlAwQCAQUAAgEQMAsGCWCGSAFlAwQBBQQY1cfkNS1N
+0Yi17986w6s3ycl6Y28g0e1YMDwGCSqGSIb3DQEHATAdBglghkgBZQMEAQIEEEgM
+yv66vvrO263eyviId4GAEMbKZdt73Xaw834vq2Jktm0=
+</pre><a href="#appendix-D.2-18.1.1" class="pilcrow">¶</a>
 </div>
 </li>
         </ul>
-<p id="appendix-D.2-3">This result decodes to:<a href="#appendix-D.2-3" class="pilcrow">¶</a></p>
+<p id="appendix-D.2-19">This result decodes to:<a href="#appendix-D.2-19" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="appendix-D.2-4.1">
-            <div class="alignLeft art-text artwork" id="appendix-D.2-4.1.1">
+<li class="normal ulEmpty" id="appendix-D.2-20.1">
+            <div class="alignLeft art-text artwork" id="appendix-D.2-20.1.1">
 <pre>
   0 604: SEQUENCE {
   4   9:  OBJECT IDENTIFIER envelopedData (1 2 840 113549 1 7 3)
@@ -2794,8 +2708,8 @@ q2Jktm0=
        :         aes128-wrap (2 16 840 1 101 3 4 1 5)
        :         }
 520  24:       OCTET STRING
-       :       90 4D BE B0 27 1F C0 20 82 FE 6D 35 8C 03 35 2A
-       :       E4 AE 6B 54 0B 78 24 23
+       :       D5 C7 E4 35 2D 4D D1 88 B5 EF DF 3A C3 AB 37 C9
+       :       C9 7A 63 6F 20 D1 ED 58
        :        }
        :       }
        :      }
@@ -2812,16 +2726,16 @@ q2Jktm0=
        :     }
        :    }
        :   }
-</pre><a href="#appendix-D.2-4.1.1" class="pilcrow">¶</a>
+</pre><a href="#appendix-D.2-20.1.1" class="pilcrow">¶</a>
 </div>
 </li>
         </ul>
 </section>
 </div>
-<div id="recipient-processing">
+<div id="recipient-rsa-kem-decapsulate-processing">
 <section id="appendix-D.3">
-        <h3 id="name-recipient-processing">
-<a href="#appendix-D.3" class="section-number selfRef">D.3. </a><a href="#name-recipient-processing" class="section-name selfRef">Recipient Processing</a>
+        <h3 id="name-recipient-rsa-kem-decapsula">
+<a href="#appendix-D.3" class="section-number selfRef">D.3. </a><a href="#name-recipient-rsa-kem-decapsula" class="section-name selfRef">Recipient RSA-KEM Decapsulate() Processing</a>
         </h3>
 <p id="appendix-D.3-1">Bob's private key:<a href="#appendix-D.3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-D.3-2">
@@ -2867,8 +2781,12 @@ q2Jktm0=
    -----END PRIVATE KEY-----
 </pre><a href="#appendix-D.3-2" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.3-3">Bob decrypts the integer z with his RSA private key:<a href="#appendix-D.3-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.3-4">
+<p id="appendix-D.3-3">Bob checks that the length of the ciphertext is less than nLen bytes.<a href="#appendix-D.3-3" class="pilcrow">¶</a></p>
+<p id="appendix-D.3-4">Bob checks that the ciphertext is greater than zero and is less
+than his RSA modulus.<a href="#appendix-D.3-4" class="pilcrow">¶</a></p>
+<p id="appendix-D.3-5">Bob decrypts the ciphertext with his RSA private key to obtain
+the integer z:<a href="#appendix-D.3-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.3-6">
 <pre>
    9c126102a5c1c0354672a3c2f19fc9ddea988f815e1da812c7bd4f8eb082bdd1
    4f85a7f7c2f1af11d5333e0d6bcb375bf855f208da72ba27e6fb0655f2825aa6
@@ -2882,49 +2800,64 @@ q2Jktm0=
    e89e13171405909a8e04dd31d21d0c57935fc1ceea8e1033e31e1bc8c56da0f3
    d79510f3f380ff58e5a61d361f2f18e99fbae5663172e8cd1f21deaddc5bbbea
    060d55f1842b93d1a9c888d0bf85d0af9947fe51acf940c7e7577eb79cabecb3
-</pre><a href="#appendix-D.3-4" class="pilcrow">¶</a>
+</pre><a href="#appendix-D.3-6" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.3-5">Bob encodes the CMSORIforKEMOtherInfo structure with the algorithm
-identifier for AES-128-KEYWRAP and a key length of 16 octets.
-The DER encoding of CMSORIforKEMOtherInfo is not repeated here.<a href="#appendix-D.3-5" class="pilcrow">¶</a></p>
-<p id="appendix-D.3-6">Bob derives the key-encryption key from integer z and the
-CMSORIforKEMOtherInfo structure with KDF2 and SHA-256, the KEK is:<a href="#appendix-D.3-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.3-7">
-<pre>
-   4a95fe82f8d6ba56c83b4d51ef7dc06b
-</pre><a href="#appendix-D.3-7" class="pilcrow">¶</a>
-</div>
-<p id="appendix-D.3-8">Bob uses AES-KEY-WRAP to decrypt the content-encryption key
-with the key-encryption key; the content-encryption key is:<a href="#appendix-D.3-8" class="pilcrow">¶</a></p>
+<p id="appendix-D.3-7">Bob checks that the integer z is greater than zero and is less
+than his RSA modulus.<a href="#appendix-D.3-7" class="pilcrow">¶</a></p>
+<p id="appendix-D.3-8">Bob derives the shared secret (ss) using KDF3 with SHA-256:<a href="#appendix-D.3-8" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-D.3-9">
 <pre>
-   77f2a84640304be7bd42670a84a1258b
+   f5c201f5c1989e1681ea4616d8bb9632
 </pre><a href="#appendix-D.3-9" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.3-10">Bob decrypts the content using AES-128-CBC with the content-
-encryption key.  The 16-octet IV used is:<a href="#appendix-D.3-10" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.3-11">
+</section>
+</div>
+<div id="recipient-cms-processing">
+<section id="appendix-D.4">
+        <h3 id="name-recipient-cms-processing">
+<a href="#appendix-D.4" class="section-number selfRef">D.4. </a><a href="#name-recipient-cms-processing" class="section-name selfRef">Recipient CMS Processing</a>
+        </h3>
+<p id="appendix-D.4-1">Bob encodes the CMSORIforKEMOtherInfo structure with the algorithm
+identifier for AES-128-KEYWRAP and a key length of 16 octets.
+The DER encoding of CMSORIforKEMOtherInfo is not repeated here.<a href="#appendix-D.4-1" class="pilcrow">¶</a></p>
+<p id="appendix-D.4-2">Bob derives the key-encryption key from shared secret and the
+CMSORIforKEMOtherInfo structure with KDF3 and SHA-256, the KEK is:<a href="#appendix-D.4-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.4-3">
+<pre>
+   e16aa0f063246662a0d6524a4fc41e8f
+</pre><a href="#appendix-D.4-3" class="pilcrow">¶</a>
+</div>
+<p id="appendix-D.4-4">Bob uses AES-KEY-WRAP to decrypt the content-encryption key
+with the key-encryption key; the content-encryption key is:<a href="#appendix-D.4-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.4-5">
+<pre>
+   77f2a84640304be7bd42670a84a1258b
+</pre><a href="#appendix-D.4-5" class="pilcrow">¶</a>
+</div>
+<p id="appendix-D.4-6">Bob decrypts the content using AES-128-CBC with the content-
+encryption key.  The 16-octet IV used is:<a href="#appendix-D.4-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.4-7">
 <pre>
    480ccafebabefacedbaddecaf8887781
-</pre><a href="#appendix-D.3-11" class="pilcrow">¶</a>
+</pre><a href="#appendix-D.4-7" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.3-12">The received ciphertext content is:<a href="#appendix-D.3-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.3-13">
+<p id="appendix-D.4-8">The received ciphertext content is:<a href="#appendix-D.4-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.4-9">
 <pre>
    c6ca65db7bdd76b0f37e2fab6264b66d
-</pre><a href="#appendix-D.3-13" class="pilcrow">¶</a>
+</pre><a href="#appendix-D.4-9" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.3-14">The resulting padded plaintext content is:<a href="#appendix-D.3-14" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.3-15">
+<p id="appendix-D.4-10">The resulting padded plaintext content is:<a href="#appendix-D.4-10" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.4-11">
 <pre>
    48656c6c6f2c20776f726c6421030303
-</pre><a href="#appendix-D.3-15" class="pilcrow">¶</a>
+</pre><a href="#appendix-D.4-11" class="pilcrow">¶</a>
 </div>
-<p id="appendix-D.3-16">After stripping the padding, the plaintext content is:<a href="#appendix-D.3-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-D.3-17">
+<p id="appendix-D.4-12">After stripping the AES-CBC padding, the plaintext content is:<a href="#appendix-D.4-12" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-D.4-13">
 <pre>
    Hello, world!
-</pre><a href="#appendix-D.3-17" class="pilcrow">¶</a>
+</pre><a href="#appendix-D.4-13" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2941,6 +2874,13 @@ original authors of <span>[<a href="#RFC5990" class="cite xref">RFC5990</a>]</sp
 contributions to drafts of ANS X9.44, which led to <span>[<a href="#RFC5990" class="cite xref">RFC5990</a>]</span>.<a href="#appendix-E-2" class="pilcrow">¶</a></p>
 <p id="appendix-E-3">We thank Blake Ramsdell, Jim Schaad, Magnus Nystrom, Bob Griffin,
 and John Linn for helping bring <span>[<a href="#RFC5990" class="cite xref">RFC5990</a>]</span> to fruition.<a href="#appendix-E-3" class="pilcrow">¶</a></p>
+<p id="appendix-E-4">We thank
+Burt Kaliski,
+Alex Railean,
+Joe Mandel,
+Mike Ounsworth, and
+Peter Campbell
+for careful review and thoughtful comments that greatly improved this document.<a href="#appendix-E-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
