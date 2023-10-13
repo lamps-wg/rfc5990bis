@@ -1169,7 +1169,7 @@ called ct:
    a9553d878224736e37e191dab953c7e228c07ad5ca3122421c14debd072a9ab6
 ~~~
 
-Alice derives the shared secret (ss) using KDF2 with SHA-256:
+Alice derives the shared secret (ss) using KDF3 with SHA-256:
 
 ~~~
    f5c201f5c1989e1681ea4616d8bb9632
