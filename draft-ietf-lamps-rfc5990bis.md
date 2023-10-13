@@ -1424,7 +1424,7 @@ identifier for AES-128-KEYWRAP and a key length of 16 octets.
 The DER encoding of CMSORIforKEMOtherInfo is not repeated here.
 
 Bob derives the key-encryption key from shared secret and the
-CMSORIforKEMOtherInfo structure with KDF2 and SHA-256, the KEK is:
+CMSORIforKEMOtherInfo structure with KDF3 and SHA-256, the KEK is:
 
 ~~~
    e16aa0f063246662a0d6524a4fc41e8f
