@@ -760,11 +760,11 @@ the KDF3 {{ANS-X9.44}} key-derivation function using SHA-256 {{SHS}}.
 KDF2 {{ANS-X9.44}} and KDF3 are both key-derivation functions based on
 a hash function.  The only difference between KDF2 and KDF3 is the order
 of the components to be hashed.
-
+~~~
 KDF2 calculates T as:   T = T || Hash (Z || D || otherInfo)
 
 KDF3 calculates T as:   T = T || Hash (D || Z || otherInfo)
-
+~~~
 The object identifier for KDF3 is:
 
 ~~~
