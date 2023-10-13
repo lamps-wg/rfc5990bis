@@ -1102,7 +1102,7 @@ This example shows the establishment of an AES-128 content-encryption
 key using:
 
 - RSA-KEM with a 3072-bit key and KDF3 with SHA-256;
-- KEMRecipientInfo key derivation using KDF2 with SHA-256; and
+- KEMRecipientInfo key derivation using KDF3 with SHA-256; and
 - KEMRecipientInfo key wrap using AES-128-KEYWRAP.
 
 In real-world use, the originator would encrypt the content-encryption
