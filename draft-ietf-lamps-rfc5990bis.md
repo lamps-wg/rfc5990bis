@@ -97,10 +97,19 @@ normative:
 informative:
   RFC3394:
   RFC4086:
+  RFC4262:
   RFC5990:
   RFC6194:
   RFC8017:
-  NISTSP800-57pt1r5: DOI.10.6028/NIST.SP.800-57pt1r5
+  NISTSP800-57pt1r5:
+    author:
+      org: National Institute of Standards and Technology
+    title: "Recommendation for Key Management:Part 1 - General"
+    date: 2020-05
+    seriesinfo:
+      "NIST": "Special Publication 800-57 Part 1 Revision 5"
+    seriesinfo:
+      DOI: 10.6028/nist.sp.800-57pt1r5
   ANS-X9.44:
    author:
      org: American National Standards Institute
@@ -132,7 +141,8 @@ The RSA Key Encapsulation Mechanism (RSA-KEM) Algorithm is a one-pass
 (store-and-forward) cryptographic mechanism for an originator to securely
 send keying material to a recipient using the recipient's RSA public key.
 The RSA-KEM Algorithm is specified in Clause 11.5 of ISO/IEC: 18033-2:2006.
-This document specifies the conventions for using the RSA-KEM Algorithm
+This document specifies the conventions for using the RSA-KEM Algorithm as a
+standalone KEM algorithm and the conventions for using the RSA-KEM Algorithm
 with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as
 specified in draft-ietf-lamps-cms-kemri.
 
@@ -146,54 +156,170 @@ send keying material to a recipient using the recipient's RSA public key.
 The RSA-KEM Algorithm is specified in Clause 11.5 of {{ISO18033-2}}.
 
 The RSA-KEM Algorithm takes a different approach than other RSA key
-transport mechanisms {{RFC8017}}, with the goal of providing higher
-security assurance.  The RSA-KEM Algorithm encrypts a random integer
-with the recipient's RSA public key, derives a key-encryption key from
-the random integer, and wraps a symmetric content-encryption key with
-the key-encryption key.  In this way, the originator and the recipient
-end up with the same content-encryption key.   Given a
-content-encryption key CEK, RSA-KEM can be summarized as:
+transport mechanisms {{RFC8017}}, with goal of providing higher
+security assurance while also satisfying the KEM interface.  The
+RSA-KEM Algorithm encrypts a random integer with the recipient's
+RSA public key, and derives a shared secret from the random integer. The
+originator and recipient can derive a symmetric key from the shared
+secret.  For example, a key-encryption key can be derived from the shared
+secret to wrap a content-encryption key.
 
-1. Generate a random integer z between 0 and n-1.
-
-2. Encrypt the integer z with the recipient's RSA public key:
-
-   ~~~
-       c = z^e mod n
-   ~~~
-
-3. Derive a key-encryption key KEK from the integer z:
-
-   ~~~
-       KEK = KDF(z)
-   ~~~
-
-4. Wrap the CEK with the KEK to obtain wrapped keying material WK:
-
-   ~~~
-       WK = WRAP(KEK, CEK)
-   ~~~
-
-5. The originator sends c and WK to the recipient.
-
-This different approach provides higher security assurance for two
-reasons.  First, the input to the underlying RSA operation is effectively
-a random integer between 0 and n-1, where n is the RSA modulus, so it does
-not have any structure that could be exploited by an adversary.  Second,
-the input is independent of the keying material so the result of the
-RSA decryption operation is not directly available to an adversary.
-As a result, the RSA-KEM Algorithm enjoys a "tight" security proof in the
-random oracle model.  (In other padding schemes, such as
-PKCS #1 v1.5 {{RFC8017}}, the input has structure and/or depends on the
-keying material, and the provable security assurances are not as
-strong.)  The approach is also architecturally convenient because the
-public-key operations are separate from the symmetric operations on the
-keying material.  Another benefit is that the length of the keying material
-is bounded only by the symmetric key-wrapping algorithm, not the size of
-the RSA modulus.
+In the Cryptographic Message Syntax (CMS) {{RFC5652}} using
+KEMRecipientInfo {{I-D.ietf-lamps-cms-kemri}}, the shared secret value
+is input to a key-derivation function to compute a key-encryption key, and
+wrap a symmetric content-encryption key with the key-encryption key.  In
+this way, the originator and the recipient end up with the same
+content-encryption key.
 
 For completeness, a specification of the RSA-KEM Algorithm is given in
 Appendix A of this document; ASN.1 syntax is given in Appendix B.
+
+## RSA-KEM Algorithm Rationale
+
+The RSA-KEM Algorithm provides higher security assurance than other
+variants of the RSA cryptosystem for two reasons.  First, the input to the
+underlying RSA operation is effectively a random integer between 0 and n-1,
+where n is the RSA modulus, so it does not have any structure that could be
+exploited by an adversary.  Second, the input is independent of the keying
+material so the result of the RSA decryption operation is not directly
+available to an adversary.  As a result, the RSA-KEM Algorithm enjoys a
+"tight" security proof in the random oracle model.  (In other padding
+schemes, such as PKCS #1 v1.5 {{RFC8017}}, the input has structure and/or
+depends on the keying material, and the provable security assurances are not
+as strong.)
+
+The approach is also architecturally convenient because the
+public-key operations are separate from the symmetric operations on the
+keying material.  Another benefit is that the length of the keying material
+is determined by the symmetric algorithms, not the size of the RSA modulus.
+
+## RSA-KEM Algorithm Summary
+
+All KEM algorithms provides three functions: KeyGen(), Encapsulate(),
+and Decapsulate().
+
+The following summarizes these three functions for RSA-KEM:
+
+KeyGen() -> (pk, sk):
+
+> Generate the public key (pk) and a private key (sk) as described
+in {{Section 3 of RFC8017}}.
+
+Encapsulate(pk) -> (ct, ss):
+
+> Given the recipient's public key (pk), produce a ciphertext (ct) to be
+passed to the recipient and a shared secret (ss) for use by the originator,
+as follows:
+
+>
+1\. Generate a random integer z between 0 and n-1.
+
+>
+2\. Encrypt the integer z with the recipient's RSA public key to obtain the ciphertext:
+
+~~~
+       ct = z^e mod n
+~~~
+
+>
+3\. Derive a shared secret from the integer z:
+
+~~~
+       ss = KDF(z)
+~~~
+
+>
+4\. The ciphertext and the shared secret are returned by the function.  The
+originator sends the ciphertext to the recipient.
+
+Decapsulate(sk, ct) -> ss:
+
+> Given the private key (sk) and the ciphertext (ct), produce the
+shared secret (ss) for the recipient as follows:
+
+>
+1\. Decrypt the the ciphertext with the recipient's RSA private key
+to obtain the random integer z:
+
+~~~
+       z = ct^d mod n
+~~~
+
+>
+2\. Derive a shared secret from the integer z:
+
+~~~
+       ss = KDF(z)
+~~~
+
+3\. The shared secret is returned by the function.
+
+## CMS KEMRecipientInfo Processing Summary
+
+To support a the RSA-KEM algorithm, the CMS originator MUST implement
+Encapsulate().
+
+Given a content-encryption key CEK, the RSA-KEM Algorithm processing by the
+originator to produce the values that are carried in the CMS KEMRecipientInfo
+can be summarized as:
+
+>
+1\.  Obtain the shared secret using the Encapsulate() function of the
+RSA-KEM algorithm and the recipient's RSA public key:
+
+~~~
+       (ct, ss) = Encapsulate(pk)
+~~~
+
+>
+2\. Derive a key-encryption key KEK from the shared secret:
+
+~~~
+       KEK = KDF(ss)
+~~~
+
+>
+3\.  Wrap the CEK with the KEK to obtain wrapped keying material WK:
+
+~~~
+       WK = WRAP(KEK, CEK)
+~~~
+
+>
+4\. The originator sends the ciphertext and WK to the recipient in the CMS
+KEMRecipientInfo structure.
+
+To support a the RSA-KEM algorithm, the CMS recipient MUST implement
+Decapsulate().
+
+The RSA-KEM algorithm recipient processing of the values obtained from the
+KEMRecipientInfo structure can be summarized as:
+
+>
+1\.  Obtain the pairwise secret value PSV using the Decapsulate() function of the
+RSA-KEM algorithm and the recipient's RSA private key:
+
+~~~
+       ss = Decapsulate(sk, ct)
+~~~
+
+>
+2\. Derive a key-encryption key KEK from the shared secret:
+
+~~~
+       KEK = KDF(ss)
+~~~
+
+>
+3\.  Unwrap the WK with the KEK to obtain content-encryption key CEK:
+
+~~~
+       CEK = UNWRAP(KEK, WK)
+~~~
+
+Note that the KDF used to process the KEMRecipientInfo structure MAY be
+different from the KDF used to derive the shared secret in the RSA-KEM
+algorithm.
 
 ## Conventions and Definitions
 
@@ -208,23 +334,20 @@ Encoding Rules (BER) and the Distinguished Encoding Rules (DER) {{X.690}}.
 
 RFC 5990 {{RFC5990}} specified the conventions for using the RSA-KEM Algorithm
 in CMS as a key transport algorithm.  That is, it used KeyTransRecipientInfo {{RFC5652}}
-for each recipient.  This approach resulted in a very complex parameter
-definition with the id-rsa-kem algorithm identifier.  Implementation
-experience with many different algorithms has shown that complex
-parameter structures cause interoperability issues.  Since the publication
-of RFC 5990, a new KEMRecipientInfo structure {{I-D.ietf-lamps-cms-kemri}}
-has been defined to support KEM algorithms, and this new structure avoids the
-complex parameters structure that was used in RFC 5990.  Likewise, when
-the id-rsa-kem algorithm identifier appears in the SubjectPublicKeyInfo
-field of a certificate, this document encourages the omission of any
-parameters.
+for each recipient.  Since the publication of RFC 5990, a new KEMRecipientInfo
+structure {{I-D.ietf-lamps-cms-kemri}} has been defined to support KEM
+algorithms.  When the id-rsa-kem algorithm identifier appears in the
+SubjectPublicKeyInfo field of a certificate, the complex parameter structure
+defined in RFC 5990 can be omitted; however, the parameters are allowed for
+backward compatibility.  Also, to avoid visual confusion with id-kem-rsa,
+id-rsa-kem-spki is introduced as an alias for id-rsa-kem.
 
-RFC 5990 uses EK and the EncryptedKey, which the concatenation of
-C and WK (C || WK).  The use of EK is necessary to align with the
+RFC 5990 uses EK as the EncryptedKey, which is the concatenation of
+C and WK (C || WK).  The use of EK was necessary to align with the
 KeyTransRecipientInfo structure.  In this document, C and WK are sent
 in separate fields of new KEMRecipientInfo structure.  In particular,
 C is carried in the kemct field, and WK is carried in the encryptedKey
-field.
+field.  See {{app-alg}} for details about the computation of C.
 
 RFC 5990 supports the future definition of additional KEM algorithms that
 use RSA; this document supports only one, and it is identified by the
@@ -238,18 +361,17 @@ RFC 5990 includes support for SHA-1 hash function; discussion of this
 hash function is removed from this document, but the algorithm identifier
 remains in the ASN.1 module {{app-asn1-module}}.
 
-RFC 5990 required support for the KDF3 {{ANS-X9.44}} key-derivation
-function; this document continues to require support for the KDF3
-key-derivation function, but it requires support for SHA-256 {{SHS}} as
-the hash function.
+RFC 5990 required support for the KDF3 key-derivation function {{ANS-X9.44}};
+this document continues to require support for the KDF3 key-derivation function,
+but it requires support for SHA-256 {{SHS}} as the hash function.
 
 RFC 5990 recommends support for alternatives to KDF3 and AES-Wrap-128;
-this document simply states that other key-derivation functions and
+this document simply states that other key-derivation functions and other
 key-encryption algorithms MAY be supported.
 
 RFC 5990 includes an ASN.1 module; this document provides an alternative
 ASN.1 module that follows the conventions established in {{RFC5911}},
-{{RFC5912}}, and {{RFC6268}}. The new ASN.1 module {{app-asn1-module}}
+{{RFC5912}}, and {{RFC6268}}.  The new ASN.1 module {{app-asn1-module}}
 produces the same bits-on-the-wire as the one in RFC 5990.
 
 # Use of the RSA-KEM Algorithm in CMS
@@ -274,7 +396,7 @@ least the following underlying components:
   AES-Wrap-128 {{RFC3394}} key-encryption algorithm.
 
 An implementation MAY also support other key-derivation functions and
-key-encryption algorithms as well.
+other key-encryption algorithms as well.
 
 ## RecipientInfo Conventions
 
@@ -293,14 +415,16 @@ KEMRecipientInfo MUST have the following values:
 > kemct is the ciphertext produced for this recipient; it contains
 C from steps 1 and 2 of Originator's Operations in {{app-alg}}.
 
-> kdf identifies the key-derivation algorithm.
+> kdf identifies the key-derivation function (KDF).  Note that the
+KDF used for CMS RecipientInfo process MAY be different than the KDF
+used within the RSA-KEM Algorithm.
 
 > kekLength is the size of the key-encryption key in octets.
 
 > ukm is an optional random input to the key-derivation function.
 
 > wrap identifies a key-encryption algorithm used to encrypt the
-content-encryption key.
+keying material.
 
 > encryptedKey is the result of encrypting the keying material with the
 key-encryption key.  When used with the CMS enveloped-data content
@@ -310,10 +434,9 @@ keying material is a message-authentication key.  When used with the
 CMS authenticated-enveloped-data content type {{RFC5083}}, the
 keying material is a content-authenticated-encryption key.
 
-NOTE: For backward compatibility, implementations MAY
-also support RSA-KEM Key Transport Algorithm, which uses
+NOTE: For backward compatibility, implementations MAY also support
+RSA-KEM Key Transport Algorithm, identified by id-rsa-kem, which uses
 KeyTransRecipientInfo as specified in {{RFC5990}}.
-
 
 ## Certificate Conventions
 
@@ -325,32 +448,35 @@ PKCS #1 v1.5 algorithm, that is, using the rsaEncryption object
 identifier {{RFC8017}}.  The fact that the recipient will accept RSA-KEM
 with this public key is not indicated by the use of this object
 identifier.  The willingness to accept the RSA-KEM Algorithm MAY be
-signaled by the use of the appropriate SMIME Capabilities either in a
-message or in the certificate.
+signaled by the use of the SMIMECapabilities Attribute as specified in
+{{Section 2.5.2. of RFC8551}} or the SMIMECapabilities certificate
+extension as specified in {{RFC4262}}.
 
 If the recipient wishes only to employ the RSA-KEM Algorithm with a given
 public key, the recipient MUST identify the public key in the certificate
-using the id-rsa-kem object identifier; see {{app-asn1}}.  When the
-id-rsa-kem object identifier appears in the SubjectPublicKeyInfo algorithm
+using the id-rsa-kem-spki object identifier; see {{app-asn1}}.  When the
+id-rsa-kem-spki object identifier appears in the SubjectPublicKeyInfo algorithm
 field of the certificate, the parameters field from AlgorithmIdentifier
 SHOULD be absent.  That is, the AlgorithmIdentifier SHOULD be a SEQUENCE of
-one component, the id-rsa-kem object identifier.
+one component, the id-rsa-kem-spki object identifier.  With absent parameters,
+the KDF3 key-derivation function {{ANS-X9.44}} with SHA-256 {{SHS}} are used
+to derive the shared secret.
 
 When the AlgorithmIdentifier parameters are present, the
-GenericHybridParameters MUST be used.  As described in the next
-section, the GenericHybridParameters constrain the values that can
-be used with the RSA public key for the kdf, kekLength, and wrap
-fields of the KEMRecipientInfo structure.
+GenericHybridParameters MUST be used.  As described in {{smimecap}},
+the GenericHybridParameters constrain the values that can be used with the
+RSA public key for the kdf, kekLength, and wrap fields of the KEMRecipientInfo
+structure.
 
 Regardless of the AlgorithmIdentifier used, the RSA public key MUST be
 carried in the subjectPublicKey BIT STRING within the SubjectPublicKeyInfo
 filed of the certificate using the RSAPublicKey type defined in {{RFC8017}}.
 
-The intended application for the public key MAY be indicated in the key
-usage certificate extension as specified in {{Section 4.2.1.3 of RFC5280}}.  If
-the keyUsage extension is present in a certificate that conveys an RSA
-public key with the id-rsa-kem object identifier as discussed above,
-then the key usage extension MUST contain the following value:
+The intended application for the public key MAY be indicated in the key usage
+certificate extension as specified in {{Section 4.2.1.3 of RFC5280}}.  If the
+keyUsage extension is present in a certificate that conveys an RSA public key
+with the id-rsa-kem-spki object identifier as discussed above, then the key
+usage extension MUST contain only the following value:
 
 > keyEncipherment
 
@@ -359,22 +485,21 @@ present.  That is, a public key intended to be employed only with the
 RSA-KEM Algorithm SHOULD NOT also be employed for data encryption or
 for digital signatures.  Good cryptographic practice employs a given RSA
 key pair in only one scheme.  This practice avoids the risk that vulnerability
-in one scheme may compromise the security of the other, and may be
-essential to maintain provable security.
+in one scheme may compromise the security of the other, and may be essential
+to maintain provable security.
 
-## SMIMECapabilities Attribute Conventions
+## SMIMECapabilities Attribute Conventions {#smimecap}
 
-{{Section 2.5.2 of RFC8551}} defines the SMIMECapabilities signed
-attribute (defined as a SEQUENCE of SMIMECapability SEQUENCEs) to
-announce a partial list of algorithms that an S/MIME implementation
-can support.  When constructing a CMS signed-data content type {{RFC5652}},
-a compliant implementation MAY include the SMIMECapabilities signed
-attribute announcing that it supports the RSA-KEM Algorithm.
+{{Section 2.5.2 of RFC8551}} defines the SMIMECapabilities attribute to
+announce a partial list of algorithms that an S/MIME implementation can
+support.  When constructing a CMS signed-data content type {{RFC5652}},
+a compliant implementation MAY include the SMIMECapabilities attribute
+that announces support for the RSA-KEM Algorithm.
 
 The SMIMECapability SEQUENCE representing the RSA-KEM Algorithm MUST
-include the id-rsa-kem object identifier in the capabilityID field;
+include the id-rsa-kem-spki object identifier in the capabilityID field;
 see {{app-asn1}} for the object identifier value, and see {{app-example}}
-for examples.  When the id-rsa-kem object identifier appears in the
+for examples.  When the id-rsa-kem-spki object identifier appears in the
 capabilityID field and the parameters are present, then the parameters
 field MUST use the GenericHybridParameters type.
 
@@ -386,8 +511,8 @@ field MUST use the GenericHybridParameters type.
 
 The fields of the GenericHybridParameters type have the following meanings:
 
-> kem is an AlgorithmIdentifer; the algorithm field MUST be set to id-kem-rsa;
-the parameters field MUST be RsaKemParameters, which is a SEQUENCE of an
+> kem is an AlgorithmIdentifer.  The algorithm field MUST be set to id-kem-rsa,
+and the parameters field MUST be RsaKemParameters, which is a SEQUENCE of an
 AlgorithmIdentifier that identifies the supported key-derivation function
 and a positive INTEGER that identifies the length of the key-encryption
 key in octets.  If the GenericHybridParameters are present, then the
@@ -395,8 +520,8 @@ provided kem value MUST be used as the key-derivation function in the
 kdf field of KEMRecipientInfo, and the provided key length MUST be used
 in the kekLength of KEMRecipientInfo.
 
-> dem is an AlgorithmIdentifier; the algorithm field MUST be present, and it
-identifies the key-encryption algorithm; parameters are optional.  If the
+> dem is an AlgorithmIdentifier.  The algorithm field MUST be present, and it
+identifies the key-encryption algorithm.  The parameters are optional.  If the
 GenericHybridParameters are present, then the provided dem value MUST be
 used in the wrap field of KEMRecipientInfo.
 
@@ -409,7 +534,7 @@ attacks and gain a tighter security proof; however, the RSA-KEM Algorithm
 has the disadvantage of slightly longer encrypted keying material.
 
 The security of the RSA-KEM Algorithm can be shown to be tightly related
-to the difficulty of either solving the RSA problem or breaking the
+to the difficulty of either solving the RSA problem, or breaking the
 underlying symmetric key-encryption algorithm, if the underlying
 key-derivation function is modeled as a random oracle, and assuming that
 the symmetric key-encryption algorithm satisfies the properties of a
@@ -437,9 +562,22 @@ result in disclosure of the associated encrypted content.
 Additional considerations related to key management may be found in
 {{NISTSP800-57pt1r5}}.
 
-The security of the RSA-KEM Algorithm also depends on the strength of the
-random number generator, which SHOULD have a comparable security level.  For
-further discussion on random number generation, see {{RFC4086}}.
+The security of the RSA-KEM Algorithm depends on a quality random number
+generator.  For further discussion on random number generation,
+see {{RFC4086}}.
+
+The RSA-KEM Algorithm does not use an explicit padding scheme; instead,
+an encoded random value (z) between zero and the RSA modulus minus one (n-1)
+is directly encrypted with the recipient's RSA public key.  The
+IntegerToString(z, nLen) encoding produces a string that is the full length of
+the RSA modulus.  In addition, the random value is passed through a key-derivation
+function (KDF) to reduce possible harm from a poorly implemented random number
+source or a maliciously chosen random value (z).  Implementations SHOULD NOT
+use z directly for any purpose.
+
+The RSA-KEM Algorithm provides a fixed-length ciphertext.  The recipient MUST
+check that the received value is the expected length prior to attempting
+decryption with their RSA private key as described in Step 1 of {{app-alg-decap}}.
 
 Implementations SHOULD NOT reveal information about intermediate
 values or calculations, whether by timing or other "side channels",
@@ -489,43 +627,23 @@ The RSA-KEM Algorithm is a one-pass (store-and-forward) cryptographic
 mechanism for an originator to securely send keying material to a recipient
 using the recipient's RSA public key.
 
-With this type of algorithm, an originator encrypts the keying material
-using the recipient's public key, and then sends the resulting encrypted
-keying material to the recipient.  The recipient decrypts the encrypted
-keying material using the recipient's private key to recover the keying
-material.
+With the RSA-KEM Algorithm, an originator encrypts a random integer (z) with
+the recipient's RSA public key to produce a ciphertext (C), and the originator
+derives a shared secret (ss) from the random integer (z).  The originator then
+sends the ciphertext (C) to the recipient.  The recipient decrypts the
+ciphertext (C) using the their private key to recover the random integer (z),
+and the recipient derives a shared secret (ss) from the random integer(z).  In
+this way, originator and recipient obtain the same shared secret (ss).
 
-## Underlying Components
+The RSA-KEM Algorithm depends on a key-derivation function (KDF), which is
+used to derive the shared secret (ss).  Many key-derivation functions support
+the inclusion of other information in addition to the shared secret (ss)) in
+the input to the function; however, no other information is included as an
+input to the KDF by the RSA-KEM Algorithm.
 
-The RSA-KEM Algorithm has the following underlying components:
-
-- KDF, a key-derivation function, which derives key-encryption key of a
-  specified length from a shared secret value;
-
-- Wrap, a symmetric key-encryption algorithm, which encrypts keying material
-  using key-encryption key that was produced by the KDF.
-
-The kekLen value denotes the length in bytes of the key-encryption key
-for the underlying symmetric key-encryption algorithm.
-
-The length of the keying material MUST be among the lengths supported by
-the underlying symmetric key-encryption algorithm.  For example, the
-AES-Wrap key-encryption algorithm requires the kekLen to be 16, 24,
-or 32 octets.  Usage and formatting of the keying material is outside
-the scope of the RSA-KEM Algorithm.
-
-Many key-derivation functions support the inclusion of other information
-in addition to the shared secret value in the input to the function.
-Also, with some symmetric key-encryption algorithms, it is possible to
-associate a label with the keying material.  Such uses are outside the scope
-of this document, as they are not directly supported by CMS.
-
-## Originator's Operations
+## Originator's Operations: RSA-KEM Encapsulate() {#app-alg-encap}
 
 Let (n,e) be the recipient's RSA public key; see {{RFC8017}} for details.
-
-Let K be the keying material to be securely transferred from the originator
-to the recipient.
 
 Let nLen denote the length in bytes of the modulus n, i.e., the least
 integer such that 2^(8*nLen) > n.
@@ -542,7 +660,7 @@ The originator performs the following operations:
         Z = IntegerToString (z, nLen)
    ~~~
 
-2. Encrypt the random integer z using the recipient's RSA public key
+2. Encrypt the encoded random integer Z using the recipient's RSA public key
    (n,e), and convert the resulting integer c to a ciphertext C, a
    byte string of length nLen:
 
@@ -552,35 +670,26 @@ The originator performs the following operations:
         C = IntegerToString (c, nLen)
    ~~~
 
-3. Derive a symmetric key-encryption key KEK of length kekLen bytes
-   from the byte string Z using the underlying key-derivation function:
+3. Derive a symmetric shared secret SS of length ssLen bytes fron the
+   byte string Z using the underlying key-derivation function:
 
    ~~~
-        KEK = KDF (Z, kekLen)
+        SS = KDF (Z, kekLen)
    ~~~
 
-4. Wrap the keying material K with the symmetric key-encryption key
-   KEK using the key-encryption algorithm to obtain wrapped keying
-   material WK:
-
-   ~~~
-        WK = Wrap (KEK, K)
-   ~~~
-
-5. Send the ciphertext C and the wrapped keying material WK to the recipient.
+4. Output the shared secret SS and the ciphertext C.  Send the
+   ciphertext C to the recipient.
 
 NOTE: The random integer z MUST be generated independently at random
-for different encryption operations, whether for the same or
-different recipients.
+for different encryption operations, whether for the same or different
+recipients.
 
-## Recipient's Operations
+## Recipient's Operations: RSA-KEM Decapsulate() {#app-alg-decap}
 
 Let (n,d) be the recipient's RSA private key; see {{RFC8017}} for details,
 but other private key formats are allowed.
 
-Let WK be the encrypted keying material.
-
-Let C be the ciphertext.
+Let C be the ciphertext received from the originator.
 
 Let nLen denote the length in bytes of the modulus n.
 
@@ -609,25 +718,14 @@ The recipient performs the following operations:
         Z = IntegerToString (z, nLen)
    ~~~
 
-4. Derive a symmetric key-encryption key KEK of length kekLen bytes from
-   the byte string Z using the key-derivation function (see NOTE below):
+4. Derive a shared secret SS of length ssLen bytes from the byte
+   string Z using the key-derivation function (see NOTE below):
 
    ~~~
-        KEK = KDF (Z, kekLen)
+        SS = KDF (Z, ssLen)
    ~~~
 
-5. Unwrap the wrapped keying material WK with the symmetric
-   key-encryption key KEK using the underlying key-encryption
-   algorithm to recover the keying material K:
-
-   ~~~
-        K = Unwrap (KEK, WK)
-   ~~~
-
-   If the unwrapping operation outputs an error, output "decryption
-   error", and stop.
-
-6. Output the keying material K.
+5. Output the shared secret SS.
 
 NOTE: Implementations SHOULD NOT reveal information about the
 integer z, the string Z, or about the calculation of the
@@ -646,7 +744,7 @@ The ASN.1 syntax for identifying the RSA-KEM Algorithm
 is an extension of the syntax for the "generic hybrid cipher" in
 ANS X9.44 {{ANS-X9.44}}.
 
-The ASN.1 Module is unchanged from RFC 5990.  The id-rsa-kem
+The ASN.1 Module is unchanged from RFC 5990.  The id-rsa-kem-spki
 object identifier is used in a backward compatible manner
 in certificates {{RFC5280}} and SMIMECapabilities {{RFC8551}}.
 Of course, the use of the id-kem-rsa object identifier in the
@@ -722,7 +820,7 @@ CMS-RSA-KEM-2023
    { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
      pkcs-9(9) smime(16) modules(0) id-mod-cms-rsa-kem-2023(TBD1) }
 
-DEFINITIONS ::= BEGIN
+   DEFINITIONS EXPLICIT TAGS ::= BEGIN
 
 -- EXPORTS ALL
 
@@ -804,6 +902,8 @@ x9-44-components OID ::= { x9-44 components(1) }
 id-rsa-kem OID ::= { iso(1) member-body(2) us(840) rsadsi(113549)
    pkcs(1) pkcs-9(9) smime(16) alg(3) 14 }
 
+id-rsa-kem-spki OID ::= id-rsa-kem
+
 GenericHybridParameters ::= SEQUENCE {
    kem  KeyEncapsulationMechanism,
    dem  DataEncapsulationMechanism }
@@ -814,12 +914,12 @@ KeyEncapsulationMechanism ::=
 KEMAlgorithms KEM-ALGORITHM ::= { kema-kem-rsa | kema-rsa-kem, ... }
 
 kema-rsa-kem KEM-ALGORITHM ::= {
-   IDENTIFIER id-rsa-kem
+   IDENTIFIER id-rsa-kem-spki
    PARAMS TYPE GenericHybridParameters ARE optional
    PUBLIC-KEYS { pk-rsa | pk-rsa-kem }
    UKM ARE optional
    SMIME-CAPS { TYPE GenericHybridParameters
-      IDENTIFIED BY id-rsa-kem } }
+      IDENTIFIED BY id-rsa-kem-spki } }
 
 kema-kem-rsa KEM-ALGORITHM ::= {
    IDENTIFIER id-kem-rsa
@@ -827,7 +927,7 @@ kema-kem-rsa KEM-ALGORITHM ::= {
    PUBLIC-KEYS { pk-rsa | pk-rsa-kem }
    UKM ARE optional
    SMIME-CAPS { TYPE GenericHybridParameters
-      IDENTIFIED BY id-rsa-kem } }
+      IDENTIFIED BY id-rsa-kem-spki } }
 
 id-kem-rsa OID ::= { is18033-2 key-encapsulation-mechanism(2)
    rsa(4) }
@@ -837,7 +937,7 @@ RsaKemParameters ::= SEQUENCE {
    keyLength              KeyLength }
 
 pk-rsa-kem PUBLIC-KEY ::= {
-  IDENTIFIER id-rsa-kem
+  IDENTIFIER id-rsa-kem-spki
   KEY RSAPublicKey
   PARAMS TYPE GenericHybridParameters ARE preferredAbsent
   -- Private key format is not specified here --
@@ -931,7 +1031,7 @@ SMIMECapabilities will include the following entry:
 
 ~~~
 SEQUENCE {
-   id-rsa-kem,                                -- RSA-KEM Algorithm
+   id-rsa-kem-spki,                           -- RSA-KEM Algorithm
    SEQUENCE {                           -- GenericHybridParameters
       SEQUENCE {                    -- key encapsulation mechanism
          id-kem-rsa,                                    -- RSA-KEM
@@ -954,16 +1054,16 @@ This SMIMECapability value has the following DER encoding (in hexadecimal):
 
 ~~~
 30 47
-  06 0b 2a 86 48 86 f7 0d 01 09 10 03 0e           -- id-rsa-kem
+  06 0b 2a 86 48 86 f7 0d 01 09 10 03 0e          -- id-rsa-kem-spki
   30 38
      30 29
-        06 07 28 81 8c 71 02 02 04                 -- id-kem-rsa
+        06 07 28 81 8c 71 02 02 04                -- id-kem-rsa
         30 1e
            30 19
-              06 0a 2b 81 05 10 86 48 09 2c 01 02  -- id-kdf-kdf3
+              06 0a 2b 81 05 10 86 48 09 2c 01 02 -- id-kdf-kdf3
               30 0b
-                 06 09 60 86 48 01 65 03 04 02 01  -- id-sha256
-                 02 01 10                          -- 16 bytes
+                 06 09 60 86 48 01 65 03 04 02 01 -- id-sha256
+                 02 01 10                         -- 16 bytes
       30 0b
          06 09 60 86 48 01 65 03 04 01 05         -- id-aes128-Wrap
 ~~~
@@ -996,22 +1096,21 @@ SMIMECapabilities will include the following SMIMECapability value
   60 86 48 01 65 03 04 01 2d
 ~~~
 
-
 # RSA-KEM CMS Enveloped-Data Example
 
 This example shows the establishment of an AES-128 content-encryption
 key using:
 
-- RSA-KEM with a 3072-bit key;
-- key derivation using KDF2 with SHA-256; and
-- key wrap using AES-128-KEYWRAP.
+- RSA-KEM with a 3072-bit key and KDF2 with SHA-256;
+- KEMRecipientInfo key derivation using KDF2 with SHA-256; and
+- KEMRecipientInfo key wrap using AES-128-KEYWRAP.
 
 In real-world use, the originator would encrypt the content-encryption
 key in a manner that would allow decryption with their own private key
 as well as the recipient's private key.  This is omitted in an attempt
 to simplify the example.
 
-## Originator Processing
+## Originator RSA-KEM Encapsulate() Processing
 
 Alice obtains Bob's public key:
 
@@ -1053,7 +1152,7 @@ Alice randomly generates integer z between 0 and n-1:
 ~~~
 
 Alice encrypts integer z using the Bob's RSA public key, the result is
-called c:
+called ct:
 
 ~~~
    c071fc273af8e7bdb152e06bf73310361074154a43abcf3c93c13499d2065344
@@ -1069,6 +1168,14 @@ called c:
    a1f1c1be22c747a8dface32370fb0d570783e27dbb7e74fca94ee39676fde3d8
    a9553d878224736e37e191dab953c7e228c07ad5ca3122421c14debd072a9ab6
 ~~~
+
+Alice derives the shared secret (ss) using KDF2 with SHA-256:
+
+~~~
+   f5c201f5c1989e1681ea4616d8bb9632
+~~~
+
+## Originator CMS Processing
 
 Alice encodes the CMSORIforKEMOtherInfo structure with the algorithm
 identifier for AES-128-KEYWRAP and a key length of 16 octets.
@@ -1090,11 +1197,12 @@ The CMSORIforKEMOtherInfo structure contains:
        :   }
 ~~~
 
-Alice derives the key-encryption key from integer z and the
-CMSORIforKEMOtherInfo structure with KDF2 and SHA-256, the KEK is:
+Alice derives the key-encryption key from shared secret produced
+by RSA-KEM Encapsulate() and the CMSORIforKEMOtherInfo structure
+with KDF2 and SHA-256, the KEK is:
 
 ~~~
-   4a95fe82f8d6ba56c83b4d51ef7dc06b
+   e16aa0f063246662a0d6524a4fc41e8f
 ~~~
 
 Alice randomly generates a 128-bit content-encryption key:
@@ -1107,7 +1215,7 @@ Alice uses AES-128-KEYWRAP to encrypt the 128-bit content-encryption
 key with the derived key-encryption key:
 
 ~~~
-   904dbeb0271fc02082fe6d358c03352ae4ae6b540b782423
+   d5c7e4352d4dd188b5efdf3ac3ab37c9c97a636f20d1ed58
 ~~~
 
 Alice encrypts the padded content using AES-128-CBC with the
@@ -1129,27 +1237,25 @@ The resulting ciphertext is:
    c6ca65db7bdd76b0f37e2fab6264b66d
 ~~~
 
-## ContentInfo and EnvelopedData
-
 Alice encodes the EnvelopedData (using KEMRecipientInfo) and
-ContentInfo, and then sends the result to Bob.  The Base64-encoded:
+ContentInfo, and then sends the result to Bob.  The Base64-encoded
 result is:
 
 >
 ~~~
-MIICXAYJKoZIhvcNAQcDoIICTTCCAkkCAQMxggIEpIICAAYLKoZIhvcNAQkQDQMwggH
-vAgEAgBSe62fJuVp01E0vFjlmgOgBtcuknDAJBgcogYxxAgIEBIIBgMBx/Cc6+Oe9sV
-Lga/czEDYQdBVKQ6vPPJPBNJnSBlNEPu2e9dPAaF5Kp2poVIFbuXaR/5+NrBXup9dPR
-SvzUKZGFj1oKI6XjL96cwie5ScS+aT0ngas57vIWrFNTjNsl8VyiiZUE4x7JuiDXGsK
-n77SZJXE6t90Wikzvig/aoixZpX8BmZoc8+202cY7zN2zvwQDDlB88SUlEB4MlgHpVk
-Ya5XMq/NxTPr3n4O9MFN/3ZrtWkzcvYvQSG+u1z6dSGswh9bIBlRrbiZxV1yYRh5EH2
-VUK9ld4m0PU6ZOeEjXMdlgjQU+jTRVRmAthiNv/jcEyYrVkUTzCJ5ebVJ7VJe6EDx51
-i6A0CNUELBvcafZvRw4AA+RDWMS6i8go1V1Na0Bswk/tffuUHCA0Pd9SMnDs3lva33T
-eGCF+4lRI/BMofHBviLHR6jfrOMjcPsNVweD4n27fnT8qU7jlnb949ipVT2HgiRzbjf
-hkdq5U8fiKMB61coxIkIcFN69ByqatjAbBgorgQUQhkgJLAEBMA0GCWCGSAFlAwQCAQ
-UAAgEQMAsGCWCGSAFlAwQBBQQYkE2+sCcfwCCC/m01jAM1KuSua1QLeCQjMDwGCSqGS
-Ib3DQEHATAdBglghkgBZQMEAQIEEEgMyv66vvrO263eyviId4GAEMbKZdt73Xaw834v
-q2Jktm0=
+MIICXAYJKoZIhvcNAQcDoIICTTCCAkkCAQMxggIEpIICAAYLKoZIhvcNAQkQDQMw
+ggHvAgEAgBSe62fJuVp01E0vFjlmgOgBtcuknDAJBgcogYxxAgIEBIIBgMBx/Cc6
++Oe9sVLga/czEDYQdBVKQ6vPPJPBNJnSBlNEPu2e9dPAaF5Kp2poVIFbuXaR/5+N
+rBXup9dPRSvzUKZGFj1oKI6XjL96cwie5ScS+aT0ngas57vIWrFNTjNsl8VyiiZU
+E4x7JuiDXGsKn77SZJXE6t90Wikzvig/aoixZpX8BmZoc8+202cY7zN2zvwQDDlB
+88SUlEB4MlgHpVkYa5XMq/NxTPr3n4O9MFN/3ZrtWkzcvYvQSG+u1z6dSGswh9bI
+BlRrbiZxV1yYRh5EH2VUK9ld4m0PU6ZOeEjXMdlgjQU+jTRVRmAthiNv/jcEyYrV
+kUTzCJ5ebVJ7VJe6EDx51i6A0CNUELBvcafZvRw4AA+RDWMS6i8go1V1Na0Bswk/
+tffuUHCA0Pd9SMnDs3lva33TeGCF+4lRI/BMofHBviLHR6jfrOMjcPsNVweD4n27
+fnT8qU7jlnb949ipVT2HgiRzbjfhkdq5U8fiKMB61coxIkIcFN69ByqatjAbBgor
+gQUQhkgJLAEBMA0GCWCGSAFlAwQCAQUAAgEQMAsGCWCGSAFlAwQBBQQY1cfkNS1N
+0Yi17986w6s3ycl6Y28g0e1YMDwGCSqGSIb3DQEHATAdBglghkgBZQMEAQIEEEgM
+yv66vvrO263eyviId4GAEMbKZdt73Xaw834vq2Jktm0=
 ~~~
 
 This result decodes to:
@@ -1213,8 +1319,8 @@ This result decodes to:
        :         aes128-wrap (2 16 840 1 101 3 4 1 5)
        :         }
 520  24:       OCTET STRING
-       :       90 4D BE B0 27 1F C0 20 82 FE 6D 35 8C 03 35 2A
-       :       E4 AE 6B 54 0B 78 24 23
+       :       D5 C7 E4 35 2D 4D D1 88 B5 EF DF 3A C3 AB 37 C9
+       :       C9 7A 63 6F 20 D1 ED 58
        :        }
        :       }
        :      }
@@ -1233,7 +1339,7 @@ This result decodes to:
        :   }
 ~~~
 
-ß## Recipient Processing
+## Recipient RSA-KEM Decapsulate() Processing
 
 Bob's private key:
 
@@ -1279,7 +1385,13 @@ Bob's private key:
    -----END PRIVATE KEY-----
 ~~~
 
-Bob decrypts the integer z with his RSA private key:
+Bob checks that the length of the ciphertext is less than nLen bytes.
+
+Bob checks that the ciphertext is greater than zero and is less
+than his RSA modulus.
+
+Bob decrypts the ciphertext with his RSA private key to obtain
+the integer z:
 
 ~~~
    9c126102a5c1c0354672a3c2f19fc9ddea988f815e1da812c7bd4f8eb082bdd1
@@ -1296,15 +1408,26 @@ Bob decrypts the integer z with his RSA private key:
    060d55f1842b93d1a9c888d0bf85d0af9947fe51acf940c7e7577eb79cabecb3
 ~~~
 
+Bob checks that the integer z is greater than zero and is less
+than his RSA modulus.
+
+Bob derives the shared secret (ss) using KDF2 with SHA-256:
+
+~~~
+   f5c201f5c1989e1681ea4616d8bb9632
+~~~
+
+## Recipient CMS Processing
+
 Bob encodes the CMSORIforKEMOtherInfo structure with the algorithm
 identifier for AES-128-KEYWRAP and a key length of 16 octets.
 The DER encoding of CMSORIforKEMOtherInfo is not repeated here.
 
-Bob derives the key-encryption key from integer z and the
+Bob derives the key-encryption key from shared secret and the
 CMSORIforKEMOtherInfo structure with KDF2 and SHA-256, the KEK is:
 
 ~~~
-   4a95fe82f8d6ba56c83b4d51ef7dc06b
+   e16aa0f063246662a0d6524a4fc41e8f
 ~~~
 
 Bob uses AES-KEY-WRAP to decrypt the content-encryption key
@@ -1333,12 +1456,11 @@ The resulting padded plaintext content is:
    48656c6c6f2c20776f726c6421030303
 ~~~
 
-After stripping the padding, the plaintext content is:
+After stripping the AES-CBC padding, the plaintext content is:
 
 ~~~
    Hello, world!
 ~~~
-
 
 # Acknowledgements
 {:numbered="false"}
@@ -1351,3 +1473,11 @@ contributions to drafts of ANS X9.44, which led to {{RFC5990}}.
 
 We thank Blake Ramsdell, Jim Schaad, Magnus Nystrom, Bob Griffin,
 and John Linn for helping bring {{RFC5990}} to fruition.
+
+We thank
+Burt Kaliski,
+Alex Railean,
+Joe Mandel,
+Mike Ounsworth, and
+Peter Campbell
+for careful review and thoughtful comments that greatly improved this document.
