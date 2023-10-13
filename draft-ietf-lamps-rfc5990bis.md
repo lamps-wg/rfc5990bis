@@ -344,6 +344,7 @@ id-rsa-kem-spki is introduced as an alias for id-rsa-kem.
 
 RFC 5990 uses EK as the EncryptedKey, which is the concatenation of
 C and WK (C || WK).  The use of EK was necessary to align with the
+
 KeyTransRecipientInfo structure.  In this document, C and WK are sent
 in separate fields of new KEMRecipientInfo structure.  In particular,
 C is carried in the kemct field, and WK is carried in the encryptedKey
