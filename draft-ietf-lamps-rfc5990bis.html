@@ -2108,20 +2108,27 @@ was not yet defined at the time that RFC 5990 was written.<a href="#appendix-B-2
         </h3>
 <p id="appendix-B.1-1">Implementations that conform to this specification <span class="bcp14">MUST</span> support
 the KDF3 <span>[<a href="#ANS-X9.44" class="cite xref">ANS-X9.44</a>]</span> key-derivation function using SHA-256 <span>[<a href="#SHS" class="cite xref">SHS</a>]</span>.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
-<p id="appendix-B.1-2">The object identifier for KDF3 is:<a href="#appendix-B.1-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1-3">
+<p id="appendix-B.1-2">KDF2 <span>[<a href="#ANS-X9.44" class="cite xref">ANS-X9.44</a>]</span> and KDF3 are both key-derivation functions based on
+a hash function.  The only difference between KDF2 and KDF3 is the order
+of the components to be hashed.
+~~~
+KDF2 calculates T as:   T = T || Hash (Z || D || otherInfo)<a href="#appendix-B.1-2" class="pilcrow">¶</a></p>
+<p id="appendix-B.1-3">KDF3 calculates T as:   T = T || Hash (D || Z || otherInfo)
+~~~
+The object identifier for KDF3 is:<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1-4">
 <pre>
    id-kdf-kdf3 OBJECT IDENTIFIER ::= { x9-44-components kdf3(2) }
-</pre><a href="#appendix-B.1-3" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1-4" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.1-4">The KDF3 parameters identify the underlying hash function.  For
+<p id="appendix-B.1-5">The KDF3 parameters identify the underlying hash function.  For
 alignment with the ANS X9.44, the hash function <span class="bcp14">MUST</span> be an ASC X9-approved
 hash function.  While the SHA-1 hash algorithm is included in the
 ASN.1 definitions, SHA-1 <span class="bcp14">MUST NOT</span> be used.  SHA-1 is considered
 to be obsolete; see <span>[<a href="#RFC6194" class="cite xref">RFC6194</a>]</span>.  SHA-1 remains in the ASN.1 module for
 compatibility with RFC 5990.  In addition, other hash functions <span class="bcp14">MAY</span> be
-used with CMS.<a href="#appendix-B.1-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1-5">
+used with CMS.<a href="#appendix-B.1-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1-6">
 <pre>
    kda-kdf3 KEY-DERIVATION ::= {
       IDENTIFIER id-kdf-kdf3
@@ -2136,15 +2143,15 @@ used with CMS.<a href="#appendix-B.1-4" class="pilcrow">¶</a></p>
    X9-HashFunctions DIGEST-ALGORITHM ::= {
       mda-sha1 | mda-sha224 | mda-sha256 | mda-sha384 |
       mda-sha512, ... }
-</pre><a href="#appendix-B.1-5" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1-6" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.1-6">Implementations that conform to this specification <span class="bcp14">MUST</span> support
+<p id="appendix-B.1-7">Implementations that conform to this specification <span class="bcp14">MUST</span> support
 the AES Key Wrap <span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span> key-encryption algorithm with a 128-bit
 key.  There are three object identifiers for the AES Key Wrap, one for
 each permitted size of the key-encryption key.  There are three object
 identifiers imported from <span>[<a href="#RFC5912" class="cite xref">RFC5912</a>]</span>, and none of these algorithm
-identifiers have associated parameters:<a href="#appendix-B.1-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1-7">
+identifiers have associated parameters:<a href="#appendix-B.1-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1-8">
 <pre>
    kwa-aes128-wrap KEY-WRAP ::= {
        IDENTIFIER id-aes128-wrap
@@ -2160,7 +2167,7 @@ identifiers have associated parameters:<a href="#appendix-B.1-6" class="pilcrow"
        IDENTIFIER id-aes256-wrap
        PARAMS ARE absent
        SMIME-CAPS { IDENTIFIED BY id-aes256-wrap } }
-</pre><a href="#appendix-B.1-7" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1-8" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2549,7 +2556,7 @@ called ct:<a href="#appendix-D.1-7" class="pilcrow">¶</a></p>
 <p id="appendix-D.1-9">Alice derives the shared secret (ss) using KDF3 with SHA-256:<a href="#appendix-D.1-9" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-D.1-10">
 <pre>
-   f5c201f5c1989e1681ea4616d8bb9632
+   3cf82ec41b54ed4d37402bbd8f805a52
 </pre><a href="#appendix-D.1-10" class="pilcrow">¶</a>
 </div>
 </section>
@@ -2587,7 +2594,7 @@ by RSA-KEM Encapsulate() and the CMSORIforKEMOtherInfo structure
 with KDF3 and SHA-256, the KEK is:<a href="#appendix-D.2-5" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-D.2-6">
 <pre>
-   e16aa0f063246662a0d6524a4fc41e8f
+   e6dc9d62ff2b469bef604c617b018718
 </pre><a href="#appendix-D.2-6" class="pilcrow">¶</a>
 </div>
 <p id="appendix-D.2-7">Alice randomly generates a 128-bit content-encryption key:<a href="#appendix-D.2-7" class="pilcrow">¶</a></p>
@@ -2600,7 +2607,7 @@ with KDF3 and SHA-256, the KEK is:<a href="#appendix-D.2-5" class="pilcrow">¶</
 key with the derived key-encryption key:<a href="#appendix-D.2-9" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-D.2-10">
 <pre>
-   d5c7e4352d4dd188b5efdf3ac3ab37c9c97a636f20d1ed58
+   28782e5d3d794a7616b863fbcfc719b78f12de08cf286e09
 </pre><a href="#appendix-D.2-10" class="pilcrow">¶</a>
 </div>
 <p id="appendix-D.2-11">Alice encrypts the padded content using AES-128-CBC with the
@@ -2639,8 +2646,8 @@ BlRrbiZxV1yYRh5EH2VUK9ld4m0PU6ZOeEjXMdlgjQU+jTRVRmAthiNv/jcEyYrV
 kUTzCJ5ebVJ7VJe6EDx51i6A0CNUELBvcafZvRw4AA+RDWMS6i8go1V1Na0Bswk/
 tffuUHCA0Pd9SMnDs3lva33TeGCF+4lRI/BMofHBviLHR6jfrOMjcPsNVweD4n27
 fnT8qU7jlnb949ipVT2HgiRzbjfhkdq5U8fiKMB61coxIkIcFN69ByqatjAbBgor
-gQUQhkgJLAEBMA0GCWCGSAFlAwQCAQUAAgEQMAsGCWCGSAFlAwQBBQQY1cfkNS1N
-0Yi17986w6s3ycl6Y28g0e1YMDwGCSqGSIb3DQEHATAdBglghkgBZQMEAQIEEEgM
+gQUQhkgJLAECMA0GCWCGSAFlAwQCAQUAAgEQMAsGCWCGSAFlAwQBBQQYKHguXT15
+SnYWuGP7z8cZt48S3gjPKG4JMDwGCSqGSIb3DQEHATAdBglghkgBZQMEAQIEEEgM
 yv66vvrO263eyviId4GAEMbKZdt73Xaw834vq2Jktm0=
 </pre><a href="#appendix-D.2-18.1.1" class="pilcrow">¶</a>
 </div>
@@ -2695,7 +2702,7 @@ yv66vvrO263eyviId4GAEMbKZdt73Xaw834vq2Jktm0=
        :       28 C0 7A D5 CA 31 22 42 1C 14 DE BD 07 2A 9A B6
 475  27:       SEQUENCE {
 477  10:        OBJECT IDENTIFIER
-       :         kdf2 (1 3 133 16 840 9 44 1 1)
+       :         kdf3 (1 3 133 16 840 9 44 1 2)
 489  13:        SEQUENCE {
 491   9:         OBJECT IDENTIFIER
        :          sha-256 (2 16 840 1 101 3 4 2 1)
@@ -2708,8 +2715,8 @@ yv66vvrO263eyviId4GAEMbKZdt73Xaw834vq2Jktm0=
        :         aes128-wrap (2 16 840 1 101 3 4 1 5)
        :         }
 520  24:       OCTET STRING
-       :       D5 C7 E4 35 2D 4D D1 88 B5 EF DF 3A C3 AB 37 C9
-       :       C9 7A 63 6F 20 D1 ED 58
+       :       28 78 2E 5D 3D 79 4A 76 16 B8 63 FB CF C7 19 B7
+       :       8F 12 DE 08 CF 28 6E 09
        :        }
        :       }
        :      }
@@ -2807,7 +2814,7 @@ than his RSA modulus.<a href="#appendix-D.3-7" class="pilcrow">¶</a></p>
 <p id="appendix-D.3-8">Bob derives the shared secret (ss) using KDF3 with SHA-256:<a href="#appendix-D.3-8" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-D.3-9">
 <pre>
-   f5c201f5c1989e1681ea4616d8bb9632
+   3cf82ec41b54ed4d37402bbd8f805a52
 </pre><a href="#appendix-D.3-9" class="pilcrow">¶</a>
 </div>
 </section>
@@ -2824,7 +2831,7 @@ The DER encoding of CMSORIforKEMOtherInfo is not repeated here.<a href="#appendi
 CMSORIforKEMOtherInfo structure with KDF3 and SHA-256, the KEK is:<a href="#appendix-D.4-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-D.4-3">
 <pre>
-   e16aa0f063246662a0d6524a4fc41e8f
+   e6dc9d62ff2b469bef604c617b018718
 </pre><a href="#appendix-D.4-3" class="pilcrow">¶</a>
 </div>
 <p id="appendix-D.4-4">Bob uses AES-KEY-WRAP to decrypt the content-encryption key
