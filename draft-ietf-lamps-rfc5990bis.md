@@ -1199,7 +1199,7 @@ The CMSORIforKEMOtherInfo structure contains:
 
 Alice derives the key-encryption key from shared secret produced
 by RSA-KEM Encapsulate() and the CMSORIforKEMOtherInfo structure
-with KDF2 and SHA-256, the KEK is:
+with KDF3 and SHA-256, the KEK is:
 
 ~~~
    e16aa0f063246662a0d6524a4fc41e8f
