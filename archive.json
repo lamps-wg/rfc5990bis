@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-10T00:23:57.332966+00:00",
+  "timestamp": "2023-10-15T00:26:23.516149+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -292,6 +292,166 @@
         }
       ],
       "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOJYmAjs5cvgQn",
+      "title": "Separate RSA-KEM processing and KEMRecipientInfo processing",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/7",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Major changes to separate RSA-KEM processing and KEMRecipientInfo processing.",
+      "createdAt": "2023-10-13T13:49:22Z",
+      "updatedAt": "2023-10-13T14:30:32Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "551d0a6ef7b9cf26748abc4a0d0d8216e8c199f2",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "separate-kem",
+      "headRefOid": "afb104cc2c29767e5154f4a53fabed1a257bd897",
+      "closedAt": "2023-10-13T14:30:31Z",
+      "mergedAt": "2023-10-13T14:30:31Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "af3b94b842eebe95eb966b2d18314704bf0bff11"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5j7tDc",
+          "commit": {
+            "abbreviatedOid": "1ec32e9"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-10-13T14:11:24Z",
+          "updatedAt": "2023-10-13T14:19:32Z",
+          "comments": [
+            {
+              "originalPosition": 524,
+              "body": "```suggestion\r\nthe inclusion of other information in addition to the shared secret (ss) in\r\n```",
+              "createdAt": "2023-10-13T14:11:25Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 754,
+              "body": "```suggestion\r\nAlice derives the shared secret (ss) using KDF3 with SHA-256:\r\n```",
+              "createdAt": "2023-10-13T14:16:04Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 773,
+              "body": "```suggestion\r\nwith KDF3 and SHA-256, the KEK is:\r\n```",
+              "createdAt": "2023-10-13T14:16:27Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 727,
+              "body": "It says KDF3 is required earlier.\r\n\r\n```suggestion\r\n- RSA-KEM with a 3072-bit key and KDF3 with SHA-256;\r\n```",
+              "createdAt": "2023-10-13T14:17:01Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 728,
+              "body": "```suggestion\r\n- KEMRecipientInfo key derivation using KDF3 with SHA-256; and\r\n```",
+              "createdAt": "2023-10-13T14:17:15Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 874,
+              "body": "```suggestion\r\nBob derives the shared secret (ss) using KDF3 with SHA-256:\r\n```",
+              "createdAt": "2023-10-13T14:17:33Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 888,
+              "body": "```suggestion\r\nBob derives the key-encryption key from shared secret and the\r\nCMSORIforKEMOtherInfo structure with KDF3 and SHA-256, the KEK is:\r\n```",
+              "createdAt": "2023-10-13T14:17:47Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJYmAjs5j70hY",
+          "commit": {
+            "abbreviatedOid": "7ccff08"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-13T14:26:49Z",
+          "updatedAt": "2023-10-13T14:26:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOJYmAjs5cw6Ym",
+      "title": "Use KDF3 in the example",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/8",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Update the example to use KDF3 instead of KDF2.",
+      "createdAt": "2023-10-13T18:26:59Z",
+      "updatedAt": "2023-10-13T19:27:16Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "af3b94b842eebe95eb966b2d18314704bf0bff11",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "use-kdf3-in-example",
+      "headRefOid": "f3cc7b039bab5e7c4fd92a98d002390ed67153f8",
+      "closedAt": "2023-10-13T19:27:16Z",
+      "mergedAt": "2023-10-13T19:27:16Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "3123d00950e95dea0ee06483675a08bee1d89ff0"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5j-AIM",
+          "commit": {
+            "abbreviatedOid": "ef9bb91"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-10-13T19:25:12Z",
+          "updatedAt": "2023-10-13T19:25:21Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\n~~~\r\nKDF2 calculates T as:   T = T || Hash (Z || D || otherInfo)\r\n\r\nKDF3 calculates T as:   T = T || Hash (D || Z || otherInfo)\r\n~~~\r\n```",
+              "createdAt": "2023-10-13T19:25:12Z",
+              "updatedAt": "2023-10-13T19:25:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJYmAjs5j-A3R",
+          "commit": {
+            "abbreviatedOid": "f3cc7b0"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-13T19:26:53Z",
+          "updatedAt": "2023-10-13T19:26:53Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
