@@ -296,7 +296,7 @@ The RSA-KEM algorithm recipient processing of the values obtained from the
 KEMRecipientInfo structure can be summarized as:
 
 >
-1\.  Obtain the pairwise secret value PSV using the Decapsulate() function of the
+1\.  Obtain the shared secret using the Decapsulate() function of the
 RSA-KEM algorithm and the recipient's RSA private key:
 
 ~~~
@@ -343,16 +343,12 @@ backward compatibility.  Also, to avoid visual confusion with id-kem-rsa,
 id-rsa-kem-spki is introduced as an alias for id-rsa-kem.
 
 RFC 5990 uses EK as the EncryptedKey, which is the concatenation of
-C and WK (C || WK).  The use of EK was necessary to align with the
-
-KeyTransRecipientInfo structure.  In this document, C and WK are sent
-in separate fields of new KEMRecipientInfo structure.  In particular,
-C is carried in the kemct field, and WK is carried in the encryptedKey
-field.  See {{app-alg}} for details about the computation of C.
-
-RFC 5990 supports the future definition of additional KEM algorithms that
-use RSA; this document supports only one, and it is identified by the
-id-kem-rsa object identifier.
+the ciphertext C and the wrapped key WK, EK = (C || WK).  The use of EK was
+necessary to align with the KeyTransRecipientInfo structure.  In this
+document, the ciphertext and the wrapped key are sent in separate fields of
+the KEMRecipientInfo structure.  In particular, the ciphertext is carried in
+the kemct field, and wrapped key is carried in the encryptedKey
+field.  See {{app-alg}} for details about the computation of the ciphertext.
 
 RFC 5990 includes support for Camellia and Triple-DES block ciphers;
 discussion of these block ciphers is removed from this document, but
@@ -369,6 +365,10 @@ but it requires support for SHA-256 {{SHS}} as the hash function.
 RFC 5990 recommends support for alternatives to KDF3 and AES-Wrap-128;
 this document simply states that other key-derivation functions and other
 key-encryption algorithms MAY be supported.
+
+RFC 5990 supports the future definition of additional KEM algorithms that
+use RSA; this document supports only one, and it is identified by the
+id-kem-rsa object identifier.
 
 RFC 5990 includes an ASN.1 module; this document provides an alternative
 ASN.1 module that follows the conventions established in {{RFC5911}},
@@ -455,19 +455,23 @@ extension as specified in {{RFC4262}}.
 
 If the recipient wishes only to employ the RSA-KEM Algorithm with a given
 public key, the recipient MUST identify the public key in the certificate
-using the id-rsa-kem-spki object identifier; see {{app-asn1}}.  When the
-id-rsa-kem-spki object identifier appears in the SubjectPublicKeyInfo algorithm
-field of the certificate, the parameters field from AlgorithmIdentifier
-SHOULD be absent.  That is, the AlgorithmIdentifier SHOULD be a SEQUENCE of
-one component, the id-rsa-kem-spki object identifier.  With absent parameters,
-the KDF3 key-derivation function {{ANS-X9.44}} with SHA-256 {{SHS}} are used
-to derive the shared secret.
+using the id-rsa-kem-spki object identifier; see {{app-asn1}}.  The use
+of the id-rsa-kem-spki object identifier allows certificates that were
+issued to be compatible with RSA-KEM Key Transport to also be used with
+this specification.  When the id-rsa-kem-spki object identifier appears
+in the SubjectPublicKeyInfo algorithm field of the certificate, the
+parameters field from AlgorithmIdentifier SHOULD be absent.  That is, the
+AlgorithmIdentifier SHOULD be a SEQUENCE of one component, the
+id-rsa-kem-spki object identifier.  With absent parameters, the KDF3
+key-derivation function {{ANS-X9.44}} with SHA-256 {{SHS}} are used to
+derive the shared secret.
 
 When the AlgorithmIdentifier parameters are present, the
-GenericHybridParameters MUST be used.  As described in {{smimecap}},
-the GenericHybridParameters constrain the values that can be used with the
-RSA public key for the kdf, kekLength, and wrap fields of the KEMRecipientInfo
-structure.
+GenericHybridParameters MUST be used.  Within the kem element, the algorithm
+identifier MUST be set to id-kem-rsa, and RsaKemParameters MUST be included.
+As described in {{smimecap}}, the GenericHybridParameters constrain the values
+that can be used with the RSA public key for the kdf, kekLength, and wrap
+fields of the KEMRecipientInfo structure.
 
 Regardless of the AlgorithmIdentifier used, the RSA public key MUST be
 carried in the subjectPublicKey BIT STRING within the SubjectPublicKeyInfo
@@ -516,15 +520,16 @@ The fields of the GenericHybridParameters type have the following meanings:
 and the parameters field MUST be RsaKemParameters, which is a SEQUENCE of an
 AlgorithmIdentifier that identifies the supported key-derivation function
 and a positive INTEGER that identifies the length of the key-encryption
-key in octets.  If the GenericHybridParameters are present, then the
-provided kem value MUST be used as the key-derivation function in the
-kdf field of KEMRecipientInfo, and the provided key length MUST be used
-in the kekLength of KEMRecipientInfo.
+key in octets.
 
 > dem is an AlgorithmIdentifier.  The algorithm field MUST be present, and it
 identifies the key-encryption algorithm.  The parameters are optional.  If the
 GenericHybridParameters are present, then the provided dem value MUST be
 used in the wrap field of KEMRecipientInfo.
+
+If the GenericHybridParameters are present, then the provided kem value MUST
+be used as the key-derivation function in the kdf field of KEMRecipientInfo,
+and the provided key length MUST be used in the kekLength of KEMRecipientInfo.
 
 # Security Considerations
 
@@ -532,7 +537,10 @@ The RSA-KEM Algorithm should be considered as a replacement for the
 widely implemented PKCS #1 v1.5 {{RFC8017}} for new applications
 that use CMS to avoid potential vulnerabilities to chosen-ciphertext
 attacks and gain a tighter security proof; however, the RSA-KEM Algorithm
-has the disadvantage of slightly longer encrypted keying material.
+has the disadvantage of slightly longer encrypted keying material.  With
+PKCS #1 v1.5, the originator encrypts the key-encryption key directly with
+the recipient's RSA public key.  With the RSA-KEM, the key-encryption key
+is encrypted separately.
 
 The security of the RSA-KEM Algorithm can be shown to be tightly related
 to the difficulty of either solving the RSA problem, or breaking the
@@ -577,8 +585,9 @@ source or a maliciously chosen random value (z).  Implementations SHOULD NOT
 use z directly for any purpose.
 
 The RSA-KEM Algorithm provides a fixed-length ciphertext.  The recipient MUST
-check that the received value is the expected length prior to attempting
-decryption with their RSA private key as described in Step 1 of {{app-alg-decap}}.
+check that the received value is the expected length and the expected range
+prior to attempting decryption with their RSA private key as described in
+Steps 1 and 2 of {{app-alg-decap}}.
 
 Implementations SHOULD NOT reveal information about intermediate
 values or calculations, whether by timing or other "side channels",
@@ -607,6 +616,11 @@ for key establishment and key pairs used for digital signature
 used for the RSA-KEM Algorithm SHOULD NOT be used with other key
 establishment schemes, or for data encryption, or with more
 than one set of underlying algorithm components.
+
+It is acceptable to use the same RSA key pair for RSA-KEM Key Transport
+as specified in {{RFC5990}} and this specification.  This is acceptable
+because the operations involving the RSA public key and the RSA private
+kay are identical in the two specifications.
 
 Parties MAY gain assurance that implementations are correct through
 formal implementation validation, such as the NIST Cryptographic
@@ -661,7 +675,7 @@ The originator performs the following operations:
         Z = IntegerToString (z, nLen)
    ~~~
 
-2. Encrypt the encoded random integer Z using the recipient's RSA public key
+2. Encrypt the random integer Z using the recipient's RSA public key
    (n,e), and convert the resulting integer c to a ciphertext C, a
    byte string of length nLen:
 
@@ -675,7 +689,7 @@ The originator performs the following operations:
    byte string Z using the underlying key-derivation function:
 
    ~~~
-        SS = KDF (Z, kekLen)
+        SS = KDF (Z, ssLen)
    ~~~
 
 4. Output the shared secret SS and the ciphertext C.  Send the
@@ -700,33 +714,40 @@ The recipient performs the following operations:
    bytes, output "decryption error", and stop.
 
 2. Convert the ciphertext C to an integer c, most significant byte
-   first.  Decrypt the integer c using the recipient's private key
-   (n,d) to recover an integer z (see NOTE below):
+   first (see NOTE below):
 
    ~~~
         c = StringToInteger (C)
-
-        z = c^d mod n
    ~~~
 
    If the integer c is not between 0 and n-1, output "decryption
    error", and stop.
 
-3. Convert the integer z to a byte string Z of length nLen, most
+3. Decrypt the integer c using the recipient's private key
+   (n,d) to recover an integer z (see NOTE below):
+
+   ~~~
+        z = c^d mod n
+   ~~~
+
+   If the integer z is not between 0 and n-1, output "decryption
+   error", and stop.
+
+4. Convert the integer z to a byte string Z of length nLen, most
    significant byte first (see NOTE below):
 
    ~~~
         Z = IntegerToString (z, nLen)
    ~~~
 
-4. Derive a shared secret SS of length ssLen bytes from the byte
+5. Derive a shared secret SS of length ssLen bytes from the byte
    string Z using the key-derivation function (see NOTE below):
 
    ~~~
         SS = KDF (Z, ssLen)
    ~~~
 
-5. Output the shared secret SS.
+6. Output the shared secret SS.
 
 NOTE: Implementations SHOULD NOT reveal information about the
 integer z, the string Z, or about the calculation of the
