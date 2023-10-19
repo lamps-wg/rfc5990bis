@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-15T00:26:23.516149+00:00",
+  "timestamp": "2023-10-19T00:23:58.121289+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -449,6 +449,48 @@
           "body": "",
           "createdAt": "2023-10-13T19:26:53Z",
           "updatedAt": "2023-10-13T19:26:53Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOJYmAjs5dDLDj",
+      "title": "Resolve comments from Peter C.",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/9",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Resolve comments from Peter C. that were sent by email to the authors.",
+      "createdAt": "2023-10-17T18:37:45Z",
+      "updatedAt": "2023-10-18T12:36:57Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "3123d00950e95dea0ee06483675a08bee1d89ff0",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "comments-from-peter-c",
+      "headRefOid": "7e44e4ba3b2089110e812b059908b7c5b984a31f",
+      "closedAt": "2023-10-18T12:36:57Z",
+      "mergedAt": "2023-10-18T12:36:57Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "8c4bebef9364bdb492427e7d42368857af882224"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5kboW2",
+          "commit": {
+            "abbreviatedOid": "7e44e4b"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-18T12:36:40Z",
+          "updatedAt": "2023-10-18T12:36:40Z",
           "comments": []
         }
       ]
