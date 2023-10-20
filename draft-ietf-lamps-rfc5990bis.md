@@ -256,7 +256,7 @@ to obtain the random integer z:
 
 ## CMS KEMRecipientInfo Processing Summary
 
-To support a the RSA-KEM algorithm, the CMS originator MUST implement
+To support the RSA-KEM algorithm, the CMS originator MUST implement
 Encapsulate().
 
 Given a content-encryption key CEK, the RSA-KEM Algorithm processing by the
@@ -289,7 +289,7 @@ RSA-KEM algorithm and the recipient's RSA public key:
 4\. The originator sends the ciphertext and WK to the recipient in the CMS
 KEMRecipientInfo structure.
 
-To support a the RSA-KEM algorithm, the CMS recipient MUST implement
+To support the RSA-KEM algorithm, the CMS recipient MUST implement
 Decapsulate().
 
 The RSA-KEM algorithm recipient processing of the values obtained from the
@@ -436,7 +436,7 @@ CMS authenticated-enveloped-data content type {{RFC5083}}, the
 keying material is a content-authenticated-encryption key.
 
 NOTE: For backward compatibility, implementations MAY also support
-RSA-KEM Key Transport Algorithm, identified by id-rsa-kem, which uses
+RSA-KEM Key Transport Algorithm, identified by id-rsa-kem-spki, which uses
 KeyTransRecipientInfo as specified in {{RFC5990}}.
 
 ## Certificate Conventions
@@ -475,7 +475,7 @@ fields of the KEMRecipientInfo structure.
 
 Regardless of the AlgorithmIdentifier used, the RSA public key MUST be
 carried in the subjectPublicKey BIT STRING within the SubjectPublicKeyInfo
-filed of the certificate using the RSAPublicKey type defined in {{RFC8017}}.
+field of the certificate using the RSAPublicKey type defined in {{RFC8017}}.
 
 The intended application for the public key MAY be indicated in the key usage
 certificate extension as specified in {{Section 4.2.1.3 of RFC5280}}.  If the
@@ -562,11 +562,14 @@ the key-derivation function SHOULD make use of SHA-256, and the symmetric
 key-encryption algorithm SHOULD be AES Key Wrap with a 128-bit key.
 
 Implementations MUST protect the RSA private key, the key-encryption key,
-the content-encryption key, the content-authenticated-encryption key.
-Compromise of the RSA private key could result in the disclosure of all
-messages protected with that key.  Compromise of the key-encryption key,
-the content-encryption key, or content-authenticated-encryption key could
-result in disclosure of the associated encrypted content.
+the content-encryption key, message-authentication key, and the
+content-authenticated-encryption key.  Disclosure of the RSA private key
+could result in the compromise of all messages protected with that key.
+Disclosure of the key-encryption key, the content-encryption key, or the
+content-authenticated-encryption key could result in compromise of the
+associated encrypted content.  Disclosure of the key-encryption key, the
+message-authentication key, or the content-authenticated-encryption key
+could allow modification of the associated authenticated content.
 
 Additional considerations related to key management may be found in
 {{NISTSP800-57pt1r5}}.
@@ -585,9 +588,9 @@ source or a maliciously chosen random value (z).  Implementations SHOULD NOT
 use z directly for any purpose.
 
 The RSA-KEM Algorithm provides a fixed-length ciphertext.  The recipient MUST
-check that the received value is the expected length and the expected range
-prior to attempting decryption with their RSA private key as described in
-Steps 1 and 2 of {{app-alg-decap}}.
+check that the received byte string is the expected length and the expected length
+and corresponds to an integer in the expected range prior to attempting decryption
+with their RSA private key as described in Steps 1 and 2 of {{app-alg-decap}}.
 
 Implementations SHOULD NOT reveal information about intermediate
 values or calculations, whether by timing or other "side channels",
@@ -620,7 +623,7 @@ than one set of underlying algorithm components.
 It is acceptable to use the same RSA key pair for RSA-KEM Key Transport
 as specified in {{RFC5990}} and this specification.  This is acceptable
 because the operations involving the RSA public key and the RSA private
-kay are identical in the two specifications.
+key are identical in the two specifications.
 
 Parties MAY gain assurance that implementations are correct through
 formal implementation validation, such as the NIST Cryptographic
@@ -644,15 +647,15 @@ using the recipient's RSA public key.
 
 With the RSA-KEM Algorithm, an originator encrypts a random integer (z) with
 the recipient's RSA public key to produce a ciphertext (C), and the originator
-derives a shared secret (ss) from the random integer (z).  The originator then
+derives a shared secret (SS) from the random integer (z).  The originator then
 sends the ciphertext (C) to the recipient.  The recipient decrypts the
 ciphertext (C) using the their private key to recover the random integer (z),
-and the recipient derives a shared secret (ss) from the random integer(z).  In
+and the recipient derives a shared secret (SS) from the random integer(z).  In
 this way, originator and recipient obtain the same shared secret (ss).
 
 The RSA-KEM Algorithm depends on a key-derivation function (KDF), which is
-used to derive the shared secret (ss).  Many key-derivation functions support
-the inclusion of other information in addition to the shared secret (ss) in
+used to derive the shared secret (SS).  Many key-derivation functions support
+the inclusion of other information in addition to the shared secret (SS) in
 the input to the function; however, no other information is included as an
 input to the KDF by the RSA-KEM Algorithm.
 
@@ -730,9 +733,6 @@ The recipient performs the following operations:
         z = c^d mod n
    ~~~
 
-   If the integer z is not between 0 and n-1, output "decryption
-   error", and stop.
-
 4. Convert the integer z to a byte string Z of length nLen, most
    significant byte first (see NOTE below):
 
@@ -781,11 +781,13 @@ the KDF3 {{ANS-X9.44}} key-derivation function using SHA-256 {{SHS}}.
 KDF2 {{ANS-X9.44}} and KDF3 are both key-derivation functions based on
 a hash function.  The only difference between KDF2 and KDF3 is the order
 of the components to be hashed.
-~~~
-KDF2 calculates T as:   T = T || Hash (Z || D || otherInfo)
 
-KDF3 calculates T as:   T = T || Hash (D || Z || otherInfo)
 ~~~
+   KDF2 calculates T as:   T = T || Hash (Z || D || otherInfo)
+
+   KDF3 calculates T as:   T = T || Hash (D || Z || otherInfo)
+~~~
+
 The object identifier for KDF3 is:
 
 ~~~
