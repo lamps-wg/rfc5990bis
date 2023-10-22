@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-19T00:23:58.121289+00:00",
+  "timestamp": "2023-10-22T00:26:20.765491+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -491,6 +491,48 @@
           "body": "",
           "createdAt": "2023-10-18T12:36:40Z",
           "updatedAt": "2023-10-18T12:36:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOJYmAjs5dURrD",
+      "title": "Resolve the second set of comments from Peter C.",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/10",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Resolve the second set of comments from Peter C.  On the mail list, he said that these changes resolved his concerns.",
+      "createdAt": "2023-10-19T21:07:23Z",
+      "updatedAt": "2023-10-20T02:32:26Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "8c4bebef9364bdb492427e7d42368857af882224",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "more-comments-from-peter-c",
+      "headRefOid": "5571b75867efcf8ee4e8fb234cb9f5a6c78c3497",
+      "closedAt": "2023-10-20T02:32:26Z",
+      "mergedAt": "2023-10-20T02:32:26Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "3d5bf61e4b3f9284825a8867c960e8b3e278398e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5krVPS",
+          "commit": {
+            "abbreviatedOid": "5571b75"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-20T02:32:18Z",
+          "updatedAt": "2023-10-20T02:32:18Z",
           "comments": []
         }
       ]
