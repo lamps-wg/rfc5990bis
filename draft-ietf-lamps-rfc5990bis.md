@@ -176,7 +176,7 @@ Appendix A of this document; ASN.1 syntax is given in Appendix B.
 
 ## RSA-KEM Algorithm Rationale
 
-The RSA-KEM Algorithm provide higher security assurance than other
+The RSA-KEM Algorithm provides higher security assurance than other
 variants of the RSA cryptosystem for two reasons.  First, the input to the
 underlying RSA operation is a string-encoded random integer between 0 and n-1,
 where n is the RSA modulus, so it does not have any structure that could be
@@ -195,7 +195,7 @@ is determined by the symmetric algorithms, not the size of the RSA modulus.
 
 ## RSA-KEM Algorithm Summary
 
-All KEM algorithms provides three functions: KeyGen(), Encapsulate(),
+All KEM algorithms provide three functions: KeyGen(), Encapsulate(),
 and Decapsulate().
 
 The following summarizes these three functions for RSA-KEM:
