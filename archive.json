@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-22T00:26:20.765491+00:00",
+  "timestamp": "2023-10-29T00:26:00.469277+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -94,6 +94,22 @@
           "updatedAt": "2023-08-29T12:55:47Z"
         }
       ]
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOJYmAjs51DG-5",
+      "title": "Address Mike's nits",
+      "url": "https://github.com/lamps-wg/rfc5990bis/issues/11",
+      "state": "CLOSED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See this [msg](https://mailarchive.ietf.org/arch/msg/spasm/JY0gwUi94fyrIDuaPFurOgQJfrg/).",
+      "createdAt": "2023-10-26T14:48:19Z",
+      "updatedAt": "2023-10-26T16:51:53Z",
+      "closedAt": "2023-10-26T16:51:53Z",
+      "comments": []
     }
   ],
   "pulls": [
@@ -533,6 +549,48 @@
           "body": "",
           "createdAt": "2023-10-20T02:32:18Z",
           "updatedAt": "2023-10-20T02:32:18Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOJYmAjs5d4RJ_",
+      "title": "Fix Mike's nits",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/12",
+      "state": "MERGED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #11.",
+      "createdAt": "2023-10-26T14:52:16Z",
+      "updatedAt": "2023-10-26T16:52:26Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "3d5bf61e4b3f9284825a8867c960e8b3e278398e",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "seanturner-mikes-nits",
+      "headRefOid": "0bd9dd30b34ac4dcb6ae4e8ab56c2e472cc61842",
+      "closedAt": "2023-10-26T16:51:52Z",
+      "mergedAt": "2023-10-26T16:51:52Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "25e99229312dbd83efcc3f4380590e1c64ad0567"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5lVYzM",
+          "commit": {
+            "abbreviatedOid": "0bd9dd3"
+          },
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "Looks good.  I'll merge them.",
+          "createdAt": "2023-10-26T16:52:26Z",
+          "updatedAt": "2023-10-26T16:52:26Z",
           "comments": []
         }
       ]
