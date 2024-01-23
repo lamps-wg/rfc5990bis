@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-21T00:29:36.599976+00:00",
+  "timestamp": "2024-01-23T00:27:06.964668+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -109,6 +109,22 @@
       "createdAt": "2023-10-26T14:48:19Z",
       "updatedAt": "2023-10-26T16:51:53Z",
       "closedAt": "2023-10-26T16:51:53Z",
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOJYmAjs5829dm",
+      "title": "Doe not degrade with the number of ciphertexts.",
+      "url": "https://github.com/lamps-wg/rfc5990bis/issues/13",
+      "state": "OPEN",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I was recently reading {{SHOUP}} again, and I came across an observation that should be added to the Security Considerations.\r\n\r\nI propose the following text:\r\n\r\n~~~\r\nAs long as a fresh random integer z is chosen as part of each invocation of the\r\nEncapsulate() function, RSA-KEM does not degrade as the number of ciphertexts\r\nincreases.\r\n~~~",
+      "createdAt": "2024-01-22T21:27:02Z",
+      "updatedAt": "2024-01-22T21:27:02Z",
+      "closedAt": null,
       "comments": []
     }
   ],
