@@ -6,7 +6,7 @@ Limited Additional Mechanisms for PKIX and SMIME              R. Housley
 Internet-Draft                                            Vigil Security
 Obsoletes: 5990 (if approved)                                  S. Turner
 Intended status: Standards Track                                   sn3rd
-Expires: 28 April 2024                                   26 October 2023
+Expires: 27 July 2024                                    24 January 2024
 
 
  Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)
@@ -52,11 +52,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 April 2024.
+   This Internet-Draft will expire on 27 July 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -533,6 +533,10 @@ Table of Contents
    chosen random value (z).  Implementations SHOULD NOT use z directly
    for any purpose.
 
+   As long as a fresh random integer z is chosen as part of each
+   invocation of the Encapsulate() function, RSA-KEM does not degrade as
+   the number of ciphertexts increases.
+
    The RSA-KEM Algorithm provides a fixed-length ciphertext.  The
    recipient MUST check that the received byte string is the expected
    length and the expected length and corresponds to an integer in the
@@ -592,9 +596,9 @@ Table of Contents
               Housley, R., Gray, J., and T. Okubo, "Using Key
               Encapsulation Mechanism (KEM) Algorithms in the
               Cryptographic Message Syntax (CMS)", Work in Progress,
-              Internet-Draft, draft-ietf-lamps-cms-kemri-05, 19
-              September 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lamps-cms-kemri-05>.
+              Internet-Draft, draft-ietf-lamps-cms-kemri-06, 21 October
+              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              lamps-cms-kemri-06>.
 
    [ISO18033-2]
               ISO/IEC JTC 1/SC 27, "Information technology -- Security
