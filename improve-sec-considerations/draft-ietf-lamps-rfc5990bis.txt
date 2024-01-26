@@ -6,7 +6,7 @@ Limited Additional Mechanisms for PKIX and SMIME              R. Housley
 Internet-Draft                                            Vigil Security
 Obsoletes: 5990 (if approved)                                  S. Turner
 Intended status: Standards Track                                   sn3rd
-Expires: 27 July 2024                                    24 January 2024
+Expires: 29 July 2024                                    26 January 2024
 
 
  Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 July 2024.
+   This Internet-Draft will expire on 29 July 2024.
 
 Copyright Notice
 
@@ -535,7 +535,10 @@ Table of Contents
 
    As long as a fresh random integer z is chosen as part of each
    invocation of the Encapsulate() function, RSA-KEM does not degrade as
-   the number of ciphertexts increases.
+   the number of ciphertexts increases.  Since RSA encryption provides a
+   bijective map, a collision in the KDF is the only way that RSA-KEM
+   can produce more than one ciphertext that encapsulates the same
+   shared secret.
 
    The RSA-KEM Algorithm provides a fixed-length ciphertext.  The
    recipient MUST check that the received byte string is the expected
