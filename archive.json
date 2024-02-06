@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-04T00:27:36.922483+00:00",
+  "timestamp": "2024-02-06T00:24:41.300080+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -623,7 +623,7 @@
       "labels": [],
       "body": "As long as a fresh random integer z is chosen as part of each invocation of the Encapsulate() function, RSA-KEM does not degrade as the number of ciphertexts increases.",
       "createdAt": "2024-01-24T15:35:25Z",
-      "updatedAt": "2024-01-26T20:50:03Z",
+      "updatedAt": "2024-02-05T15:50:51Z",
       "baseRepository": "lamps-wg/rfc5990bis",
       "baseRefName": "main",
       "baseRefOid": "25e99229312dbd83efcc3f4380590e1c64ad0567",
@@ -641,6 +641,13 @@
           "body": "Closes #13.",
           "createdAt": "2024-01-24T15:39:59Z",
           "updatedAt": "2024-01-24T15:39:59Z"
+        },
+        {
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@ounsworth PTAL when you get the chance.",
+          "createdAt": "2024-02-05T15:50:50Z",
+          "updatedAt": "2024-02-05T15:50:50Z"
         }
       ],
       "reviews": [
