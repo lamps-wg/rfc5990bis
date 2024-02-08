@@ -48,6 +48,7 @@ normative:
   RFC5911:
   RFC5912:
   RFC6268:
+  RFC8017:
   RFC8551:
   SHS:
     author:
@@ -109,7 +110,6 @@ informative:
   RFC4262:
   RFC5990:
   RFC6194:
-  RFC8017:
   NISTSP800-57pt1r5:
     author:
       org: National Institute of Standards and Technology
