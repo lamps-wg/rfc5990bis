@@ -6,7 +6,7 @@ Limited Additional Mechanisms for PKIX and SMIME              R. Housley
 Internet-Draft                                            Vigil Security
 Obsoletes: 5990 (if approved)                                  S. Turner
 Intended status: Standards Track                                   sn3rd
-Expires: 28 April 2024                                   26 October 2023
+Expires: 11 August 2024                                  8 February 2024
 
 
  Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)
@@ -52,11 +52,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 April 2024.
+   This Internet-Draft will expire on 11 August 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -592,9 +592,9 @@ Table of Contents
               Housley, R., Gray, J., and T. Okubo, "Using Key
               Encapsulation Mechanism (KEM) Algorithms in the
               Cryptographic Message Syntax (CMS)", Work in Progress,
-              Internet-Draft, draft-ietf-lamps-cms-kemri-05, 19
-              September 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lamps-cms-kemri-05>.
+              Internet-Draft, draft-ietf-lamps-cms-kemri-08, 6 February
+              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              lamps-cms-kemri-08>.
 
    [ISO18033-2]
               ISO/IEC JTC 1/SC 27, "Information technology -- Security
@@ -1505,9 +1505,9 @@ Acknowledgements
    We thank Blake Ramsdell, Jim Schaad, Magnus Nystrom, Bob Griffin, and
    John Linn for helping bring [RFC5990] to fruition.
 
-   We thank Burt Kaliski, Alex Railean, Joe Mandel, Mike Ounsworth, and
-   Peter Campbell for careful review and thoughtful comments that
-   greatly improved this document.
+   We thank Burt Kaliski, Alex Railean, Joe Mandel, Mike Ounsworth,
+   Peter Campbell, and Daniel Van Geest for careful review and
+   thoughtful comments that greatly improved this document.
 
 Authors' Addresses
 
