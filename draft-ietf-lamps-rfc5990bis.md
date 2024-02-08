@@ -1510,6 +1510,7 @@ We thank
 Burt Kaliski,
 Alex Railean,
 Joe Mandel,
-Mike Ounsworth, and
-Peter Campbell
+Mike Ounsworth,
+Peter Campbell, and
+Daniel Van Geest
 for careful review and thoughtful comments that greatly improved this document.
