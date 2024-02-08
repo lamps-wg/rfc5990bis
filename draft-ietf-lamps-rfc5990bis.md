@@ -41,6 +41,7 @@ author:
 
 normative:
   I-D.ietf-lamps-cms-kemri:
+  RFC3394:
   RFC5083:
   RFC5280:
   RFC5652:
@@ -81,6 +82,15 @@ normative:
     seriesinfo:
       ITU-T Recommendation: X.690
       ISO/IEC: 8825-1:2021
+  ANS-X9.44:
+    author:
+      org: American National Standards Institute
+    title: >
+      Public Key Cryptography for the Financial Services Industry --
+      Key Establishment Using Integer Factorization Cryptography
+    date: 2007
+    seriesinfo:
+      American National Standard: X9.44
   ISO18033-2:
     target: https://www.iso.org/standard/37971.html
     title: >
@@ -95,7 +105,6 @@ normative:
       ISO/IEC: 18033-2:2006
 
 informative:
-  RFC3394:
   RFC4086:
   RFC4262:
   RFC5990:
@@ -110,15 +119,6 @@ informative:
       "NIST": "Special Publication 800-57 Part 1 Revision 5"
     seriesinfo:
       DOI: 10.6028/nist.sp.800-57pt1r5
-  ANS-X9.44:
-   author:
-     org: American National Standards Institute
-   title: >
-     Public Key Cryptography for the Financial Services Industry --
-     Key Establishment Using Integer Factorization Cryptography
-   date: 2007
-   seriesinfo:
-     American National Standard: X9.44
   CMVP:
     target: https://csrc.nist.gov/projects/cryptographic-module-validation-program
     author:
