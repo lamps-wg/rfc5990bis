@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-08T00:24:55.908913+00:00",
+  "timestamp": "2024-02-11T00:27:38.390818+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -662,6 +662,88 @@
           "body": "",
           "createdAt": "2024-01-26T20:50:03Z",
           "updatedAt": "2024-01-26T20:50:03Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOJYmAjs5mYxst",
+      "title": "Normative References for KDF3 and AES-KEYWRAP",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/15",
+      "state": "OPEN",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The references for KDF3 and AES-KEYWRAP ought to be normative because these algorithms are in MUST statements.",
+      "createdAt": "2024-02-08T14:59:04Z",
+      "updatedAt": "2024-02-08T19:08:45Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "25e99229312dbd83efcc3f4380590e1c64ad0567",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "fix-norm-refs",
+      "headRefOid": "37ec0844dcf0543aa50b1999bb8f54139594242c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5vhed2",
+          "commit": {
+            "abbreviatedOid": "37ec084"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-08T19:08:45Z",
+          "updatedAt": "2024-02-08T19:08:45Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOJYmAjs5mai4I",
+      "title": "Add DVG to ack",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/16",
+      "state": "MERGED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-08T19:06:38Z",
+      "updatedAt": "2024-02-08T21:13:56Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "25e99229312dbd83efcc3f4380590e1c64ad0567",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "seanturner-dvg-ack",
+      "headRefOid": "1ab8a8375c37f4ef0ff2b36872089a8704ed63e9",
+      "closedAt": "2024-02-08T21:13:56Z",
+      "mergedAt": "2024-02-08T21:13:56Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "cce32210c26823773ae728b58e090c983af0b87c"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5viUZL",
+          "commit": {
+            "abbreviatedOid": "1ab8a83"
+          },
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-08T21:13:47Z",
+          "updatedAt": "2024-02-08T21:13:47Z",
           "comments": []
         }
       ]
