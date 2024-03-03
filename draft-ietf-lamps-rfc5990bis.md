@@ -865,7 +865,7 @@ IMPORTS
          id-mod-kemAlgorithmInformation-2023(TBD3) }
 
   AlgorithmIdentifier{}, PUBLIC-KEY, DIGEST-ALGORITHM,
-  KEY-DERIVATION, KEY-WRAP
+  KEY-DERIVATION, KEY-WRAP, SMIME-CAPS
     FROM AlgorithmInformation-2009  -- [RFC5912]
       { iso(1) identified-organization(3) dod(6) internet(1)
         security(5) mechanisms(5) pkix(7) id-mod(0)
