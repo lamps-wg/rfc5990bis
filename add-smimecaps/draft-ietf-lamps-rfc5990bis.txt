@@ -6,7 +6,7 @@ Limited Additional Mechanisms for PKIX and SMIME              R. Housley
 Internet-Draft                                            Vigil Security
 Obsoletes: 5990 (if approved)                                  S. Turner
 Intended status: Standards Track                                   sn3rd
-Expires: 29 July 2024                                    26 January 2024
+Expires: 4 September 2024                                   3 March 2024
 
 
  Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 July 2024.
+   This Internet-Draft will expire on 4 September 2024.
 
 Copyright Notice
 
@@ -533,13 +533,6 @@ Table of Contents
    chosen random value (z).  Implementations SHOULD NOT use z directly
    for any purpose.
 
-   As long as a fresh random integer z is chosen as part of each
-   invocation of the Encapsulate() function, RSA-KEM does not degrade as
-   the number of ciphertexts increases.  Since RSA encryption provides a
-   bijective map, a collision in the KDF is the only way that RSA-KEM
-   can produce more than one ciphertext that encapsulates the same
-   shared secret.
-
    The RSA-KEM Algorithm provides a fixed-length ciphertext.  The
    recipient MUST check that the received byte string is the expected
    length and the expected length and corresponds to an integer in the
@@ -599,9 +592,9 @@ Table of Contents
               Housley, R., Gray, J., and T. Okubo, "Using Key
               Encapsulation Mechanism (KEM) Algorithms in the
               Cryptographic Message Syntax (CMS)", Work in Progress,
-              Internet-Draft, draft-ietf-lamps-cms-kemri-06, 21 October
-              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              lamps-cms-kemri-06>.
+              Internet-Draft, draft-ietf-lamps-cms-kemri-08, 6 February
+              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              lamps-cms-kemri-08>.
 
    [ISO18033-2]
               ISO/IEC JTC 1/SC 27, "Information technology -- Security
@@ -1114,6 +1107,15 @@ B.2.  ASN.1 Module
       mda-sha1 | mda-sha224 | mda-sha256 | mda-sha384 |
       mda-sha512, ... }
 
+   -- Updates for the SMIME-CAPS Set from RFC 5911
+
+   SMimeCapsSet SMIME-CAPS ::= {
+      kema-kem-rsa.&smimeCaps |
+      kwa-camellia128-wrap.&smimeCaps |
+      kwa-camellia192-wrap.&smimeCaps |
+      kwa-camellia256-wrap.&smimeCaps,
+      ... }
+
    END
    <CODE ENDS>
 
@@ -1512,9 +1514,9 @@ Acknowledgements
    We thank Blake Ramsdell, Jim Schaad, Magnus Nystrom, Bob Griffin, and
    John Linn for helping bring [RFC5990] to fruition.
 
-   We thank Burt Kaliski, Alex Railean, Joe Mandel, Mike Ounsworth, and
-   Peter Campbell for careful review and thoughtful comments that
-   greatly improved this document.
+   We thank Burt Kaliski, Alex Railean, Joe Mandel, Mike Ounsworth,
+   Peter Campbell, and Daniel Van Geest for careful review and
+   thoughtful comments that greatly improved this document.
 
 Authors' Addresses
 
