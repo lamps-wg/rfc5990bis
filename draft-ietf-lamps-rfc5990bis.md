@@ -1050,6 +1050,15 @@ X9-HashFunctions DIGEST-ALGORITHM ::= {
    mda-sha1 | mda-sha224 | mda-sha256 | mda-sha384 |
    mda-sha512, ... }
 
+-- Updates for the SMIME-CAPS Set from RFC 5911
+
+SMimeCapsSet SMIME-CAPS ::= {
+   kema-kem-rsa.&smimeCaps |
+   kwa-camellia128-wrap.&smimeCaps |
+   kwa-camellia192-wrap.&smimeCaps |
+   kwa-camellia256-wrap.&smimeCaps,
+   ... }
+
 END
 ~~~
 {: sourcecode-markers='true'}
