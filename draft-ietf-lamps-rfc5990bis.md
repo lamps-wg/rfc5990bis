@@ -871,7 +871,7 @@ IMPORTS
          id-mod-kemAlgorithmInformation-2023(TBD3) }
 
   AlgorithmIdentifier{}, PUBLIC-KEY, DIGEST-ALGORITHM,
-  KEY-DERIVATION, KEY-WRAP
+  KEY-DERIVATION, KEY-WRAP, SMIME-CAPS
     FROM AlgorithmInformation-2009  -- [RFC5912]
       { iso(1) identified-organization(3) dod(6) internet(1)
         security(5) mechanisms(5) pkix(7) id-mod(0)
@@ -1055,6 +1055,18 @@ KDF3-HashFunctions DIGEST-ALGORITHM ::= { X9-HashFunctions, ... }
 X9-HashFunctions DIGEST-ALGORITHM ::= {
    mda-sha1 | mda-sha224 | mda-sha256 | mda-sha384 |
    mda-sha512, ... }
+
+-- Updates for the SMIME-CAPS Set from RFC 5911
+
+SMimeCapsSet SMIME-CAPS ::= {
+   kema-kem-rsa.&smimeCaps |
+   kwa-aes128-wrap |
+   kwa-aes192-wrap |
+   kwa-aes256-wrap |
+   kwa-camellia128-wrap.&smimeCaps |
+   kwa-camellia192-wrap.&smimeCaps |
+   kwa-camellia256-wrap.&smimeCaps,
+   ... }
 
 END
 ~~~
