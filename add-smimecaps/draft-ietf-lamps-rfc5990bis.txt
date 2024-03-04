@@ -6,7 +6,7 @@ Limited Additional Mechanisms for PKIX and SMIME              R. Housley
 Internet-Draft                                            Vigil Security
 Obsoletes: 5990 (if approved)                                  S. Turner
 Intended status: Standards Track                                   sn3rd
-Expires: 4 September 2024                                   3 March 2024
+Expires: 5 September 2024                                   4 March 2024
 
 
  Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 September 2024.
+   This Internet-Draft will expire on 5 September 2024.
 
 Copyright Notice
 
@@ -1111,6 +1111,9 @@ B.2.  ASN.1 Module
 
    SMimeCapsSet SMIME-CAPS ::= {
       kema-kem-rsa.&smimeCaps |
+      kwa-aes128-wrap |
+      kwa-aes192-wrap |
+      kwa-aes256-wrap |
       kwa-camellia128-wrap.&smimeCaps |
       kwa-camellia192-wrap.&smimeCaps |
       kwa-camellia256-wrap.&smimeCaps,
