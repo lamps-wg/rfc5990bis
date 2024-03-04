@@ -587,6 +587,12 @@ function (KDF) to reduce possible harm from a poorly implemented random number
 source or a maliciously chosen random value (z).  Implementations SHOULD NOT
 use z directly for any purpose.
 
+As long as a fresh random integer z is chosen as part of each invocation
+of the Encapsulate() function, RSA-KEM does not degrade as the number of
+ciphertexts increases.  Since RSA encryption provides a bijective map,
+a collision in the KDF is the only way that RSA-KEM can produce more than
+one ciphertext that encapsulates the same shared secret.
+
 The RSA-KEM Algorithm provides a fixed-length ciphertext.  The recipient MUST
 check that the received byte string is the expected length and the expected length
 and corresponds to an integer in the expected range prior to attempting decryption
