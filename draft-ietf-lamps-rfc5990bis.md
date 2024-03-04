@@ -1054,6 +1054,9 @@ X9-HashFunctions DIGEST-ALGORITHM ::= {
 
 SMimeCapsSet SMIME-CAPS ::= {
    kema-kem-rsa.&smimeCaps |
+   kwa-aes128-wrap |
+   kwa-aes192-wrap |
+   kwa-aes256-wrap |
    kwa-camellia128-wrap.&smimeCaps |
    kwa-camellia192-wrap.&smimeCaps |
    kwa-camellia256-wrap.&smimeCaps,
