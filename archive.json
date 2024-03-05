@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-03T00:26:45.595756+00:00",
+  "timestamp": "2024-03-05T00:24:30.839914+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -116,15 +116,15 @@
       "id": "I_kwDOJYmAjs5829dm",
       "title": "Doe not degrade with the number of ciphertexts.",
       "url": "https://github.com/lamps-wg/rfc5990bis/issues/13",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "russhousley",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "I was recently reading {{SHOUP}} again, and I came across an observation that should be added to the Security Considerations.\r\n\r\nI propose the following text:\r\n\r\n~~~\r\nAs long as a fresh random integer z is chosen as part of each invocation of the\r\nEncapsulate() function, RSA-KEM does not degrade as the number of ciphertexts\r\nincreases.\r\n~~~",
       "createdAt": "2024-01-22T21:27:02Z",
-      "updatedAt": "2024-01-22T21:27:02Z",
-      "closedAt": null,
+      "updatedAt": "2024-03-04T14:33:26Z",
+      "closedAt": "2024-03-04T14:33:26Z",
       "comments": []
     }
   ],
@@ -616,24 +616,26 @@
       "id": "PR_kwDOJYmAjs5k941D",
       "title": "Update draft-ietf-lamps-rfc5990bis.md",
       "url": "https://github.com/lamps-wg/rfc5990bis/pull/14",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "russhousley",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "As long as a fresh random integer z is chosen as part of each invocation of the Encapsulate() function, RSA-KEM does not degrade as the number of ciphertexts increases.",
       "createdAt": "2024-01-24T15:35:25Z",
-      "updatedAt": "2024-02-05T15:50:51Z",
+      "updatedAt": "2024-03-04T14:32:35Z",
       "baseRepository": "lamps-wg/rfc5990bis",
       "baseRefName": "main",
       "baseRefOid": "25e99229312dbd83efcc3f4380590e1c64ad0567",
       "headRepository": "lamps-wg/rfc5990bis",
       "headRefName": "improve-sec-considerations",
       "headRefOid": "aabbe80b0c9e0b7db947b1ca88ba7f9833bf23da",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-03-04T14:32:35Z",
+      "mergedAt": "2024-03-04T14:32:35Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "180f1599150dcf338d31a0ecb7d9cb68f079e5cf"
+      },
       "comments": [
         {
           "author": "seanturner",
@@ -671,24 +673,26 @@
       "id": "PR_kwDOJYmAjs5mYxst",
       "title": "Normative References for KDF3 and AES-KEYWRAP",
       "url": "https://github.com/lamps-wg/rfc5990bis/pull/15",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "russhousley",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The references for KDF3 and AES-KEYWRAP ought to be normative because these algorithms are in MUST statements.",
       "createdAt": "2024-02-08T14:59:04Z",
-      "updatedAt": "2024-02-08T19:08:45Z",
+      "updatedAt": "2024-03-04T14:33:01Z",
       "baseRepository": "lamps-wg/rfc5990bis",
       "baseRefName": "main",
       "baseRefOid": "25e99229312dbd83efcc3f4380590e1c64ad0567",
       "headRepository": "russhousley/rfc5990bis",
       "headRefName": "fix-norm-refs",
       "headRefOid": "37ec0844dcf0543aa50b1999bb8f54139594242c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-03-04T14:33:01Z",
+      "mergedAt": "2024-03-04T14:33:01Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "504fb2a33dc588b7aa3fff3a5c0b5c5b9f16193c"
+      },
       "comments": [],
       "reviews": [
         {
@@ -745,6 +749,55 @@
           "createdAt": "2024-02-08T21:13:47Z",
           "updatedAt": "2024-02-08T21:13:47Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOJYmAjs5ohTeB",
+      "title": "Add smimecaps",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/17",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "-- Updates for the SMIME-CAPS Set from RFC 5911\r\n\r\nSMimeCapsSet SMIME-CAPS ::= {\r\n   kema-kem-rsa.&smimeCaps |\r\n   kwa-camellia128-wrap.&smimeCaps |\r\n   kwa-camellia192-wrap.&smimeCaps |\r\n   kwa-camellia256-wrap.&smimeCaps,\r\n   ... }\r\n\r\nEND",
+      "createdAt": "2024-03-03T20:23:17Z",
+      "updatedAt": "2024-03-04T15:03:28Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "cce32210c26823773ae728b58e090c983af0b87c",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "add-smimecaps",
+      "headRefOid": "38cded91018c1354643e118c3a92d77217f708b4",
+      "closedAt": "2024-03-04T15:03:28Z",
+      "mergedAt": "2024-03-04T15:03:28Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "ce7a9c076fbe662f6d5ace99db337320bedd469b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5yHX4L",
+          "commit": {
+            "abbreviatedOid": "50146ee"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-04T14:57:48Z",
+          "updatedAt": "2024-03-04T14:57:48Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "I think we also need to add the kwa-aes*-wrap algorithms. I couldn't find where they were added elsewhere.\r\n\r\n```suggestion\r\nSMimeCapsSet SMIME-CAPS ::= {\r\n   kema-kem-rsa.&smimeCaps |\r\n   kwa-aes128-wrap |\r\n   kwa-aes192-wrap |\r\n   kwa-aes256-wrap |\r\n   kwa-camellia128-wrap.&smimeCaps |\r\n   kwa-camellia192-wrap.&smimeCaps |\r\n   kwa-camellia256-wrap.&smimeCaps,\r\n   ... }\r\n```",
+              "createdAt": "2024-03-04T14:57:48Z",
+              "updatedAt": "2024-03-04T14:57:48Z"
+            }
+          ]
         }
       ]
     }
