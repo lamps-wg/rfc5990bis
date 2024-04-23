@@ -205,10 +205,10 @@ KeyGen() -> (pk, sk):
 > Generate the public key (pk) and a private key (sk) as described
 in {{Section 3 of RFC8017}}.
 
-Encapsulate(pk) -> (ct, ss):
+Encapsulate(pk) -> (ct, SS):
 
 > Given the recipient's public key (pk), produce a ciphertext (ct) to be
-passed to the recipient and a shared secret (ss) for use by the originator,
+passed to the recipient and a shared secret (SS) for use by the originator,
 as follows:
 
 >
@@ -225,17 +225,17 @@ as follows:
 3\. Derive a shared secret from the integer z:
 
 ~~~
-       ss = KDF(z)
+       SS = KDF(z)
 ~~~
 
 >
 4\. The ciphertext and the shared secret are returned by the function.  The
 originator sends the ciphertext to the recipient.
 
-Decapsulate(sk, ct) -> ss:
+Decapsulate(sk, ct) -> SS:
 
 > Given the private key (sk) and the ciphertext (ct), produce the
-shared secret (ss) for the recipient as follows:
+shared secret (SS) for the recipient as follows:
 
 >
 1\. Decrypt the the ciphertext with the recipient's RSA private key
@@ -249,7 +249,7 @@ to obtain the random integer z:
 2\. Derive a shared secret from the integer z:
 
 ~~~
-       ss = KDF(z)
+       SS = KDF(z)
 ~~~
 
 3\. The shared secret is returned by the function.
@@ -268,14 +268,14 @@ can be summarized as:
 RSA-KEM algorithm and the recipient's RSA public key:
 
 ~~~
-       (ct, ss) = Encapsulate(pk)
+       (ct, SS) = Encapsulate(pk)
 ~~~
 
 >
 2\. Derive a key-encryption key KEK from the shared secret:
 
 ~~~
-       KEK = KDF(ss)
+       KEK = KDF(SS)
 ~~~
 
 >
@@ -300,14 +300,14 @@ KEMRecipientInfo structure can be summarized as:
 RSA-KEM algorithm and the recipient's RSA private key:
 
 ~~~
-       ss = Decapsulate(sk, ct)
+       SS = Decapsulate(sk, ct)
 ~~~
 
 >
 2\. Derive a key-encryption key KEK from the shared secret:
 
 ~~~
-       KEK = KDF(ss)
+       KEK = KDF(SS)
 ~~~
 
 >
@@ -594,8 +594,8 @@ a collision in the KDF is the only way that RSA-KEM can produce more than
 one ciphertext that encapsulates the same shared secret.
 
 The RSA-KEM Algorithm provides a fixed-length ciphertext.  The recipient MUST
-check that the received byte string is the expected length and the expected length
-and corresponds to an integer in the expected range prior to attempting decryption
+check that the received byte string is the expected length and the length
+corresponds to an integer in the expected range prior to attempting decryption
 with their RSA private key as described in Steps 1 and 2 of {{app-alg-decap}}.
 
 Implementations SHOULD NOT reveal information about intermediate
@@ -657,7 +657,7 @@ derives a shared secret (SS) from the random integer (z).  The originator then
 sends the ciphertext (C) to the recipient.  The recipient decrypts the
 ciphertext (C) using the their private key to recover the random integer (z),
 and the recipient derives a shared secret (SS) from the random integer(z).  In
-this way, originator and recipient obtain the same shared secret (ss).
+this way, originator and recipient obtain the same shared secret (SS).
 
 The RSA-KEM Algorithm depends on a key-derivation function (KDF), which is
 used to derive the shared secret (SS).  Many key-derivation functions support
@@ -694,7 +694,7 @@ The originator performs the following operations:
         C = IntegerToString (c, nLen)
    ~~~
 
-3. Derive a symmetric shared secret SS of length ssLen bytes fron the
+3. Derive a symmetric shared secret SS of length ssLen bytes from the
    byte string Z using the underlying key-derivation function:
 
    ~~~
@@ -1219,7 +1219,7 @@ called ct:
    a9553d878224736e37e191dab953c7e228c07ad5ca3122421c14debd072a9ab6
 ~~~
 
-Alice derives the shared secret (ss) using KDF3 with SHA-256:
+Alice derives the shared secret (SS) using KDF3 with SHA-256:
 
 ~~~
    3cf82ec41b54ed4d37402bbd8f805a52
@@ -1461,7 +1461,7 @@ the integer z:
 Bob checks that the integer z is greater than zero and is less
 than his RSA modulus.
 
-Bob derives the shared secret (ss) using KDF3 with SHA-256:
+Bob derives the shared secret (SS) using KDF3 with SHA-256:
 
 ~~~
    3cf82ec41b54ed4d37402bbd8f805a52
