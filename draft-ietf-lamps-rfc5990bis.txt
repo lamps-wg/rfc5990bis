@@ -6,7 +6,7 @@ Limited Additional Mechanisms for PKIX and SMIME              R. Housley
 Internet-Draft                                            Vigil Security
 Obsoletes: 5990 (if approved)                                  S. Turner
 Intended status: Standards Track                                   sn3rd
-Expires: 5 September 2024                                   4 March 2024
+Expires: 25 October 2024                                   23 April 2024
 
 
  Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 September 2024.
+   This Internet-Draft will expire on 25 October 2024.
 
 Copyright Notice
 
@@ -161,10 +161,10 @@ Table of Contents
       Generate the public key (pk) and a private key (sk) as described
       in Section 3 of [RFC8017].
 
-   Encapsulate(pk) -> (ct, ss):
+   Encapsulate(pk) -> (ct, SS):
 
       Given the recipient's public key (pk), produce a ciphertext (ct)
-      to be passed to the recipient and a shared secret (ss) for use by
+      to be passed to the recipient and a shared secret (SS) for use by
       the originator, as follows:
 
       1.  Generate a random integer z between 0 and n-1.
@@ -176,15 +176,15 @@ Table of Contents
 
       3.  Derive a shared secret from the integer z:
 
-          ss = KDF(z)
+          SS = KDF(z)
 
       4.  The ciphertext and the shared secret are returned by the
       function.  The originator sends the ciphertext to the recipient.
 
-   Decapsulate(sk, ct) -> ss:
+   Decapsulate(sk, ct) -> SS:
 
       Given the private key (sk) and the ciphertext (ct), produce the
-      shared secret (ss) for the recipient as follows:
+      shared secret (SS) for the recipient as follows:
 
       1.  Decrypt the the ciphertext with the recipient's RSA private
       key to obtain the random integer z:
@@ -193,7 +193,7 @@ Table of Contents
 
       2.  Derive a shared secret from the integer z:
 
-          ss = KDF(z)
+          SS = KDF(z)
 
    3.  The shared secret is returned by the function.
 
@@ -209,11 +209,11 @@ Table of Contents
       1.  Obtain the shared secret using the Encapsulate() function of
       the RSA-KEM algorithm and the recipient's RSA public key:
 
-          (ct, ss) = Encapsulate(pk)
+          (ct, SS) = Encapsulate(pk)
 
       2.  Derive a key-encryption key KEK from the shared secret:
 
-          KEK = KDF(ss)
+          KEK = KDF(SS)
 
       3.  Wrap the CEK with the KEK to obtain wrapped keying material
       WK:
@@ -232,11 +232,11 @@ Table of Contents
       1.  Obtain the shared secret using the Decapsulate() function of
       the RSA-KEM algorithm and the recipient's RSA private key:
 
-          ss = Decapsulate(sk, ct)
+          SS = Decapsulate(sk, ct)
 
       2.  Derive a key-encryption key KEK from the shared secret:
 
-          KEK = KDF(ss)
+          KEK = KDF(SS)
 
       3.  Unwrap the WK with the KEK to obtain content-encryption key
       CEK:
@@ -542,9 +542,9 @@ Table of Contents
 
    The RSA-KEM Algorithm provides a fixed-length ciphertext.  The
    recipient MUST check that the received byte string is the expected
-   length and the expected length and corresponds to an integer in the
-   expected range prior to attempting decryption with their RSA private
-   key as described in Steps 1 and 2 of Appendix A.2.
+   length and the length corresponds to an integer in the expected range
+   prior to attempting decryption with their RSA private key as
+   described in Steps 1 and 2 of Appendix A.2.
 
    Implementations SHOULD NOT reveal information about intermediate
    values or calculations, whether by timing or other "side channels",
@@ -735,7 +735,7 @@ Appendix A.  RSA-KEM Algorithm
    recipient.  The recipient decrypts the ciphertext (C) using the their
    private key to recover the random integer (z), and the recipient
    derives a shared secret (SS) from the random integer(z).  In this
-   way, originator and recipient obtain the same shared secret (ss).
+   way, originator and recipient obtain the same shared secret (SS).
 
    The RSA-KEM Algorithm depends on a key-derivation function (KDF),
    which is used to derive the shared secret (SS).  Many key-derivation
@@ -770,7 +770,7 @@ A.1.  Originator's Operations: RSA-KEM Encapsulate()
 
            C = IntegerToString (c, nLen)
 
-   3.  Derive a symmetric shared secret SS of length ssLen bytes fron
+   3.  Derive a symmetric shared secret SS of length ssLen bytes from
        the byte string Z using the underlying key-derivation function:
 
            SS = KDF (Z, ssLen)
@@ -1263,7 +1263,7 @@ D.1.  Originator RSA-KEM Encapsulate() Processing
       a1f1c1be22c747a8dface32370fb0d570783e27dbb7e74fca94ee39676fde3d8
       a9553d878224736e37e191dab953c7e228c07ad5ca3122421c14debd072a9ab6
 
-   Alice derives the shared secret (ss) using KDF3 with SHA-256:
+   Alice derives the shared secret (SS) using KDF3 with SHA-256:
 
       3cf82ec41b54ed4d37402bbd8f805a52
 
@@ -1476,7 +1476,7 @@ D.3.  Recipient RSA-KEM Decapsulate() Processing
    Bob checks that the integer z is greater than zero and is less than
    his RSA modulus.
 
-   Bob derives the shared secret (ss) using KDF3 with SHA-256:
+   Bob derives the shared secret (SS) using KDF3 with SHA-256:
 
       3cf82ec41b54ed4d37402bbd8f805a52
 
