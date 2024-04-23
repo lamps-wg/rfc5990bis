@@ -1,0 +1,805 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-04-23T00:26:18.660242+00:00",
+  "repo": "lamps-wg/rfc5990bis",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOJYmAjs5tZQkS",
+      "title": "Ambiguity between `id-rsa-kem` and `id-kem-rsa`",
+      "url": "https://github.com/lamps-wg/rfc5990bis/issues/2",
+      "state": "CLOSED",
+      "author": "ralienpp",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I'd like to bring this to your attention, because the difference is subtle, and unless you see both identifiers side by side - it is easy to mistake one for the other. Once you become aware of the difference, you have to read the text carefully to decide which OID is the one you want.\r\n\r\nMy understanding is:\r\n\r\n- `id-kem-rsa OID ::= { is18033-2 key-encapsulation-mechanism(2) rsa(4) }` - this is the primitive defined in ISO 18033-2.\r\n- `id-rsa-kem OID ::= { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) alg(3) 14 }` - this is \"RSA-KEM Key Transport Algorithm\", i.e. it adds extra functionality on top of what the ISO defines, which is described in this RFC.\r\n\r\nWouldn't it be clearer if `id-rsa-kem` became `id-kem-rsa-kta` (for \"key transport algorithm\", or something like it)? This would disambiguate the terms.\r\n\r\nCan you confirm that my understanding is correct? And can you explain what rule you rely on to decide whether what you need is id-kem-rsa or id-rsa-kem?",
+      "createdAt": "2023-08-03T16:01:38Z",
+      "updatedAt": "2023-08-31T15:07:22Z",
+      "closedAt": "2023-08-31T15:07:22Z",
+      "comments": [
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Sadly, this is not new. To preserve alignment with RFC 5990, the same OIDs need to be used here.",
+          "createdAt": "2023-08-03T16:13:33Z",
+          "updatedAt": "2023-08-03T16:13:33Z"
+        },
+        {
+          "author": "ralienpp",
+          "authorAssociation": "NONE",
+          "body": "Perhaps an alias could address this without breaking backward compatibility?\r\n\r\nFor example, define this `id-rsa-kem-kta ::= id-rsa-kem`, and then use the more verbose notation throughout the document. The underlying OID will be the same, existing implementations will continue to function. This is just a cosmetic change that improves readability by increasing the \"distance\" between the terms.",
+          "createdAt": "2023-08-04T08:46:45Z",
+          "updatedAt": "2023-08-04T08:46:45Z"
+        },
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This is an interesting thought.  I will consult with coauthors and the original authors of RFC 5990.",
+          "createdAt": "2023-08-04T20:01:28Z",
+          "updatedAt": "2023-08-04T20:01:28Z"
+        },
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "On the spasm@ietf.org mail list, Joe Mandel suggested:\r\n\r\n~~~\r\nI'd like to make a suggestion to define an alias to improve readability and reduce confusion between id-rsa-kem and id-kem-rsa. For example, id-rsa-kem-spki ::= id-rsa-kem, since in the new structure it appears that id-rsa-kem only appears in the certificate subject public key information field. The OID would stay the same to not interfere with existing implementations.\r\n~~~\r\n",
+          "createdAt": "2023-08-29T12:55:47Z",
+          "updatedAt": "2023-08-29T12:55:47Z"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOJYmAjs51DG-5",
+      "title": "Address Mike's nits",
+      "url": "https://github.com/lamps-wg/rfc5990bis/issues/11",
+      "state": "CLOSED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See this [msg](https://mailarchive.ietf.org/arch/msg/spasm/JY0gwUi94fyrIDuaPFurOgQJfrg/).",
+      "createdAt": "2023-10-26T14:48:19Z",
+      "updatedAt": "2023-10-26T16:51:53Z",
+      "closedAt": "2023-10-26T16:51:53Z",
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOJYmAjs5829dm",
+      "title": "Doe not degrade with the number of ciphertexts.",
+      "url": "https://github.com/lamps-wg/rfc5990bis/issues/13",
+      "state": "CLOSED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I was recently reading {{SHOUP}} again, and I came across an observation that should be added to the Security Considerations.\r\n\r\nI propose the following text:\r\n\r\n~~~\r\nAs long as a fresh random integer z is chosen as part of each invocation of the\r\nEncapsulate() function, RSA-KEM does not degrade as the number of ciphertexts\r\nincreases.\r\n~~~",
+      "createdAt": "2024-01-22T21:27:02Z",
+      "updatedAt": "2024-03-04T14:33:26Z",
+      "closedAt": "2024-03-04T14:33:26Z",
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOJYmAjs5WLB2m",
+      "title": "Update draft-ietf-lamps-rfc5990bis.md",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/1",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fix typo in Recipient Processing heading",
+      "createdAt": "2023-07-23T20:34:21Z",
+      "updatedAt": "2023-08-16T15:17:51Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "48e4a8a15ee629c122aac5f998e38dcb2c852a8e",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "fix-typo",
+      "headRefOid": "7cdacb92dd6fb09ff39fcd419a928da160c431bf",
+      "closedAt": "2023-08-16T15:17:51Z",
+      "mergedAt": "2023-08-16T15:17:51Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "36eafb96d226a541b93439b3721a49dfb5b82536"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5eOjXY",
+          "commit": {
+            "abbreviatedOid": "7cdacb9"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-08-16T15:17:20Z",
+          "updatedAt": "2023-08-16T15:17:20Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOJYmAjs5XIAAj",
+      "title": "Fix Markdown syntax in section title",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/3",
+      "state": "CLOSED",
+      "author": "ralienpp",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Microtweak",
+      "createdAt": "2023-08-03T16:03:46Z",
+      "updatedAt": "2023-08-03T16:12:13Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "48e4a8a15ee629c122aac5f998e38dcb2c852a8e",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "fix-md-syntax",
+      "headRefOid": "fddc1a9ffedaf69a079eca2bf6f39075703a81cf",
+      "closedAt": "2023-08-03T16:12:12Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This typo has already been identified.  See PR #1 that makes the same change.",
+          "createdAt": "2023-08-03T16:12:12Z",
+          "updatedAt": "2023-08-03T16:12:12Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOJYmAjs5ZCmuD",
+      "title": "Add id-rsa-kem-spki",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/4",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add the alias object identifier id-rsa-kem-spki",
+      "createdAt": "2023-08-29T14:10:56Z",
+      "updatedAt": "2023-08-31T15:06:16Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "36eafb96d226a541b93439b3721a49dfb5b82536",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "New-OID-name",
+      "headRefOid": "5d0f3dbd84bd94f20fb348c4a1a28da7286d5e49",
+      "closedAt": "2023-08-31T15:06:16Z",
+      "mergedAt": "2023-08-31T15:06:16Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "4e25fa3985a70429629d9c00861c18aa9dec4c41"
+      },
+      "comments": [
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Resolves #2",
+          "createdAt": "2023-08-31T15:05:42Z",
+          "updatedAt": "2023-08-31T15:05:42Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5fl3ea",
+          "commit": {
+            "abbreviatedOid": "5d0f3db"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-08-31T02:41:58Z",
+          "updatedAt": "2023-08-31T02:41:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOJYmAjs5Z1FS_",
+      "title": "Update draft-ietf-lamps-rfc5990bis.md",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/5",
+      "state": "MERGED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Trying to get ref to not cause xml2rfc error.",
+      "createdAt": "2023-09-08T00:41:41Z",
+      "updatedAt": "2023-09-08T11:15:02Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "4e25fa3985a70429629d9c00861c18aa9dec4c41",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "seanturner-patch-80057p1r5-ref",
+      "headRefOid": "17e11802f58e5e4bde9ac5ced6fa6540e8652377",
+      "closedAt": "2023-09-08T11:14:27Z",
+      "mergedAt": "2023-09-08T11:14:27Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "551d0a6ef7b9cf26748abc4a0d0d8216e8c199f2"
+      },
+      "comments": [
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Looks fine to me.  Merged.",
+          "createdAt": "2023-09-08T11:15:02Z",
+          "updatedAt": "2023-09-08T11:15:02Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOJYmAjs5b8kVu",
+      "title": "Re-worked to make clear the actual KEM vs the legacy 5990 KeyTrans in\u2026",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/6",
+      "state": "CLOSED",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026 disguise.",
+      "createdAt": "2023-10-04T22:27:10Z",
+      "updatedAt": "2023-10-09T16:17:54Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "551d0a6ef7b9cf26748abc4a0d0d8216e8c199f2",
+      "headRepository": "ounsworth/rfc5990bis",
+      "headRefName": "main",
+      "headRefOid": "610a6261254a199c2b6cdbd7fa4a305f886360bb",
+      "closedAt": "2023-10-09T16:17:54Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thanks very much for this PR.  As you have already seen in email, I will be making a bigger restructuring of the document.  Your goal of specifying the conventions for using the RSA-KEM Algorithm as a standalone KEM algorithm in addition to specifying the CMS conventions will be achieved.",
+          "createdAt": "2023-10-09T16:17:54Z",
+          "updatedAt": "2023-10-09T16:17:54Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOJYmAjs5cvgQn",
+      "title": "Separate RSA-KEM processing and KEMRecipientInfo processing",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/7",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Major changes to separate RSA-KEM processing and KEMRecipientInfo processing.",
+      "createdAt": "2023-10-13T13:49:22Z",
+      "updatedAt": "2023-10-13T14:30:32Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "551d0a6ef7b9cf26748abc4a0d0d8216e8c199f2",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "separate-kem",
+      "headRefOid": "afb104cc2c29767e5154f4a53fabed1a257bd897",
+      "closedAt": "2023-10-13T14:30:31Z",
+      "mergedAt": "2023-10-13T14:30:31Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "af3b94b842eebe95eb966b2d18314704bf0bff11"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5j7tDc",
+          "commit": {
+            "abbreviatedOid": "1ec32e9"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-10-13T14:11:24Z",
+          "updatedAt": "2023-10-13T14:19:32Z",
+          "comments": [
+            {
+              "originalPosition": 524,
+              "body": "```suggestion\r\nthe inclusion of other information in addition to the shared secret (ss) in\r\n```",
+              "createdAt": "2023-10-13T14:11:25Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 754,
+              "body": "```suggestion\r\nAlice derives the shared secret (ss) using KDF3 with SHA-256:\r\n```",
+              "createdAt": "2023-10-13T14:16:04Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 773,
+              "body": "```suggestion\r\nwith KDF3 and SHA-256, the KEK is:\r\n```",
+              "createdAt": "2023-10-13T14:16:27Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 727,
+              "body": "It says KDF3 is required earlier.\r\n\r\n```suggestion\r\n- RSA-KEM with a 3072-bit key and KDF3 with SHA-256;\r\n```",
+              "createdAt": "2023-10-13T14:17:01Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 728,
+              "body": "```suggestion\r\n- KEMRecipientInfo key derivation using KDF3 with SHA-256; and\r\n```",
+              "createdAt": "2023-10-13T14:17:15Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 874,
+              "body": "```suggestion\r\nBob derives the shared secret (ss) using KDF3 with SHA-256:\r\n```",
+              "createdAt": "2023-10-13T14:17:33Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            },
+            {
+              "originalPosition": 888,
+              "body": "```suggestion\r\nBob derives the key-encryption key from shared secret and the\r\nCMSORIforKEMOtherInfo structure with KDF3 and SHA-256, the KEK is:\r\n```",
+              "createdAt": "2023-10-13T14:17:47Z",
+              "updatedAt": "2023-10-13T14:19:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJYmAjs5j70hY",
+          "commit": {
+            "abbreviatedOid": "7ccff08"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-13T14:26:49Z",
+          "updatedAt": "2023-10-13T14:26:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOJYmAjs5cw6Ym",
+      "title": "Use KDF3 in the example",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/8",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Update the example to use KDF3 instead of KDF2.",
+      "createdAt": "2023-10-13T18:26:59Z",
+      "updatedAt": "2023-10-13T19:27:16Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "af3b94b842eebe95eb966b2d18314704bf0bff11",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "use-kdf3-in-example",
+      "headRefOid": "f3cc7b039bab5e7c4fd92a98d002390ed67153f8",
+      "closedAt": "2023-10-13T19:27:16Z",
+      "mergedAt": "2023-10-13T19:27:16Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "3123d00950e95dea0ee06483675a08bee1d89ff0"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5j-AIM",
+          "commit": {
+            "abbreviatedOid": "ef9bb91"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-10-13T19:25:12Z",
+          "updatedAt": "2023-10-13T19:25:21Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\n~~~\r\nKDF2 calculates T as:   T = T || Hash (Z || D || otherInfo)\r\n\r\nKDF3 calculates T as:   T = T || Hash (D || Z || otherInfo)\r\n~~~\r\n```",
+              "createdAt": "2023-10-13T19:25:12Z",
+              "updatedAt": "2023-10-13T19:25:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJYmAjs5j-A3R",
+          "commit": {
+            "abbreviatedOid": "f3cc7b0"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-13T19:26:53Z",
+          "updatedAt": "2023-10-13T19:26:53Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOJYmAjs5dDLDj",
+      "title": "Resolve comments from Peter C.",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/9",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Resolve comments from Peter C. that were sent by email to the authors.",
+      "createdAt": "2023-10-17T18:37:45Z",
+      "updatedAt": "2023-10-18T12:36:57Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "3123d00950e95dea0ee06483675a08bee1d89ff0",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "comments-from-peter-c",
+      "headRefOid": "7e44e4ba3b2089110e812b059908b7c5b984a31f",
+      "closedAt": "2023-10-18T12:36:57Z",
+      "mergedAt": "2023-10-18T12:36:57Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "8c4bebef9364bdb492427e7d42368857af882224"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5kboW2",
+          "commit": {
+            "abbreviatedOid": "7e44e4b"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-18T12:36:40Z",
+          "updatedAt": "2023-10-18T12:36:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOJYmAjs5dURrD",
+      "title": "Resolve the second set of comments from Peter C.",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/10",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Resolve the second set of comments from Peter C.  On the mail list, he said that these changes resolved his concerns.",
+      "createdAt": "2023-10-19T21:07:23Z",
+      "updatedAt": "2023-10-20T02:32:26Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "8c4bebef9364bdb492427e7d42368857af882224",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "more-comments-from-peter-c",
+      "headRefOid": "5571b75867efcf8ee4e8fb234cb9f5a6c78c3497",
+      "closedAt": "2023-10-20T02:32:26Z",
+      "mergedAt": "2023-10-20T02:32:26Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "3d5bf61e4b3f9284825a8867c960e8b3e278398e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5krVPS",
+          "commit": {
+            "abbreviatedOid": "5571b75"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-20T02:32:18Z",
+          "updatedAt": "2023-10-20T02:32:18Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOJYmAjs5d4RJ_",
+      "title": "Fix Mike's nits",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/12",
+      "state": "MERGED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #11.",
+      "createdAt": "2023-10-26T14:52:16Z",
+      "updatedAt": "2023-10-26T16:52:26Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "3d5bf61e4b3f9284825a8867c960e8b3e278398e",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "seanturner-mikes-nits",
+      "headRefOid": "0bd9dd30b34ac4dcb6ae4e8ab56c2e472cc61842",
+      "closedAt": "2023-10-26T16:51:52Z",
+      "mergedAt": "2023-10-26T16:51:52Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "25e99229312dbd83efcc3f4380590e1c64ad0567"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5lVYzM",
+          "commit": {
+            "abbreviatedOid": "0bd9dd3"
+          },
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "Looks good.  I'll merge them.",
+          "createdAt": "2023-10-26T16:52:26Z",
+          "updatedAt": "2023-10-26T16:52:26Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOJYmAjs5k941D",
+      "title": "Update draft-ietf-lamps-rfc5990bis.md",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/14",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As long as a fresh random integer z is chosen as part of each invocation of the Encapsulate() function, RSA-KEM does not degrade as the number of ciphertexts increases.",
+      "createdAt": "2024-01-24T15:35:25Z",
+      "updatedAt": "2024-03-04T14:32:35Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "25e99229312dbd83efcc3f4380590e1c64ad0567",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "improve-sec-considerations",
+      "headRefOid": "aabbe80b0c9e0b7db947b1ca88ba7f9833bf23da",
+      "closedAt": "2024-03-04T14:32:35Z",
+      "mergedAt": "2024-03-04T14:32:35Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "180f1599150dcf338d31a0ecb7d9cb68f079e5cf"
+      },
+      "comments": [
+        {
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Closes #13.",
+          "createdAt": "2024-01-24T15:39:59Z",
+          "updatedAt": "2024-01-24T15:39:59Z"
+        },
+        {
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@ounsworth PTAL when you get the chance.",
+          "createdAt": "2024-02-05T15:50:50Z",
+          "updatedAt": "2024-02-05T15:50:50Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5uD8yo",
+          "commit": {
+            "abbreviatedOid": "aabbe80"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-01-26T20:50:03Z",
+          "updatedAt": "2024-01-26T20:50:03Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOJYmAjs5mYxst",
+      "title": "Normative References for KDF3 and AES-KEYWRAP",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/15",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The references for KDF3 and AES-KEYWRAP ought to be normative because these algorithms are in MUST statements.",
+      "createdAt": "2024-02-08T14:59:04Z",
+      "updatedAt": "2024-03-04T14:33:01Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "25e99229312dbd83efcc3f4380590e1c64ad0567",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "fix-norm-refs",
+      "headRefOid": "37ec0844dcf0543aa50b1999bb8f54139594242c",
+      "closedAt": "2024-03-04T14:33:01Z",
+      "mergedAt": "2024-03-04T14:33:01Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "504fb2a33dc588b7aa3fff3a5c0b5c5b9f16193c"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5vhed2",
+          "commit": {
+            "abbreviatedOid": "37ec084"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-08T19:08:45Z",
+          "updatedAt": "2024-02-08T19:08:45Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOJYmAjs5mai4I",
+      "title": "Add DVG to ack",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/16",
+      "state": "MERGED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-08T19:06:38Z",
+      "updatedAt": "2024-02-08T21:13:56Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "25e99229312dbd83efcc3f4380590e1c64ad0567",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "seanturner-dvg-ack",
+      "headRefOid": "1ab8a8375c37f4ef0ff2b36872089a8704ed63e9",
+      "closedAt": "2024-02-08T21:13:56Z",
+      "mergedAt": "2024-02-08T21:13:56Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "cce32210c26823773ae728b58e090c983af0b87c"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5viUZL",
+          "commit": {
+            "abbreviatedOid": "1ab8a83"
+          },
+          "author": "russhousley",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-08T21:13:47Z",
+          "updatedAt": "2024-02-08T21:13:47Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOJYmAjs5ohTeB",
+      "title": "Add smimecaps",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/17",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "-- Updates for the SMIME-CAPS Set from RFC 5911\r\n\r\nSMimeCapsSet SMIME-CAPS ::= {\r\n   kema-kem-rsa.&smimeCaps |\r\n   kwa-camellia128-wrap.&smimeCaps |\r\n   kwa-camellia192-wrap.&smimeCaps |\r\n   kwa-camellia256-wrap.&smimeCaps,\r\n   ... }\r\n\r\nEND",
+      "createdAt": "2024-03-03T20:23:17Z",
+      "updatedAt": "2024-03-04T15:03:28Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "cce32210c26823773ae728b58e090c983af0b87c",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "add-smimecaps",
+      "headRefOid": "38cded91018c1354643e118c3a92d77217f708b4",
+      "closedAt": "2024-03-04T15:03:28Z",
+      "mergedAt": "2024-03-04T15:03:28Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "ce7a9c076fbe662f6d5ace99db337320bedd469b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs5yHX4L",
+          "commit": {
+            "abbreviatedOid": "50146ee"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-04T14:57:48Z",
+          "updatedAt": "2024-03-04T14:57:48Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "I think we also need to add the kwa-aes*-wrap algorithms. I couldn't find where they were added elsewhere.\r\n\r\n```suggestion\r\nSMimeCapsSet SMIME-CAPS ::= {\r\n   kema-kem-rsa.&smimeCaps |\r\n   kwa-aes128-wrap |\r\n   kwa-aes192-wrap |\r\n   kwa-aes256-wrap |\r\n   kwa-camellia128-wrap.&smimeCaps |\r\n   kwa-camellia192-wrap.&smimeCaps |\r\n   kwa-camellia256-wrap.&smimeCaps,\r\n   ... }\r\n```",
+              "createdAt": "2024-03-04T14:57:48Z",
+              "updatedAt": "2024-03-04T14:57:48Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
