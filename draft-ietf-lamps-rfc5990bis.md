@@ -144,7 +144,7 @@ The RSA-KEM Algorithm is specified in Clause 11.5 of ISO/IEC: 18033-2:2006.
 This document specifies the conventions for using the RSA-KEM Algorithm as a
 standalone KEM algorithm and the conventions for using the RSA-KEM Algorithm
 with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as
-specified in draft-ietf-lamps-cms-kemri.
+specified in draft-ietf-lamps-cms-kemri.  This document obsoletes RFC 5990.
 
 --- middle
 
@@ -156,7 +156,7 @@ send keying material to a recipient using the recipient's RSA public key.
 The RSA-KEM Algorithm is specified in Clause 11.5 of {{ISO18033-2}}.
 
 The RSA-KEM Algorithm takes a different approach than other RSA key
-transport mechanisms {{RFC8017}}, with goal of providing higher
+transport mechanisms {{RFC8017}}, with the goal of providing higher
 security assurance while also satisfying the KEM interface.  The
 RSA-KEM Algorithm encrypts a random integer with the recipient's
 RSA public key, and derives a shared secret from the random integer. The
@@ -222,7 +222,7 @@ as follows:
 ~~~
 
 >
-3\. Derive a shared secret from the integer z:
+3\. Derive a shared secret from the integer z using a Key Derivation Function (KDF):
 
 ~~~
        SS = KDF(z)
@@ -238,7 +238,7 @@ Decapsulate(sk, ct) -> SS:
 shared secret (SS) for the recipient as follows:
 
 >
-1\. Decrypt the the ciphertext with the recipient's RSA private key
+1\. Decrypt the ciphertext with the recipient's RSA private key
 to obtain the random integer z:
 
 ~~~
@@ -342,7 +342,7 @@ defined in RFC 5990 can be omitted; however, the parameters are allowed for
 backward compatibility.  Also, to avoid visual confusion with id-kem-rsa,
 id-rsa-kem-spki is introduced as an alias for id-rsa-kem.
 
-RFC 5990 uses EK as the EncryptedKey, which is the concatenation of
+RFC 5990 used EK as the EncryptedKey, which is the concatenation of
 the ciphertext C and the wrapped key WK, EK = (C || WK).  The use of EK was
 necessary to align with the KeyTransRecipientInfo structure.  In this
 document, the ciphertext and the wrapped key are sent in separate fields of
@@ -350,11 +350,11 @@ the KEMRecipientInfo structure.  In particular, the ciphertext is carried in
 the kemct field, and wrapped key is carried in the encryptedKey
 field.  See {{app-alg}} for details about the computation of the ciphertext.
 
-RFC 5990 includes support for Camellia and Triple-DES block ciphers;
+RFC 5990 included support for Camellia and Triple-DES block ciphers;
 discussion of these block ciphers is removed from this document, but
 the algorithm identifiers remain in the ASN.1 Module {{app-asn1-module}}.
 
-RFC 5990 includes support for SHA-1 hash function; discussion of this
+RFC 5990 included support for SHA-1 hash function; discussion of this
 hash function is removed from this document, but the algorithm identifier
 remains in the ASN.1 module {{app-asn1-module}}.
 
@@ -362,15 +362,15 @@ RFC 5990 required support for the KDF3 key-derivation function {{ANS-X9.44}};
 this document continues to require support for the KDF3 key-derivation function,
 but it requires support for SHA-256 {{SHS}} as the hash function.
 
-RFC 5990 recommends support for alternatives to KDF3 and AES-Wrap-128;
+RFC 5990 recommended support for alternatives to KDF3 and AES-Wrap-128;
 this document simply states that other key-derivation functions and other
 key-encryption algorithms MAY be supported.
 
-RFC 5990 supports the future definition of additional KEM algorithms that
+RFC 5990 supported the future definition of additional KEM algorithms that
 use RSA; this document supports only one, and it is identified by the
 id-kem-rsa object identifier.
 
-RFC 5990 includes an ASN.1 module; this document provides an alternative
+RFC 5990 included an ASN.1 module; this document provides an alternative
 ASN.1 module that follows the conventions established in {{RFC5911}},
 {{RFC5912}}, and {{RFC6268}}.  The new ASN.1 module {{app-asn1-module}}
 produces the same bits-on-the-wire as the one in RFC 5990.
@@ -381,7 +381,7 @@ The RSA-KEM Algorithm MAY be employed for one or more recipients in the
 CMS enveloped-data content type {{RFC5652}}, the CMS authenticated-data
 content type {{RFC5652}}, or the CMS authenticated-enveloped-data
 content type {{RFC5083}}.  In each case, the KEMRecipientInfo
-{{I-D.ietf-lamps-cms-kemri}} is used with with the RSA-KEM Algorithm
+{{I-D.ietf-lamps-cms-kemri}} is used with the RSA-KEM Algorithm
 to securely transfer the content-encryption key from the originator to
 the recipient.
 
@@ -652,10 +652,10 @@ mechanism for an originator to securely send keying material to a recipient
 using the recipient's RSA public key.
 
 With the RSA-KEM Algorithm, an originator encrypts a random integer (z) with
-the recipient's RSA public key to produce a ciphertext (C), and the originator
+the recipient's RSA public key to produce a ciphertext (ct), and the originator
 derives a shared secret (SS) from the random integer (z).  The originator then
-sends the ciphertext (C) to the recipient.  The recipient decrypts the
-ciphertext (C) using the their private key to recover the random integer (z),
+sends the ciphertext (ct) to the recipient.  The recipient decrypts the
+ciphertext (ct) using their private key to recover the random integer (z),
 and the recipient derives a shared secret (SS) from the random integer(z).  In
 this way, originator and recipient obtain the same shared secret (SS).
 
@@ -691,7 +691,7 @@ The originator performs the following operations:
    ~~~
         c = z^e mod n
 
-        C = IntegerToString (c, nLen)
+        ct = IntegerToString (c, nLen)
    ~~~
 
 3. Derive a symmetric shared secret SS of length ssLen bytes from the
@@ -701,8 +701,8 @@ The originator performs the following operations:
         SS = KDF (Z, ssLen)
    ~~~
 
-4. Output the shared secret SS and the ciphertext C.  Send the
-   ciphertext C to the recipient.
+4. Output the shared secret SS and the ciphertext ct.  Send the
+   ciphertext ct to the recipient.
 
 NOTE: The random integer z MUST be generated independently at random
 for different encryption operations, whether for the same or different
@@ -713,7 +713,7 @@ recipients.
 Let (n,d) be the recipient's RSA private key; see {{RFC8017}} for details,
 but other private key formats are allowed.
 
-Let C be the ciphertext received from the originator.
+Let ct be the ciphertext received from the originator.
 
 Let nLen denote the length in bytes of the modulus n.
 
@@ -722,11 +722,11 @@ The recipient performs the following operations:
 1. If the length of the encrypted keying material is less than nLen
    bytes, output "decryption error", and stop.
 
-2. Convert the ciphertext C to an integer c, most significant byte
+2. Convert the ciphertext ct to an integer c, most significant byte
    first (see NOTE below):
 
    ~~~
-        c = StringToInteger (C)
+        c = StringToInteger (ct)
    ~~~
 
    If the integer c is not between 0 and n-1, output "decryption
