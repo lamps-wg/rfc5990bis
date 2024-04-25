@@ -144,7 +144,9 @@ The RSA-KEM Algorithm is specified in Clause 11.5 of ISO/IEC: 18033-2:2006.
 This document specifies the conventions for using the RSA-KEM Algorithm as a
 standalone KEM algorithm and the conventions for using the RSA-KEM Algorithm
 with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as
-specified in draft-ietf-lamps-cms-kemri.  This document obsoletes RFC 5990.
+specified in RFC XXXX.  This document obsoletes RFC 5990.
+
+RFC EDITOR: Please replace XXXX with the RFC number assigned to draft-ietf-lamps-cms-kemri.
 
 --- middle
 
@@ -868,7 +870,7 @@ IMPORTS
     FROM KEMAlgorithmInformation-2023  -- [I-D.ietf-lamps-cms-kemri]
        { iso(1) identified-organization(3) dod(6) internet(1)
          security(5) mechanisms(5) pkix(7) id-mod(0)
-         id-mod-kemAlgorithmInformation-2023(TBD3) }
+         id-mod-kemAlgorithmInformation-2023(TBD2) }
 
   AlgorithmIdentifier{}, PUBLIC-KEY, DIGEST-ALGORITHM,
   KEY-DERIVATION, KEY-WRAP, SMIME-CAPS
