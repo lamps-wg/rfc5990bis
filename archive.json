@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-23T00:26:18.660242+00:00",
+  "timestamp": "2024-04-25T00:27:36.026719+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -800,6 +800,74 @@
           ]
         }
       ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOJYmAjs5tfBu-",
+      "title": "Update draft-ietf-lamps-rfc5990bis.md",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/18",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Resolve SecDir review comments.",
+      "createdAt": "2024-04-23T14:28:34Z",
+      "updatedAt": "2024-04-23T16:10:47Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "ce7a9c076fbe662f6d5ace99db337320bedd469b",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "secdir-review",
+      "headRefOid": "e9b10a35383061675251176edec825fac293fa19",
+      "closedAt": "2024-04-23T16:10:47Z",
+      "mergedAt": "2024-04-23T16:10:47Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "669692885dfed8b79b1c9f19fd0d519939671e7e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs54Q7Mw",
+          "commit": {
+            "abbreviatedOid": "e9b10a3"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-04-23T16:10:29Z",
+          "updatedAt": "2024-04-23T16:10:29Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOJYmAjs5tofWC",
+      "title": "Update draft-ietf-lamps-rfc5990bis.md",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/19",
+      "state": "OPEN",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Resolve OPS-DIR review comments",
+      "createdAt": "2024-04-24T17:45:17Z",
+      "updatedAt": "2024-04-24T17:45:18Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "669692885dfed8b79b1c9f19fd0d519939671e7e",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "opsdir-review",
+      "headRefOid": "e2e7e3ab68180799ba654eb59564bbd694b8a9e5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
