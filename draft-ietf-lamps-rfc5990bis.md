@@ -686,7 +686,7 @@ The originator performs the following operations:
         Z = IntegerToString (z, nLen)
    ~~~
 
-2. Encrypt the random integer Z using the recipient's RSA public key
+2. Encrypt the random integer z using the recipient's RSA public key
    (n,e), and convert the resulting integer c to a ciphertext C, a
    byte string of length nLen:
 
