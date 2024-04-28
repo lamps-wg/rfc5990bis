@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-25T00:27:36.026719+00:00",
+  "timestamp": "2024-04-28T00:29:07.729995+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -855,19 +855,33 @@
       "labels": [],
       "body": "Resolve OPS-DIR review comments",
       "createdAt": "2024-04-24T17:45:17Z",
-      "updatedAt": "2024-04-24T17:45:18Z",
+      "updatedAt": "2024-04-26T15:01:37Z",
       "baseRepository": "lamps-wg/rfc5990bis",
       "baseRefName": "main",
       "baseRefOid": "669692885dfed8b79b1c9f19fd0d519939671e7e",
       "headRepository": "russhousley/rfc5990bis",
       "headRefName": "opsdir-review",
-      "headRefOid": "e2e7e3ab68180799ba654eb59564bbd694b8a9e5",
+      "headRefOid": "cbed174f51b585ab16c25f945b033d79d6f4c093",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs54txAz",
+          "commit": {
+            "abbreviatedOid": "cbed174"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-04-26T15:01:36Z",
+          "updatedAt": "2024-04-26T15:01:36Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
