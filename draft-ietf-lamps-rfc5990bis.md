@@ -485,7 +485,7 @@ usage extension MUST contain only the following value:
 
 > keyEncipherment
 
-The digitalSignatrure and dataEncipherment values SHOULD NOT be
+The digitalSignature and dataEncipherment values SHOULD NOT be
 present.  That is, a public key intended to be employed only with the
 RSA-KEM Algorithm SHOULD NOT also be employed for data encryption or
 for digital signatures.  Good cryptographic practice employs a given RSA
