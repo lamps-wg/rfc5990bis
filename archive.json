@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-28T00:29:07.729995+00:00",
+  "timestamp": "2024-04-30T00:25:06.292453+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -882,6 +882,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOJYmAjs5uD70E",
+      "title": "Fix spelling",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/20",
+      "state": "OPEN",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fix spelling",
+      "createdAt": "2024-04-29T20:34:23Z",
+      "updatedAt": "2024-04-29T20:34:24Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "669692885dfed8b79b1c9f19fd0d519939671e7e",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "fix-spelling",
+      "headRefOid": "f76c4e74217e63af7ab0869dc59003248a32f3cb",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
