@@ -387,7 +387,7 @@ content type {{RFC5083}}.  In each case, the KEMRecipientInfo
 to securely transfer the content-encryption key from the originator to
 the recipient.
 
-## Underlying Components
+## Mandatory To Implement
 
 A CMS implementation that supports the RSA-KEM Algorithm MUST support at
 least the following underlying components:
@@ -535,7 +535,7 @@ and the provided key length MUST be used in the kekLength of KEMRecipientInfo.
 
 # Security Considerations
 
-The RSA-KEM Algorithm should be considered as a replacement for the
+The RSA-KEM Algorithm should be considered as a replacement for the key transport portion of the
 widely implemented PKCS #1 v1.5 {{RFC8017}} for new applications
 that use CMS to avoid potential vulnerabilities to chosen-ciphertext
 attacks and gain a tighter security proof; however, the RSA-KEM Algorithm
@@ -558,10 +558,10 @@ random-oracle model.
 
 The RSA key size and the underlying components need to be selected
 consistent with the desired security level.  Several security levels
-have been identified in the NIST SP 800-57 Part 1 {{NISTSP800-57pt1r5}}.
-To achieve 128-bit security, the RSA key size SHOULD be at least 3072 bits,
-the key-derivation function SHOULD make use of SHA-256, and the symmetric
-key-encryption algorithm SHOULD be AES Key Wrap with a 128-bit key.
+have been identified in the NIST SP 800-57 Part 1 {{NISTSP800-57pt1r5}}. For example, one way
+to achieve 128-bit security, the RSA key size would be at least 3072 bits,
+the key-derivation function would be SHA-256, and the symmetric
+key-encryption algorithm would be AES Key Wrap with a 128-bit key.
 
 Implementations MUST protect the RSA private key, the key-encryption key,
 the content-encryption key, message-authentication key, and the
@@ -586,7 +586,7 @@ is directly encrypted with the recipient's RSA public key.  The
 IntegerToString(z, nLen) encoding produces a string that is the full length of
 the RSA modulus.  In addition, the random value is passed through a key-derivation
 function (KDF) to reduce possible harm from a poorly implemented random number
-source or a maliciously chosen random value (z).  Implementations SHOULD NOT
+source or a maliciously chosen random value (z).  Implementations MUST NOT
 use z directly for any purpose.
 
 As long as a fresh random integer z is chosen as part of each invocation
@@ -612,12 +612,11 @@ useful to an opponent.
 Generally, good cryptographic practice employs a given RSA key pair
 in only one scheme.  This practice avoids the risk that vulnerability
 in one scheme may compromise the security of the other, and may be
-essential to maintain provable security.  While RSA public keys have
-often been employed for multiple purposes such as key transport and
-digital signature without any known bad interactions, for increased
-security assurance, such combined use of an RSA key pair is NOT
-RECOMMENDED in the future (unless the different schemes are
-specifically designed to be used together).
+essential to maintain provable security.  RSA public keys have often
+been employed for multiple purposes such as key transport and digital
+signature without any known bad interactions; however, such combined use
+of an RSA key pair is NOT RECOMMENDED in the future (unless the different
+schemes are specifically designed to be used together).
 
 Accordingly, an RSA key pair used for the RSA-KEM Algorithm SHOULD NOT
 also be used for digital signatures.  Indeed, the Accredited Standards
@@ -633,7 +632,7 @@ as specified in {{RFC5990}} and this specification.  This is acceptable
 because the operations involving the RSA public key and the RSA private
 key are identical in the two specifications.
 
-Parties MAY gain assurance that implementations are correct through
+Parties can gain assurance that implementations are correct through
 formal implementation validation, such as the NIST Cryptographic
 Module Validation Program (CMVP) {{CMVP}}.
 
