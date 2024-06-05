@@ -1035,11 +1035,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">RSA-KEM with CMS KEMRecipientInfo</td>
-<td class="right">May 2024</td>
+<td class="right">June 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Housley &amp; Turner</td>
-<td class="center">Expires 18 November 2024</td>
+<td class="center">Expires 7 December 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1055,12 +1055,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc5990" class="eref">5990</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-05-17" class="published">17 May 2024</time>
+<time datetime="2024-06-05" class="published">5 June 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-11-18">18 November 2024</time></dd>
+<dd class="expires"><time datetime="2024-12-07">7 December 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1119,7 +1119,7 @@ specified in RFC XXXX.  This document obsoletes RFC 5990.<a href="#section-abstr
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 18 November 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 December 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1689,9 +1689,9 @@ usage extension <span class="bcp14">MUST</span> contain only the following value
             <p id="section-2.3-7.1.1">keyEncipherment<a href="#section-2.3-7.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-2.3-8">The digitalSignature and dataEncipherment values <span class="bcp14">SHOULD NOT</span> be
+<p id="section-2.3-8">Other keyUsage extension values <span class="bcp14">MUST NOT</span> be
 present.  That is, a public key intended to be employed only with the
-RSA-KEM Algorithm <span class="bcp14">SHOULD NOT</span> also be employed for data encryption or
+RSA-KEM Algorithm <span class="bcp14">MUST NOT</span> also be employed for data encryption or
 for digital signatures.  Good cryptographic practice employs a given RSA
 key pair in only one scheme.  This practice avoids the risk that vulnerability
 in one scheme may compromise the security of the other, and may be essential
