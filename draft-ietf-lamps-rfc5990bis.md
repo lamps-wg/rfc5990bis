@@ -487,9 +487,9 @@ usage extension MUST contain only the following value:
 
 > keyEncipherment
 
-The digitalSignature and dataEncipherment values SHOULD NOT be
+Other keyUsage extension values MUST NOT be
 present.  That is, a public key intended to be employed only with the
-RSA-KEM Algorithm SHOULD NOT also be employed for data encryption or
+RSA-KEM Algorithm MUST NOT also be employed for data encryption or
 for digital signatures.  Good cryptographic practice employs a given RSA
 key pair in only one scheme.  This practice avoids the risk that vulnerability
 in one scheme may compromise the security of the other, and may be essential
