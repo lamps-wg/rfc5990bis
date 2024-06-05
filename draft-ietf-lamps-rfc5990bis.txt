@@ -6,7 +6,7 @@ Limited Additional Mechanisms for PKIX and SMIME              R. Housley
 Internet-Draft                                            Vigil Security
 Obsoletes: 5990 (if approved)                                  S. Turner
 Intended status: Standards Track                                   sn3rd
-Expires: 18 November 2024                                    17 May 2024
+Expires: 7 December 2024                                     5 June 2024
 
 
  Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 November 2024.
+   This Internet-Draft will expire on 7 December 2024.
 
 Copyright Notice
 
@@ -430,13 +430,13 @@ Table of Contents
 
       keyEncipherment
 
-   The digitalSignature and dataEncipherment values SHOULD NOT be
-   present.  That is, a public key intended to be employed only with the
-   RSA-KEM Algorithm SHOULD NOT also be employed for data encryption or
-   for digital signatures.  Good cryptographic practice employs a given
-   RSA key pair in only one scheme.  This practice avoids the risk that
-   vulnerability in one scheme may compromise the security of the other,
-   and may be essential to maintain provable security.
+   Other keyUsage extension values MUST NOT be present.  That is, a
+   public key intended to be employed only with the RSA-KEM Algorithm
+   MUST NOT also be employed for data encryption or for digital
+   signatures.  Good cryptographic practice employs a given RSA key pair
+   in only one scheme.  This practice avoids the risk that vulnerability
+   in one scheme may compromise the security of the other, and may be
+   essential to maintain provable security.
 
 2.4.  SMIMECapabilities Attribute Conventions
 
