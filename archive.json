@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-04T00:27:21.744161+00:00",
+  "timestamp": "2024-06-06T00:27:15.742379+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -965,6 +965,61 @@
           "body": "",
           "createdAt": "2024-05-17T18:19:20Z",
           "updatedAt": "2024-05-17T18:19:20Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOJYmAjs5xl4tu",
+      "title": "Update draft-ietf-lamps-rfc5990bis.md",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/22",
+      "state": "MERGED",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Update keyUsage extension guidance.",
+      "createdAt": "2024-06-05T18:42:19Z",
+      "updatedAt": "2024-06-05T19:29:14Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "90bb6bbc29271b3c567ae4fa85af00c71108a29b",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "sec-ad-comments-2",
+      "headRefOid": "06e0574c5560567e08ac1658a0df5a0bcfb9b5d6",
+      "closedAt": "2024-06-05T19:29:14Z",
+      "mergedAt": "2024-06-05T19:29:14Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "b272c432900c654fb6bd83265ac1d9184ebcb3a7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs59K70_",
+          "commit": {
+            "abbreviatedOid": "06e0574"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-05T18:44:21Z",
+          "updatedAt": "2024-06-05T18:44:21Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJYmAjs59K_uU",
+          "commit": {
+            "abbreviatedOid": "06e0574"
+          },
+          "author": "paulwouters",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-05T18:51:30Z",
+          "updatedAt": "2024-06-05T18:51:30Z",
           "comments": []
         }
       ]
