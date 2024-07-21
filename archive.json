@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-18T00:28:44.446245+00:00",
+  "timestamp": "2024-07-21T00:32:15.802851+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -1023,6 +1023,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 23,
+      "id": "PR_kwDOJYmAjs51_ns2",
+      "title": "Update draft-ietf-lamps-rfc5990bis.md",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/23",
+      "state": "OPEN",
+      "author": "russhousley",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add discussion of id-alg-rsa-kem to the IANA Considerations section.",
+      "createdAt": "2024-07-20T19:11:26Z",
+      "updatedAt": "2024-07-20T19:11:27Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "b272c432900c654fb6bd83265ac1d9184ebcb3a7",
+      "headRepository": "russhousley/rfc5990bis",
+      "headRefName": "fix-iana-section",
+      "headRefOid": "323ea73a0c2ee56dedb44931b05145322aef341e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
