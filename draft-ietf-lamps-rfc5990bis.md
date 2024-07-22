@@ -338,11 +338,11 @@ RFC 5990 {{RFC5990}} specified the conventions for using the RSA-KEM Algorithm
 in CMS as a key transport algorithm.  That is, it used KeyTransRecipientInfo {{RFC5652}}
 for each recipient.  Since the publication of RFC 5990, a new KEMRecipientInfo
 structure {{I-D.ietf-lamps-cms-kemri}} has been defined to support KEM
-algorithms.  When the id-rsa-kem algorithm identifier appears in the
+algorithms.  When the -kem algorithm identifier appears in the
 SubjectPublicKeyInfo field of a certificate, the complex parameter structure
 defined in RFC 5990 can be omitted; however, the parameters are allowed for
 backward compatibility.  Also, to avoid visual confusion with id-kem-rsa,
-id-rsa-kem-spki is introduced as an alias for id-rsa-kem.
+-kem-spki is introduced as an alias for -kem.
 
 RFC 5990 used EK as the EncryptedKey, which is the concatenation of
 the ciphertext C and the wrapped key WK, EK = (C || WK).  The use of EK was
@@ -643,6 +643,13 @@ object identifier (OID) for the module identifier. The OID for the module
 should be allocated in the "SMI Security for S/MIME Module Identifier"
 registry (1.2.840.113549.1.9.16.0), and the Description for the new OID
 should be set to "id-mod-cms-rsa-kem-2023".
+
+IANA is requested to update the id-alg-rsa-kem entry in the SMI Security
+for S/MIME Algorithms (1.2.840.113549.1.9.16.3) repository to refer to this
+document.  In addition, IANA is requested to add the following note to the
+registry:
+
+Value 14, "id-alg-rsa-kem," is also referred to as "id-rsa-kem-spki."
 
 --- back
 
