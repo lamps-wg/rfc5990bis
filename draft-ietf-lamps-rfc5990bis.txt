@@ -6,7 +6,7 @@ Limited Additional Mechanisms for PKIX and SMIME              R. Housley
 Internet-Draft                                            Vigil Security
 Obsoletes: 5990 (if approved)                                  S. Turner
 Intended status: Standards Track                                   sn3rd
-Expires: 7 December 2024                                     5 June 2024
+Expires: 23 January 2025                                    22 July 2024
 
 
  Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 December 2024.
+   This Internet-Draft will expire on 23 January 2025.
 
 Copyright Notice
 
@@ -272,12 +272,12 @@ Table of Contents
    KeyTransRecipientInfo [RFC5652] for each recipient.  Since the
    publication of RFC 5990, a new KEMRecipientInfo structure
    [I-D.ietf-lamps-cms-kemri] has been defined to support KEM
-   algorithms.  When the id-rsa-kem algorithm identifier appears in the
+   algorithms.  When the -kem algorithm identifier appears in the
    SubjectPublicKeyInfo field of a certificate, the complex parameter
    structure defined in RFC 5990 can be omitted; however, the parameters
    are allowed for backward compatibility.  Also, to avoid visual
-   confusion with id-kem-rsa, id-rsa-kem-spki is introduced as an alias
-   for id-rsa-kem.
+   confusion with id-kem-rsa, -kem-spki is introduced as an alias for
+   -kem.
 
    RFC 5990 used EK as the EncryptedKey, which is the concatenation of
    the ciphertext C and the wrapped key WK, EK = (C || WK).  The use of
@@ -594,6 +594,13 @@ Table of Contents
    module should be allocated in the "SMI Security for S/MIME Module
    Identifier" registry (1.2.840.113549.1.9.16.0), and the Description
    for the new OID should be set to "id-mod-cms-rsa-kem-2023".
+
+   IANA is requested to update the id-alg-rsa-kem entry in the SMI
+   Security for S/MIME Algorithms (1.2.840.113549.1.9.16.3) repository
+   to refer to this document.  In addition, IANA is requested to add the
+   following note to the registry:
+
+   Value 14, "id-alg-rsa-kem," is also referred to as "id-rsa-kem-spki."
 
 5.  References
 
