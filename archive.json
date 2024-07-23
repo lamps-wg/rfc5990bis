@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-21T00:32:15.802851+00:00",
+  "timestamp": "2024-07-23T00:29:23.166424+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -1029,20 +1029,62 @@
       "id": "PR_kwDOJYmAjs51_ns2",
       "title": "Update draft-ietf-lamps-rfc5990bis.md",
       "url": "https://github.com/lamps-wg/rfc5990bis/pull/23",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "russhousley",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Add discussion of id-alg-rsa-kem to the IANA Considerations section.",
       "createdAt": "2024-07-20T19:11:26Z",
-      "updatedAt": "2024-07-20T19:11:27Z",
+      "updatedAt": "2024-07-22T16:43:04Z",
       "baseRepository": "lamps-wg/rfc5990bis",
       "baseRefName": "main",
       "baseRefOid": "b272c432900c654fb6bd83265ac1d9184ebcb3a7",
       "headRepository": "russhousley/rfc5990bis",
       "headRefName": "fix-iana-section",
       "headRefOid": "323ea73a0c2ee56dedb44931b05145322aef341e",
+      "closedAt": "2024-07-22T16:43:04Z",
+      "mergedAt": "2024-07-22T16:43:04Z",
+      "mergedBy": "seanturner",
+      "mergeCommit": {
+        "oid": "81b2a7a97e4c01a48468d094371ac2395ff89e5d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJYmAjs6Cp_0f",
+          "commit": {
+            "abbreviatedOid": "323ea73"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-22T16:36:14Z",
+          "updatedAt": "2024-07-22T16:36:14Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOJYmAjs52IEKm",
+      "title": "KDF updates",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/24",
+      "state": "OPEN",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addressing David Ireland's comments.",
+      "createdAt": "2024-07-22T18:26:43Z",
+      "updatedAt": "2024-07-22T18:26:43Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "81b2a7a97e4c01a48468d094371ac2395ff89e5d",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "seanturner-kdf-update",
+      "headRefOid": "53f5fd713b58f2fdb665216e97d6a8c59a34f6f6",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
