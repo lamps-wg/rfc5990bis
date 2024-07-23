@@ -6,7 +6,7 @@ Limited Additional Mechanisms for PKIX and SMIME              R. Housley
 Internet-Draft                                            Vigil Security
 Obsoletes: 5990 (if approved)                                  S. Turner
 Intended status: Standards Track                                   sn3rd
-Expires: 23 January 2025                                    22 July 2024
+Expires: 24 January 2025                                    23 July 2024
 
 
  Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 January 2025.
+   This Internet-Draft will expire on 24 January 2025.
 
 Copyright Notice
 
@@ -781,8 +781,9 @@ A.1.  Originator's Operations: RSA-KEM Encapsulate()
 
            ct = IntegerToString (c, nLen)
 
-   3.  Derive a symmetric shared secret SS of length ssLen bytes from
-       the byte string Z using the underlying key-derivation function:
+   3.  Derive a symmetric shared secret SS of length ssLen bytes (which
+       MUST be the length of the key-encryption key) from the byte
+       string Z using the underlying key-derivation function:
 
            SS = KDF (Z, ssLen)
 
