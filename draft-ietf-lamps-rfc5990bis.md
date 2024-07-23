@@ -702,7 +702,8 @@ The originator performs the following operations:
         ct = IntegerToString (c, nLen)
    ~~~
 
-3. Derive a symmetric shared secret SS of length ssLen bytes from the
+3. Derive a symmetric shared secret SS of length ssLen bytes (which
+   MUST be the length of the key-encryption key) from the
    byte string Z using the underlying key-derivation function:
 
    ~~~
