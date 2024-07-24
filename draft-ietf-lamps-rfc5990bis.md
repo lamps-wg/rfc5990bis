@@ -227,7 +227,7 @@ as follows:
 3\. Derive a shared secret from the integer z using a Key Derivation Function (KDF):
 
 ~~~
-       SS = KDF(z)
+       SS = KDF(Z, ssLen)
 ~~~
 
 >
@@ -251,7 +251,7 @@ to obtain the random integer z:
 2\. Derive a shared secret from the integer z:
 
 ~~~
-       SS = KDF(z)
+       SS = KDF(Z, ssLen)
 ~~~
 
 3\. The shared secret is returned by the function.
@@ -277,7 +277,7 @@ RSA-KEM algorithm and the recipient's RSA public key:
 2\. Derive a key-encryption key KEK from the shared secret:
 
 ~~~
-       KEK = KDF(SS)
+       KEK = KDF(SS, kekLength, otherInfo)
 ~~~
 
 >
@@ -309,7 +309,7 @@ RSA-KEM algorithm and the recipient's RSA private key:
 2\. Derive a key-encryption key KEK from the shared secret:
 
 ~~~
-       KEK = KDF(SS)
+       KEK = KDF(SS, kekLength, otherInfo)
 ~~~
 
 >
@@ -702,7 +702,8 @@ The originator performs the following operations:
         ct = IntegerToString (c, nLen)
    ~~~
 
-3. Derive a symmetric shared secret SS of length ssLen bytes from the
+3. Derive a symmetric shared secret SS of length ssLen bytes (which
+   MUST be the length of the key-encryption key) from the
    byte string Z using the underlying key-derivation function:
 
    ~~~
@@ -1537,6 +1538,7 @@ Burt Kaliski,
 Alex Railean,
 Joe Mandel,
 Mike Ounsworth,
-Peter Campbell, and
-Daniel Van Geest
+Peter Campbell,
+Daniel Van Geest, and
+David Ireland
 for careful review and thoughtful comments that greatly improved this document.
