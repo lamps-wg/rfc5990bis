@@ -6,7 +6,7 @@ Limited Additional Mechanisms for PKIX and SMIME              R. Housley
 Internet-Draft                                            Vigil Security
 Obsoletes: 5990 (if approved)                                  S. Turner
 Intended status: Standards Track                                   sn3rd
-Expires: 23 January 2025                                    22 July 2024
+Expires: 25 January 2025                                    24 July 2024
 
 
  Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 January 2025.
+   This Internet-Draft will expire on 25 January 2025.
 
 Copyright Notice
 
@@ -180,7 +180,7 @@ Table of Contents
       3.  Derive a shared secret from the integer z using a Key
       Derivation Function (KDF):
 
-          SS = KDF(z)
+          SS = KDF(Z, ssLen)
 
       4.  The ciphertext and the shared secret are returned by the
       function.  The originator sends the ciphertext to the recipient.
@@ -197,7 +197,7 @@ Table of Contents
 
       2.  Derive a shared secret from the integer z:
 
-          SS = KDF(z)
+          SS = KDF(Z, ssLen)
 
    3.  The shared secret is returned by the function.
 
@@ -217,7 +217,7 @@ Table of Contents
 
       2.  Derive a key-encryption key KEK from the shared secret:
 
-          KEK = KDF(SS)
+          KEK = KDF(SS, kekLength, otherInfo)
 
       3.  Wrap the CEK with the KEK to obtain wrapped keying material
       WK:
@@ -240,7 +240,7 @@ Table of Contents
 
       2.  Derive a key-encryption key KEK from the shared secret:
 
-          KEK = KDF(SS)
+          KEK = KDF(SS, kekLength, otherInfo)
 
       3.  Unwrap the WK with the KEK to obtain content-encryption key
       CEK:
@@ -781,8 +781,9 @@ A.1.  Originator's Operations: RSA-KEM Encapsulate()
 
            ct = IntegerToString (c, nLen)
 
-   3.  Derive a symmetric shared secret SS of length ssLen bytes from
-       the byte string Z using the underlying key-derivation function:
+   3.  Derive a symmetric shared secret SS of length ssLen bytes (which
+       MUST be the length of the key-encryption key) from the byte
+       string Z using the underlying key-derivation function:
 
            SS = KDF (Z, ssLen)
 
@@ -1536,8 +1537,8 @@ Acknowledgements
    John Linn for helping bring [RFC5990] to fruition.
 
    We thank Burt Kaliski, Alex Railean, Joe Mandel, Mike Ounsworth,
-   Peter Campbell, and Daniel Van Geest for careful review and
-   thoughtful comments that greatly improved this document.
+   Peter Campbell, Daniel Van Geest, and David Ireland for careful
+   review and thoughtful comments that greatly improved this document.
 
 Authors' Addresses
 
