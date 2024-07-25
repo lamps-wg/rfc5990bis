@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-23T00:29:23.166424+00:00",
+  "timestamp": "2024-07-25T00:29:05.432110+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -1071,25 +1071,35 @@
       "id": "PR_kwDOJYmAjs52IEKm",
       "title": "KDF updates",
       "url": "https://github.com/lamps-wg/rfc5990bis/pull/24",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "seanturner",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Addressing David Ireland's comments.",
       "createdAt": "2024-07-22T18:26:43Z",
-      "updatedAt": "2024-07-22T18:26:43Z",
+      "updatedAt": "2024-07-24T19:43:27Z",
       "baseRepository": "lamps-wg/rfc5990bis",
       "baseRefName": "main",
       "baseRefOid": "81b2a7a97e4c01a48468d094371ac2395ff89e5d",
       "headRepository": "lamps-wg/rfc5990bis",
       "headRefName": "seanturner-kdf-update",
-      "headRefOid": "53f5fd713b58f2fdb665216e97d6a8c59a34f6f6",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "c927494132c410c33df1fa76510c5d7fa702a356",
+      "closedAt": "2024-07-24T19:43:27Z",
+      "mergedAt": "2024-07-24T19:43:27Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "257ac4f303f9e8dfb9de9c10505e092c390f239a"
+      },
+      "comments": [
+        {
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "If you approve it I will merge it.",
+          "createdAt": "2024-07-23T23:21:02Z",
+          "updatedAt": "2024-07-23T23:21:02Z"
+        }
+      ],
       "reviews": []
     }
   ]
