@@ -338,11 +338,11 @@ RFC 5990 {{RFC5990}} specified the conventions for using the RSA-KEM Algorithm
 in CMS as a key transport algorithm.  That is, it used KeyTransRecipientInfo {{RFC5652}}
 for each recipient.  Since the publication of RFC 5990, a new KEMRecipientInfo
 structure {{I-D.ietf-lamps-cms-kemri}} has been defined to support KEM
-algorithms.  When the -kem algorithm identifier appears in the
+algorithms.  When the id-rsa-kem algorithm identifier appears in the
 SubjectPublicKeyInfo field of a certificate, the complex parameter structure
 defined in RFC 5990 can be omitted; however, the parameters are allowed for
 backward compatibility.  Also, to avoid visual confusion with id-kem-rsa,
--kem-spki is introduced as an alias for -kem.
+id-rsa-kem-spki is introduced as an alias for id-rsa-kem.
 
 RFC 5990 used EK as the EncryptedKey, which is the concatenation of
 the ciphertext C and the wrapped key WK, EK = (C || WK).  The use of EK was
