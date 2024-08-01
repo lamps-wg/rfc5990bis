@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-30T00:29:20.991499+00:00",
+  "timestamp": "2024-08-01T00:32:49.959437+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -1100,6 +1100,34 @@
           "updatedAt": "2024-07-23T23:21:02Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOJYmAjs524_cJ",
+      "title": "revert s1.6 to use id-rsa-kem",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/25",
+      "state": "MERGED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In s1.6, somehow the \"-kem\" got reintroduced. Putting it back.",
+      "createdAt": "2024-07-30T15:13:26Z",
+      "updatedAt": "2024-07-30T15:17:13Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "257ac4f303f9e8dfb9de9c10505e092c390f239a",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "seanturner-revert-id-rsa",
+      "headRefOid": "bd39599865d966f5d9c6237489a40110af73a2c1",
+      "closedAt": "2024-07-30T15:17:13Z",
+      "mergedAt": "2024-07-30T15:17:13Z",
+      "mergedBy": "russhousley",
+      "mergeCommit": {
+        "oid": "74646eb758b51d2862c58ee4e241aa423128c4d2"
+      },
+      "comments": [],
       "reviews": []
     }
   ]
