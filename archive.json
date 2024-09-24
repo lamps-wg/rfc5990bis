@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-22T00:36:31.410663+00:00",
+  "timestamp": "2024-09-24T00:33:38.088592+00:00",
   "repo": "lamps-wg/rfc5990bis",
   "labels": [
     {
@@ -1127,6 +1127,32 @@
       "mergeCommit": {
         "oid": "74646eb758b51d2862c58ee4e241aa423128c4d2"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOJYmAjs58QsvU",
+      "title": "Update workflows",
+      "url": "https://github.com/lamps-wg/rfc5990bis/pull/26",
+      "state": "OPEN",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Update archive.yml.",
+      "createdAt": "2024-09-22T01:53:36Z",
+      "updatedAt": "2024-09-22T01:55:48Z",
+      "baseRepository": "lamps-wg/rfc5990bis",
+      "baseRefName": "main",
+      "baseRefOid": "74646eb758b51d2862c58ee4e241aa423128c4d2",
+      "headRepository": "lamps-wg/rfc5990bis",
+      "headRefName": "seanturner-update-workflows",
+      "headRefOid": "9b224e885c1d3dd90445e1361d0ff3572544a37c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
