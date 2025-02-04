@@ -6,7 +6,7 @@ Limited Additional Mechanisms for PKIX and SMIME              R. Housley
 Internet-Draft                                            Vigil Security
 Obsoletes: 5990 (if approved)                                  S. Turner
 Intended status: Standards Track                                   sn3rd
-Expires: 31 January 2025                                    30 July 2024
+Expires: 8 August 2025                                   4 February 2025
 
 
  Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)
@@ -55,11 +55,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 January 2025.
+   This Internet-Draft will expire on 8 August 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
