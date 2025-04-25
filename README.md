@@ -3,9 +3,10 @@
 This is the working area for the IETF [LAMPS Working Group](https://datatracker.ietf.org/wg/lamps/documents/) Internet-Draft, "Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)".
 
 * [Editor's Copy](https://lamps-wg.github.io/rfc5990bis/#go.draft-ietf-lamps-rfc5990bis.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-lamps-rfc5990bis)
-* [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-lamps-rfc5990bis)
+* [Datatracker Page](https://datatracker.ietf.org/doc/rfc9690)
 * [Compare Editor's Copy to RFC](https://lamps-wg.github.io/rfc5990bis/#go.draft-ietf-lamps-rfc5990bis.diff)
+
+
 
 
 ## Contributing
