@@ -5,7 +5,7 @@ This is the working area for the IETF [LAMPS Working Group](https://datatracker.
 * [Editor's Copy](https://lamps-wg.github.io/rfc5990bis/#go.draft-ietf-lamps-rfc5990bis.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-lamps-rfc5990bis)
 * [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-lamps-rfc5990bis)
-* [Compare Editor's Copy to Working Group Draft](https://lamps-wg.github.io/rfc5990bis/#go.draft-ietf-lamps-rfc5990bis.diff)
+* [Compare Editor's Copy to RFC](https://lamps-wg.github.io/rfc5990bis/#go.draft-ietf-lamps-rfc5990bis.diff)
 
 
 ## Contributing
